@@ -95,7 +95,7 @@ const CanvasGridTrail = () => {
 
               if (dist < point.radius) {
                 const intensity =
-                  (1 - dist / point.radius) * point.alpha * 0.08;
+                  (0.5 - dist / point.radius) * point.alpha * 0.08;
                 ctx.fillStyle = `rgba(99, 91, 255, ${intensity})`;
                 ctx.fillRect(x, y, cellSize - 1, cellSize - 1);
               }
