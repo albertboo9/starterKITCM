@@ -1,11 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 
 function PublicLayout() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
+  const { language, toggleLanguage } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -116,6 +118,42 @@ function PublicLayout() {
             </Link>
           </nav>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            {/* Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                padding: "8px 12px",
+                background: "rgba(99, 91, 255, 0.1)",
+                border: "none",
+                borderRadius: "8px",
+                color: "#635bff",
+                fontSize: "13px",
+                fontWeight: 600,
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+              }}
+            >
+              <span
+                style={{
+                  opacity: language === "fr" ? 1 : 0.5,
+                  transition: "opacity 0.2s",
+                }}
+              >
+                FR
+              </span>
+              <span style={{ color: "#635bff" }}>/</span>
+              <span
+                style={{
+                  opacity: language === "en" ? 1 : 0.5,
+                  transition: "opacity 0.2s",
+                }}
+              >
+                EN
+              </span>
+            </button>
             <Link to="/login">
               <button
                 style={{
@@ -162,7 +200,9 @@ function PublicLayout() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          style={{ paddingTop: "72px" }}
+          style={{
+            paddingTop: location.pathname === "/" ? "0" : "72px",
+          }}
         >
           <Outlet />
         </motion.main>

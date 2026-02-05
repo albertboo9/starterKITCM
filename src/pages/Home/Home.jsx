@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import {
@@ -11,6 +11,7 @@ import {
   useMotionValue,
   useMotionTemplate,
 } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 
 // Canvas-based Grid Trail Effect (no React re-renders)
 const CanvasGridTrail = () => {
@@ -137,6 +138,7 @@ const CanvasGridTrail = () => {
 function Home() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll();
+  const { t } = useLanguage();
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -653,7 +655,6 @@ function Home() {
 
   return (
     <>
-    
       <Helmet>
         <title>STARTERKITCM - L'Entrepreneuriat au Cameroun</title>
         <meta
@@ -663,13 +664,12 @@ function Home() {
       </Helmet>
 
       {/* Grid Trail Effect - Full page canvas */}
-      
 
       {/* Hero Section */}
       <section
         ref={containerRef}
         style={{
-          minHeight: "100vh",
+          minHeight: "90vh",
           position: "relative",
           display: "flex",
           alignItems: "center",
@@ -1268,7 +1268,7 @@ function Home() {
       </section>
 
       {/* Features Section */}
-      <CanvasGridTrail/ >
+      <CanvasGridTrail />
       <section
         style={{
           padding: "120px 24px",
@@ -1276,7 +1276,7 @@ function Home() {
           position: "relative",
         }}
       >
-        <CanvasGridTrail/ >
+        <CanvasGridTrail />
         <div
           style={{
             position: "absolute",
@@ -1421,7 +1421,7 @@ function Home() {
           overflow: "hidden",
         }}
       >
-        <CanvasGridTrail/ >
+        <CanvasGridTrail />
         <div
           style={{
             maxWidth: "1100px",
