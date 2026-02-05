@@ -1,0 +1,70 @@
+export const mockParcours = [
+  {
+    id: 'sensibilisation',
+    title: 'Sensibilisation à l\'entrepreneuriat',
+    description: 'Découvrez les fondamentaux de l\'entrepreneuriat au Cameroun et évaluez votre projet.',
+    category: 'decouverte',
+    duration: '2 semaines',
+    progress: 100,
+    status: 'valide',
+    etapes: [
+      { id: 'sens_1', title: 'Introduction à l\'entrepreneuriat', status: 'valide', date: '2024-01-10' },
+      { id: 'sens_2', title: 'Évaluation de votre profil', status: 'valide', date: '2024-01-12' },
+      { id: 'sens_3', title: 'Test de positionnement', status: 'valide', date: '2024-01-15' },
+    ],
+    certificate: true,
+  },
+  {
+    id: 'creation',
+    title: 'Création d\'entreprise',
+    description: 'Structurez et formalisez votre entreprise selon les normes camerounaises.',
+    category: 'creation',
+    duration: '6 semaines',
+    progress: 45,
+    status: 'en_cours',
+    etapes: [
+      { id: 'crea_1', title: 'Business Model Canvas', status: 'valide', date: '2024-01-20' },
+      { id: 'crea_2', title: 'Étude de marché', status: 'valide', date: '2024-01-25' },
+      { id: 'crea_3', title: 'Business Plan', status: 'en_cours', date: null },
+      { id: 'crea_4', title: 'Formalités administratives', status: 'verrouille', date: null },
+      { id: 'crea_5', title: 'Certification MINPEEMSA', status: 'verrouille', date: null },
+    ],
+    certificate: true,
+  },
+  {
+    id: 'financement',
+    title: ' Recherche de financement',
+    description: 'Apprenez à convaincre les investisseurs et à obtenir des financements.',
+    category: 'croissance',
+    duration: '4 semaines',
+    progress: 0,
+    status: 'disponible',
+    etapes: [
+      { id: 'fin_1', title: 'Sources de financement au Cameroun', status: 'verrouille', date: null },
+      { id: 'fin_2', title: 'Préparer un pitch efficace', status: 'verrouille', date: null },
+      { id: 'fin_3', title: 'Constitution du dossier', status: 'verrouille', date: null },
+    ],
+    certificate: false,
+  },
+  {
+    id: 'reseau',
+    title: 'Développement de réseau',
+    description: 'Connectez-vous avec l\'écosystème entrepreneurial camerounais.',
+    category: 'reseau',
+    duration: 'Continu',
+    progress: 0,
+    status: 'disponible',
+    etapes: [
+      { id: 'res_1', title: 'Événements de networking', status: 'verrouille', date: null },
+      { id: 'res_2', title: 'Rencontres avec des mentors', status: 'verrouille', date: null },
+    ],
+    certificate: false,
+  },
+];
+
+export const parcoursCategories = [
+  { id: 'decouverte', label: 'Découverte', icon: 'Lightbulb' },
+  { id: 'creation', label: 'Création', icon: 'FileText' },
+  { id: 'croissance', label: 'Croissance', icon: 'TrendingUp' },
+  { id: 'reseau', label: 'Réseau', icon: 'Users' },
+];
