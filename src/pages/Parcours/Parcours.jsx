@@ -207,55 +207,7 @@ function Parcours() {
         }}
       >
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{
-            textAlign: "center",
-            marginBottom: "60px",
-            maxWidth: "700px",
-            margin: "0 auto 60px",
-          }}
-        >
-          <span
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "8px 16px",
-              background: "rgba(99, 91, 255, 0.1)",
-              borderRadius: "20px",
-              marginBottom: "20px",
-              fontSize: "13px",
-              fontWeight: 600,
-              color: "#635bff",
-            }}
-          >
-            Nos parcours
-          </span>
-          <h1
-            style={{
-              fontSize: "clamp(32px, 4vw, 48px)",
-              fontWeight: 800,
-              color: "#1a1a2e",
-              marginBottom: "16px",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
-            }}
-          >
-            Trouvez le parcours ideal pour votre projet
-          </h1>
-          <p
-            style={{
-              fontSize: "18px",
-              color: "#6b7280",
-              lineHeight: 1.7,
-            }}
-          >
-            Decouvrez nos parcours structures pour transformer votre ambition entrepreneuriale
-            en realite concrete.
-          </p>
-        </motion.div>
+
 
         {/* Category Grid */}
         {!selectedCategory && (
