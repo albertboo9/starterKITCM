@@ -7,6 +7,7 @@ import { useLanguage } from "../../context/LanguageContext";
 function PublicLayout() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { language, toggleLanguage } = useLanguage();
 
   useEffect(() => {
@@ -17,7 +18,17 @@ function PublicLayout() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
   const isTransparent = location.pathname === "/" && !scrolled;
+
+  const navItems = [
+    { path: "/parcours", label: "Parcours" },
+    { path: "/formations", label: "Formations" },
+  ];
 
   return (
     <div style={{ minHeight: "100vh", background: "#ffffff" }}>
@@ -48,6 +59,7 @@ function PublicLayout() {
             justifyContent: "space-between",
           }}
         >
+          {/* Logo */}
           <Link
             to="/"
             style={{
@@ -87,37 +99,50 @@ function PublicLayout() {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
+              className="header-logo-text"
             >
               STARTERKITCM
             </span>
           </Link>
-          <nav style={{ display: "flex", alignItems: "center", gap: "32px" }}>
-            <Link
-              to="/parcours"
-              style={{
-                color: "#1a1a2e",
-                fontSize: "14px",
-                fontWeight: 500,
-                textDecoration: "none",
-                opacity: 0.7,
-              }}
-            >
-              Parcours
-            </Link>
-            <Link
-              to="/formations"
-              style={{
-                color: "#1a1a2e",
-                fontSize: "14px",
-                fontWeight: 500,
-                textDecoration: "none",
-                opacity: 0.7,
-              }}
-            >
-              Formations
-            </Link>
+
+          {/* Desktop Navigation */}
+          <nav
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "32px",
+            }}
+            className="desktop-nav"
+          >
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                style={{
+                  color: "#1a1a2e",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  opacity: 0.7,
+                  transition: "opacity 0.2s",
+                }}
+                onMouseEnter={(e) => (e.target.style.opacity = 1)}
+                onMouseLeave={(e) => (e.target.style.opacity = 0.7)}
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+
+          {/* Desktop Actions */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+            }}
+            className="desktop-actions"
+          >
             {/* Language Toggle */}
             <button
               onClick={toggleLanguage}
@@ -165,7 +190,10 @@ function PublicLayout() {
                   fontWeight: 600,
                   cursor: "pointer",
                   opacity: 0.7,
+                  transition: "opacity 0.2s",
                 }}
+                onMouseEnter={(e) => (e.target.style.opacity = 1)}
+                onMouseLeave={(e) => (e.target.style.opacity = 0.7)}
               >
                 Connexion
               </button>
@@ -189,8 +217,239 @@ function PublicLayout() {
               </button>
             </Link>
           </div>
+
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{
+              display: "none",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              padding: "8px",
+              zIndex: 1001,
+            }}
+            className="mobile-menu-btn"
+            aria-label="Toggle menu"
+          >
+            <motion.div
+              animate={{
+                rotate: mobileMenuOpen ? 45 : 0,
+              }}
+              transition={{ duration: 0.2 }}
+              style={{
+                width: "24px",
+                height: "2px",
+                background: "#1a1a2e",
+                marginBottom: "6px",
+                borderRadius: "2px",
+              }}
+            />
+            <motion.div
+              animate={{
+                opacity: mobileMenuOpen ? 0 : 1,
+              }}
+              transition={{ duration: 0.2 }}
+              style={{
+                width: "24px",
+                height: "2px",
+                background: "#1a1a2e",
+                marginBottom: "6px",
+                borderRadius: "2px",
+              }}
+            />
+            <motion.div
+              animate={{
+                rotate: mobileMenuOpen ? -90 : 0,
+              }}
+              transition={{ duration: 0.2 }}
+              style={{
+                width: "24px",
+                height: "2px",
+                background: "#1a1a2e",
+                borderRadius: "2px",
+              }}
+            />
+          </button>
         </div>
       </header>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: "rgba(0, 0, 0, 0.5)",
+                zIndex: 999,
+              }}
+            />
+
+            {/* Mobile Menu Drawer */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              style={{
+                position: "fixed",
+                top: 0,
+                right: 0,
+                bottom: 0,
+                width: "280px",
+                background: "white",
+                zIndex: 1000,
+                padding: "100px 24px 40px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "24px",
+                boxShadow: "-10px 0 40px rgba(0, 0, 0, 0.1)",
+              }}
+              className="mobile-menu-drawer"
+            >
+              {/* Navigation Links */}
+              <nav style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {navItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    style={{
+                      padding: "16px 20px",
+                      borderRadius: "12px",
+                      textDecoration: "none",
+                      color: "#1a1a2e",
+                      fontSize: "16px",
+                      fontWeight: 500,
+                      background:
+                        location.pathname === item.path
+                          ? "rgba(99, 91, 255, 0.1)"
+                          : "transparent",
+                      transition: "all 0.2s ease",
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+
+              {/* Divider */}
+              <div style={{ height: "1px", background: "#e5e7eb" }} />
+
+              {/* Action Buttons */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "12px",
+                }}
+              >
+                {/* Language Toggle Mobile */}
+                <button
+                  onClick={toggleLanguage}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "8px",
+                    padding: "14px",
+                    background: "rgba(99, 91, 255, 0.1)",
+                    border: "none",
+                    borderRadius: "12px",
+                    color: "#635bff",
+                    fontSize: "15px",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                  }}
+                >
+                  <span
+                    style={{
+                      opacity: language === "fr" ? 1 : 0.5,
+                    }}
+                  >
+                    Francais
+                  </span>
+                  <span style={{ color: "#635bff" }}>/</span>
+                  <span
+                    style={{
+                      opacity: language === "en" ? 1 : 0.5,
+                    }}
+                  >
+                    English
+                  </span>
+                </button>
+
+                <Link to="/login" style={{ width: "100%" }}>
+                  <button
+                    style={{
+                      width: "100%",
+                      padding: "14px",
+                      background: "transparent",
+                      border: "2px solid #e5e7eb",
+                      borderRadius: "12px",
+                      color: "#1a1a2e",
+                      fontSize: "15px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Connexion
+                  </button>
+                </Link>
+
+                <Link to="/signup" style={{ width: "100%" }}>
+                  <button
+                    style={{
+                      width: "100%",
+                      padding: "14px",
+                      background:
+                        "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                      border: "none",
+                      borderRadius: "12px",
+                      color: "white",
+                      fontSize: "15px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      boxShadow: "0 4px 15px rgba(99, 91, 255, 0.3)",
+                    }}
+                  >
+                    Commencer
+                  </button>
+                </Link>
+              </div>
+
+              {/* Footer in Menu */}
+              <div
+                style={{
+                  marginTop: "auto",
+                  paddingTop: "24px",
+                  borderTop: "1px solid #e5e7eb",
+                  textAlign: "center",
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: "#9ca3af",
+                  }}
+                >
+                  © 2025 STARTERKITCM
+                </p>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Content */}
       <AnimatePresence mode="wait">
@@ -359,6 +618,36 @@ function PublicLayout() {
           </div>
         </div>
       </footer>
+
+      {/* Responsive Styles */}
+      <style>{`
+        @media (max-width: 768px) {
+          .desktop-nav {
+            display: none !important;
+          }
+          
+          .desktop-actions {
+            display: none !important;
+          }
+          
+          .mobile-menu-btn {
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+        
+        @media (min-width: 769px) {
+          .mobile-menu-btn {
+            display: none !important;
+          }
+          
+          .mobile-menu-drawer {
+            display: none !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

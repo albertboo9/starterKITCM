@@ -9,6 +9,7 @@ function PrivateLayout() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   const menuItems = [
@@ -41,7 +42,248 @@ function PrivateLayout() {
 
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "#f8f9fa" }}>
-      {/* Sidebar */}
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: "rgba(0, 0, 0, 0.5)",
+                zIndex: 99,
+              }}
+              className="mobile-overlay"
+            />
+
+            {/* Mobile Sidebar Drawer */}
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                bottom: 0,
+                width: "280px",
+                background: "#1a1a2e",
+                zIndex: 100,
+                display: "flex",
+                flexDirection: "column",
+              }}
+              className="mobile-sidebar"
+            >
+              {/* Logo */}
+              <div
+                style={{
+                  height: "72px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "0 20px",
+                  borderBottom: "1px solid rgba(255,255,255,0.08)",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                      borderRadius: "10px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="2"
+                    >
+                      <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  </div>
+                  <span
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: 700,
+                      color: "white",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    STARTERKITCM
+                  </span>
+                </div>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    color: "rgba(255,255,255,0.7)",
+                    cursor: "pointer",
+                    padding: "8px",
+                  }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Nav */}
+              <nav style={{ flex: 1, padding: "20px 12px" }}>
+                {menuItems.map((item) => {
+                  const isActive = location.pathname === item.path;
+                  return (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        padding: "14px 16px",
+                        borderRadius: "12px",
+                        marginBottom: "4px",
+                        textDecoration: "none",
+                        background: isActive
+                          ? "rgba(99, 91, 255, 0.2)"
+                          : "transparent",
+                        color: isActive ? "#fff" : "rgba(255,255,255,0.7)",
+                        transition: "all 0.2s",
+                        fontSize: "15px",
+                        fontWeight: 500,
+                      }}
+                    >
+                      <svg
+                        width="22"
+                        height="22"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d={item.icon} />
+                      </svg>
+                      <span style={{ marginLeft: "14px" }}>
+                        {item.label}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </nav>
+
+              {/* User */}
+              <div
+                style={{
+                  padding: "20px 12px",
+                  borderTop: "1px solid rgba(255,255,255,0.08)",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "12px 16px",
+                    borderRadius: "12px",
+                    background: "rgba(255,255,255,0.05)",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "44px",
+                      height: "44px",
+                      borderRadius: "12px",
+                      background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "white",
+                      fontSize: "18px",
+                      fontWeight: 700,
+                      flexShrink: 0,
+                    }}
+                  >
+                    {user?.firstName?.[0] || "U"}
+                  </div>
+                  <div style={{ marginLeft: "12px", flex: 1, minWidth: 0 }}>
+                    <p
+                      style={{
+                        color: "white",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        margin: 0,
+                      }}
+                    >
+                      {user?.firstName || "Utilisateur"} {user?.lastName || ""}
+                    </p>
+                    <p
+                      style={{
+                        color: "rgba(255,255,255,0.5)",
+                        fontSize: "12px",
+                        margin: 0,
+                      }}
+                    >
+                      Entrepreneur
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  style={{
+                    width: "100%",
+                    marginTop: "12px",
+                    padding: "14px",
+                    background: "rgba(233, 69, 96, 0.1)",
+                    border: "1px solid rgba(233, 69, 96, 0.3)",
+                    borderRadius: "12px",
+                    color: "#e94560",
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" />
+                  </svg>
+                  Deconnexion
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Desktop Sidebar */}
       <aside
         style={{
           width: sidebarOpen ? "260px" : "72px",
@@ -55,6 +297,7 @@ function PrivateLayout() {
           display: "flex",
           flexDirection: "column",
         }}
+        className="desktop-sidebar"
       >
         {/* Logo */}
         <div
@@ -255,6 +498,7 @@ function PrivateLayout() {
             alignItems: "center",
             justifyContent: "center",
           }}
+          className="sidebar-toggle"
         >
           <svg
             width="12"
@@ -273,13 +517,14 @@ function PrivateLayout() {
         </button>
       </aside>
 
-      {/* Main */}
+      {/* Main Content Wrapper */}
       <div
         style={{
           flex: 1,
-          marginLeft: sidebarOpen ? "260px" : "72px",
+          minWidth: 0,
           transition: "margin-left 0.3s ease",
         }}
+        className="main-content-wrapper"
       >
         {/* Top bar */}
         <header
@@ -296,7 +541,61 @@ function PrivateLayout() {
             zIndex: 50,
           }}
         >
-          <div>
+          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              style={{
+                display: "none",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                padding: "8px",
+              }}
+              className="mobile-menu-btn"
+              aria-label="Toggle menu"
+            >
+              <motion.div
+                animate={{
+                  rotate: mobileMenuOpen ? 45 : 0,
+                }}
+                transition={{ duration: 0.2 }}
+                style={{
+                  width: "24px",
+                  height: "2px",
+                  background: "#1a1a2e",
+                  marginBottom: "6px",
+                  borderRadius: "2px",
+                }}
+              />
+              <motion.div
+                animate={{
+                  opacity: mobileMenuOpen ? 0 : 1,
+                }}
+                transition={{ duration: 0.2 }}
+                style={{
+                  width: "24px",
+                  height: "2px",
+                  background: "#1a1a2e",
+                  marginBottom: "6px",
+                  borderRadius: "2px",
+                }}
+              />
+              <motion.div
+                animate={{
+                  rotate: mobileMenuOpen ? -90 : 0,
+                }}
+                transition={{ duration: 0.2 }}
+                style={{
+                  width: "24px",
+                  height: "2px",
+                  background: "#1a1a2e",
+                  borderRadius: "2px",
+                }}
+              />
+            </button>
+
+            {/* Page Title */}
             <h1
               style={{
                 fontSize: "20px",
@@ -304,6 +603,7 @@ function PrivateLayout() {
                 color: "#1a1a2e",
                 margin: 0,
               }}
+              className="page-title"
             >
               {menuItems.find((item) => item.path === location.pathname)
                 ?.label || "Dashboard"}
@@ -322,6 +622,7 @@ function PrivateLayout() {
                 borderRadius: "10px",
                 border: "1px solid #e5e7eb",
               }}
+              className="search-box"
             >
               <svg
                 width="18"
@@ -344,6 +645,7 @@ function PrivateLayout() {
                   fontSize: "14px",
                   width: "180px",
                 }}
+                className="search-input"
               />
             </div>
 
@@ -416,9 +718,7 @@ function PrivateLayout() {
                       borderBottom: "1px solid #e5e7eb",
                     }}
                   >
-                    <h3
-                      style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}
-                    >
+                    <h3 style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}>
                       Notifications
                     </h3>
                   </div>
@@ -430,13 +730,13 @@ function PrivateLayout() {
                         time: "2h",
                       },
                       {
-                        title: "Certificate validé",
+                        title: "Certificate valide",
                         desc: "Business Model Canvas",
                         time: "1j",
                       },
                       {
                         title: "Rappel",
-                        desc: "Complétez votre parcours dans 3 jours",
+                        desc: "Completez votre parcours dans 3 jours",
                         time: "2j",
                       },
                     ].map((notif, i) => (
@@ -499,6 +799,73 @@ function PrivateLayout() {
 
       {/* Assistant */}
       <Assistant />
+
+      {/* Responsive Styles */}
+      <style>{`
+        /* Mobile (< 768px) */
+        @media (max-width: 767px) {
+          .desktop-sidebar {
+            display: none !important;
+          }
+          
+          .mobile-menu-btn {
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          .main-content-wrapper {
+            margin-left: 0 !important;
+          }
+          
+          main {
+            padding: 20px !important;
+          }
+          
+          header {
+            padding: 0 20px !important;
+          }
+          
+          .search-box {
+            display: none !important;
+          }
+          
+          .page-title {
+            font-size: 18px !important;
+          }
+        }
+        
+        /* Tablette (768px - 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .desktop-sidebar {
+            width: 72px !important;
+          }
+          
+          .main-content-wrapper {
+            margin-left: 72px !important;
+          }
+          
+          .sidebar-toggle {
+            display: none !important;
+          }
+          
+          main {
+            padding: 24px !important;
+          }
+        }
+        
+        /* Desktop (> 1024px) */
+        @media (min-width: 1024px) {
+          .mobile-sidebar {
+            display: none !important;
+          }
+          
+          .mobile-overlay {
+            display: none !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
