@@ -15,7 +15,7 @@ import {
   Target,
   Eye,
   DollarSign,
-  Handshake,
+  Network,
 } from "lucide-react";
 
 // Mock data - Entrepreneur Projects
@@ -196,7 +196,8 @@ function EntrepreneurProjects() {
               <span>250+ Projets</span>
             </div>
             <h1>
-              Projets<br />
+              Projets
+              <br />
               <span className="gradient-text">d'Entrepreneurs</span>
             </h1>
             <p>
@@ -297,7 +298,12 @@ function EntrepreneurProjects() {
             </h2>
             <div className="featured-grid">
               {featuredProjects.map((project, index) => (
-                <ProjectCard key={project.id} project={project} featured index={index} />
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  featured
+                  index={index}
+                />
               ))}
             </div>
           </div>
@@ -320,7 +326,7 @@ function EntrepreneurProjects() {
             </div>
           </div>
           <div className="stat-card">
-            <Handshake size={28} />
+            <Network size={28} />
             <div>
               <span className="stat-value">85%</span>
               <span className="stat-label">Taux de réussite</span>
@@ -365,7 +371,13 @@ function EntrepreneurProjects() {
             <div className="no-results">
               <Search size={48} />
               <p>Aucun projet trouvé pour "{searchQuery}"</p>
-              <button onClick={() => { setSearchQuery(""); setSelectedCategory("all"); setSelectedStage("all"); }}>
+              <button
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedCategory("all");
+                  setSelectedStage("all");
+                }}
+              >
                 Effacer les filtres
               </button>
             </div>
@@ -932,7 +944,9 @@ function ProjectCard({ project, featured, index }) {
           <div className="progress-bar">
             <div
               className="progress-fill"
-              style={{ width: `${calculateProgress(project.raised, project.budget)}%` }}
+              style={{
+                width: `${calculateProgress(project.raised, project.budget)}%`,
+              }}
             />
           </div>
           <div className="funding-details">

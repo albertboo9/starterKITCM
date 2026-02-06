@@ -20,6 +20,24 @@ function PublicLayout() {
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const { language, toggleLanguage } = useLanguage();
 
+  // Close resources dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (resourcesOpen) {
+        setResourcesOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [resourcesOpen]);
+
+  const toggleResources = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setResourcesOpen(!resourcesOpen);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -101,6 +119,7 @@ function PublicLayout() {
           backdropFilter: isTransparent ? "none" : "blur(20px)",
           borderBottom: scrolled ? "1px solid rgba(0, 0, 0, 0.08)" : "none",
           transition: "all 0.3s ease",
+          pointerEvents: "auto",
         }}
       >
         <div
@@ -189,33 +208,31 @@ function PublicLayout() {
             ))}
 
             {/* Resources Dropdown */}
-            <div
-              style={{ position: "relative" }}
-              onMouseEnter={() => setResourcesOpen(true)}
-              onMouseLeave={() => setResourcesOpen(false)}
-            >
+            <div style={{ position: "relative", pointerEvents: "auto" }}>
               <Link
                 to="/ressources/informations"
+                onClick={toggleResources}
                 style={{
                   color: "#1a1a2e",
                   fontSize: "14px",
                   fontWeight: 500,
                   textDecoration: "none",
-                  opacity: 0.7,
+                  opacity: resourcesOpen ? 1 : 0.7,
                   display: "flex",
                   alignItems: "center",
                   gap: "4px",
                   transition: "opacity 0.2s",
+                  cursor: "pointer",
                 }}
-                onMouseEnter={(e) => { e.target.style.opacity = 1; setResourcesOpen(true); }}
-                onMouseLeave={(e) => (e.target.style.opacity = 0.7)}
               >
                 Ressources
                 <ChevronDown
                   size={16}
                   style={{
                     transition: "transform 0.2s",
-                    transform: resourcesOpen ? "rotate(180deg)" : "rotate(0deg)",
+                    transform: resourcesOpen
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
                   }}
                 />
               </Link>
@@ -237,10 +254,16 @@ function PublicLayout() {
                     boxShadow: "0 10px 40px rgba(0, 0, 0, 0.15)",
                     padding: "12px",
                     minWidth: "320px",
-                    zIndex: 1001,
+                    zIndex: 1002,
                   }}
                 >
-                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "4px",
+                    }}
+                  >
                     {resourcesMenu.map((item) => (
                       <Link
                         key={item.path}
@@ -254,8 +277,12 @@ function PublicLayout() {
                           textDecoration: "none",
                           transition: "background 0.2s",
                         }}
-                        onMouseEnter={(e) => { e.currentTarget.style.background = "#f8fafc"; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = "#f8fafc";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = "transparent";
+                        }}
                       >
                         <div
                           style={{
@@ -486,7 +513,9 @@ function PublicLayout() {
               className="mobile-menu-drawer"
             >
               {/* Navigation Links */}
-              <nav style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <nav
+                style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+              >
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
@@ -526,7 +555,13 @@ function PublicLayout() {
                   >
                     Ressources
                   </span>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "4px",
+                    }}
+                  >
                     {resourcesMenu.slice(0, 3).map((item) => (
                       <Link
                         key={item.path}
