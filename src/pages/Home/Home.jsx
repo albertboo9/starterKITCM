@@ -12,193 +12,31 @@ import {
 import { useLanguage } from "../../context/LanguageContext";
 
 // ============================================
-// PROFESSIONAL ICONS SVG COMPONENTS
+// PROFESSIONAL ICONS FROM LUCIDE-REACT
 // ============================================
 
-const IconLightbulb = ({ size = 24, color = "#635bff" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M9 18h6" />
-    <path d="M10 22h4" />
-    <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8 6 6 0 006 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 018.91 14" />
-  </svg>
-);
-
-const IconUsers = ({ size = 24, color = "#635bff" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-    <circle cx="9" cy="7" r="4" />
-    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-  </svg>
-);
-
-const IconUserPlus = ({ size = 24, color = "#635bff" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-    <circle cx="8.5" cy="7" r="4" />
-    <line x1="20" y1="8" x2="20" y2="14" />
-    <line x1="23" y1="11" x2="17" y2="11" />
-  </svg>
-);
-
-const IconGrowth = ({ size = 24, color = "#635bff" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-    <polyline points="17 6 23 6 23 12" />
-  </svg>
-);
-
-const IconScale = ({ size = 24, color = "#635bff" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M12 2" />
-    <path d="M12 6v6" />
-    <path d="M6 12a6 6 0 0 1 12 0" />
-    <path d="M18 12a6 6 0 0 0-12 0" />
-    <circle cx="12" cy="12" r="3" />
-  </svg>
-);
-
-const IconRocket = ({ size = 24, color = "#635bff" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-    <path d="M9 9 4 4" />
-    <path d="m15 15 5 5" />
-  </svg>
-);
-
-const IconCheck = ({ size = 24, color = "#10b981" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polyline points="20 6 9 17 4 12" />
-  </svg>
-);
-
-const IconLock = ({ size = 24, color = "#f59e0b" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-  </svg>
-);
-
-const IconArrowRight = ({ size = 20, color = "currentColor" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <line x1="5" y1="12" x2="19" y2="12" />
-    <polyline points="12 5 19 12 12 19" />
-  </svg>
-);
-
-const IconSparkles = ({ size = 24, color = "#635bff" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" />
-    <path d="M12 12l1.5 4.5L18 18l-4.5 1.5L12 24l-1.5-4.5L6 18l4.5-1.5L12 12z" />
-    <path d="M12 21l1.5 4.5L18 27l-4.5 1.5L12 33l-1.5-4.5L6 27l4.5-1.5L12 21z" />
-  </svg>
-);
-
-const IconChat = ({ size = 24, color = "#635bff" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-  </svg>
-);
+import {
+  Lightbulb,
+  Users,
+  UserPlus,
+  TrendingUp,
+  Scale,
+  Rocket,
+  ArrowRight,
+  Sparkles,
+  Target,
+  Briefcase,
+  Shield,
+  Globe,
+  Zap,
+  Heart,
+  Building2,
+  FileText,
+  Search,
+  MessageCircle,
+  Check,
+  Lock,
+} from "lucide-react";
 
 // ============================================
 // NEED OPTIONS DATA
@@ -209,7 +47,7 @@ const needOptions = [
     id: "sensibiliser",
     title: "Me sensibiliser",
     subtitle: "Decouvrez l'ecosysteme entrepreneurial",
-    icon: IconLightbulb,
+    icon: Lightbulb,
     color: "#635bff",
     bgColor: "rgba(99, 91, 255, 0.08)",
     borderColor: "rgba(99, 91, 255, 0.2)",
@@ -226,7 +64,7 @@ const needOptions = [
     id: "reseau",
     title: "Developper mon reseau",
     subtitle: "Rencontrez des pairs et partenaires",
-    icon: IconUsers,
+    icon: Users,
     color: "#10b981",
     bgColor: "rgba(16, 185, 129, 0.08)",
     borderColor: "rgba(16, 185, 129, 0.2)",
@@ -247,7 +85,7 @@ const needOptions = [
     id: "equipe",
     title: "Trouver une equipe",
     subtitle: "Recrutez ou rejoignez une equipe",
-    icon: IconUserPlus,
+    icon: UserPlus,
     color: "#8b5cf6",
     bgColor: "rgba(139, 92, 246, 0.08)",
     borderColor: "rgba(139, 92, 246, 0.2)",
@@ -260,7 +98,7 @@ const needOptions = [
     id: "activite",
     title: "Developper mon activite",
     subtitle: "Augmentez votre chiffre d'affaires",
-    icon: IconGrowth,
+    icon: TrendingUp,
     color: "#06b6d4",
     bgColor: "rgba(6, 182, 212, 0.08)",
     borderColor: "rgba(6, 182, 212, 0.2)",
@@ -277,7 +115,7 @@ const needOptions = [
     id: "probleme",
     title: "Resoudre un probleme",
     subtitle: "RH, fiscal, juridique ou financier",
-    icon: IconScale,
+    icon: Scale,
     color: "#f97316",
     bgColor: "rgba(249, 115, 22, 0.08)",
     borderColor: "rgba(249, 115, 22, 0.2)",
@@ -294,7 +132,7 @@ const needOptions = [
     id: "autrement",
     title: "Entreprendre autrement",
     subtitle: "Vous avez un projet atypique?",
-    icon: IconRocket,
+    icon: Rocket,
     color: "#ec4899",
     bgColor: "rgba(236, 72, 153, 0.08)",
     borderColor: "rgba(236, 72, 153, 0.2)",
@@ -321,7 +159,7 @@ const parcoursData = [
     description:
       "Accedez a des ressources completes sur l'environnement entrepreneurial, les opportunites et les acteurs cles.",
     conditions: "libre",
-    icon: IconLightbulb,
+    icon: Lightbulb,
   },
   {
     id: "former",
@@ -330,7 +168,7 @@ const parcoursData = [
     description:
       "Suivez des formations certifiantes dispensees par notre campus e-learning partenaire.",
     conditions: "libre",
-    icon: IconUsers,
+    icon: Users,
   },
   {
     id: "financement",
@@ -339,7 +177,7 @@ const parcoursData = [
     description:
       "Presentez votre dossier pour obtenir un appui financier de nos partenaires.",
     conditions: "formelle",
-    icon: IconCheck,
+    icon: Check,
   },
   {
     id: "investisseurs",
@@ -348,7 +186,7 @@ const parcoursData = [
     description:
       "Connectez-vous avec des investisseurs interesses par votre projet.",
     conditions: "formelle",
-    icon: IconUsers,
+    icon: Users,
   },
   {
     id: "apme",
@@ -357,7 +195,7 @@ const parcoursData = [
     description:
       "Planifiez des rendez-vous avec des agents de l'APME pour un accompagnement personnalise.",
     conditions: "libre",
-    icon: IconUsers,
+    icon: Users,
   },
   {
     id: "creer",
@@ -366,7 +204,7 @@ const parcoursData = [
     description:
       "Guide etape par etape pour la creation et la formalisation de votre entreprise.",
     conditions: "libre",
-    icon: IconCheck,
+    icon: Check,
   },
   {
     id: "normalisation",
@@ -375,7 +213,7 @@ const parcoursData = [
     description:
       "Validez vos competences et recevez une reconnaissance officielle du Ministere.",
     conditions: "formations",
-    icon: IconCheck,
+    icon: Check,
   },
   {
     id: "partenaires",
@@ -384,7 +222,7 @@ const parcoursData = [
     description:
       "Etablissez des collaborations avec des partenaires strategiques.",
     conditions: "libre",
-    icon: IconUsers,
+    icon: Users,
   },
 ];
 
@@ -558,9 +396,9 @@ const ParcoursCard = ({ parcours, index }) => {
           }}
         >
           {isConditionne ? (
-            <IconLock size={14} color="#f59e0b" />
+            <Lock size={14} color="#f59e0b" />
           ) : (
-            <IconCheck size={14} color="#10b981" />
+            <Check size={14} color="#10b981" />
           )}
           <span
             style={{
@@ -592,7 +430,7 @@ const ParcoursCard = ({ parcours, index }) => {
           }}
         >
           Commencer
-          <IconArrowRight size={16} color="white" />
+          <ArrowRight size={16} color="white" />
         </motion.button>
       </div>
     </motion.div>
@@ -607,57 +445,112 @@ const needsBubbles = [
   {
     id: "sensibiliser",
     title: "Me sensibiliser",
-    icon: IconLightbulb,
+    icon: Lightbulb,
     color: "#635bff",
     bgColor: "rgba(99, 91, 255, 0.15)",
     delay: 0,
+    parcours: [
+      { title: "M'informer", badge: "Gratuit", badgeColor: "#10b981" },
+      {
+        title: "Debuter dans l'entrepreneuriat",
+        badge: "Guide",
+        badgeColor: "#635bff",
+      },
+    ],
   },
   {
     id: "reseau",
     title: "Developper mon reseau",
-    icon: IconUsers,
+    icon: Users,
     color: "#10b981",
     bgColor: "rgba(16, 185, 129, 0.15)",
     delay: 150,
+    parcours: [
+      {
+        title: "Reseau de partenaires",
+        badge: "Gratuit",
+        badgeColor: "#10b981",
+      },
+      {
+        title: "Evenements networking",
+        badge: "Calendrier",
+        badgeColor: "#635bff",
+      },
+    ],
   },
   {
     id: "equipe",
     title: "M'entourer",
-    icon: IconUserPlus,
+    icon: UserPlus,
     color: "#8b5cf6",
     bgColor: "rgba(139, 92, 246, 0.15)",
     delay: 300,
+    parcours: [
+      { title: "Co-fondateurs", badge: "Plateforme", badgeColor: "#635bff" },
+      { title: "Recrutement", badge: "Outils", badgeColor: "#f59e0b" },
+    ],
   },
   {
     id: "activite",
     title: "Developper mon activite",
-    icon: IconGrowth,
+    icon: TrendingUp,
     color: "#06b6d4",
     bgColor: "rgba(6, 182, 212, 0.15)",
     delay: 450,
+    parcours: [
+      { title: "Marketing digital", badge: "Formation", badgeColor: "#635bff" },
+      {
+        title: "Strategie commerciale",
+        badge: "Conseil",
+        badgeColor: "#f59e0b",
+      },
+    ],
   },
   {
     id: "probleme",
     title: "Resoudre un probleme",
-    icon: IconScale,
+    icon: Scale,
     color: "#f97316",
     bgColor: "rgba(249, 115, 22, 0.15)",
     delay: 600,
+    parcours: [
+      {
+        title: "Assistance technique",
+        badge: "Gratuit",
+        badgeColor: "#10b981",
+      },
+      { title: "Mise en relation APME", badge: "Agent", badgeColor: "#635bff" },
+    ],
   },
   {
     id: "autrement",
     title: "Entreprendre autrement",
-    icon: IconRocket,
+    icon: Rocket,
     color: "#ec4899",
     bgColor: "rgba(236, 72, 153, 0.15)",
     delay: 750,
+    parcours: [
+      {
+        title: "Innovation sociale",
+        badge: "Programme",
+        badgeColor: "#635bff",
+      },
+      { title: "Projet alternatif", badge: "Conseil", badgeColor: "#f59e0b" },
+    ],
   },
 ];
 
 // Bubble Card Component - RECTANGULAR GLASSMORPHISM DESIGN
-function BubbleCard({ item, index }) {
+function BubbleCard({ item, index, onSelect }) {
+  const handleClick = () => {
+    if (onSelect) {
+      onSelect(item);
+    }
+  };
+
   return (
     <motion.div
+      onClick={handleClick}
       initial={{
         opacity: 0,
         scale: 0.8,
@@ -672,6 +565,7 @@ function BubbleCard({ item, index }) {
         scale: 1.05,
         y: -5,
       }}
+      whileTap={{ scale: 0.98 }}
       transition={{
         duration: 0.5,
         delay: item.delay / 1000,
@@ -736,6 +630,17 @@ function HeroSection() {
 
   // Fonction pour effacer la sélection
   const clearSelection = () => setSelectedNeeds([]);
+
+  // Fonction pour scroller vers la section Assistant
+  const scrollToAssistant = () => {
+    // Petit délai pour laisser le DOM se mettre à jour
+    setTimeout(() => {
+      const assistantSection = document.getElementById("assistant-section");
+      if (assistantSection) {
+        assistantSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+  };
 
   const toggleNeed = (option) => {
     setSelectedNeeds((prev) => {
@@ -822,8 +727,6 @@ function HeroSection() {
           zIndex: 1,
         }}
       >
-
-
         {/* Needs Bubbles - SINGLE ROW ON DESKTOP */}
         <div
           style={{
@@ -837,7 +740,15 @@ function HeroSection() {
           }}
         >
           {needsBubbles.map((item, index) => (
-            <BubbleCard key={item.id} item={item} index={index} />
+            <BubbleCard
+              key={item.id}
+              item={item}
+              index={index}
+              onSelect={(selectedItem) => {
+                toggleNeed(selectedItem);
+                scrollToAssistant();
+              }}
+            />
           ))}
         </div>
 
@@ -880,6 +791,7 @@ function HeroSection() {
 
       {/* Assistant Section */}
       <motion.div
+        id="assistant-section"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.6 }}
@@ -911,7 +823,7 @@ function HeroSection() {
               justifyContent: "center",
             }}
           >
-            <IconChat size={28} color="white" />
+            <MessageCircle size={28} color="white" />
           </div>
           <div>
             <h2
@@ -1133,7 +1045,7 @@ function HeroSection() {
                                 justifyContent: "center",
                               }}
                             >
-                              <IconCheck size={20} color="white" />
+                              <Check size={20} color="white" />
                             </div>
                             <div>
                               <h4
@@ -1203,7 +1115,7 @@ function HeroSection() {
                     }}
                   >
                     Acceder a ces parcours
-                    <IconArrowRight size={18} color="white" />
+                    <ArrowRight size={18} color="white" />
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.02 }}
@@ -1500,7 +1412,7 @@ function CTASection() {
                 }}
               >
                 Commencer mon parcours
-                <IconArrowRight size={20} color="white" />
+                <ArrowRight size={20} color="white" />
               </motion.button>
             </Link>
             <Link to="/parcours">
