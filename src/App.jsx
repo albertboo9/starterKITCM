@@ -21,6 +21,24 @@ const Partenaires = lazy(() => import("./pages/Partenaires/Partenaires"));
 const Upload = lazy(() => import("./pages/Upload/Upload"));
 const Assistant = lazy(() => import("./components/assistant/Assistant"));
 
+// Resources pages
+const ToolsAndTips = lazy(() => import("./pages/ressources/ToolsAndTips"));
+const InformationCenter = lazy(
+  () => import("./pages/ressources/InformationCenter"),
+);
+const ProfessionalDirectory = lazy(
+  () => import("./pages/ressources/ProfessionalDirectory"),
+);
+const InnovationCompetitivite = lazy(
+  () => import("./pages/ressources/InnovationCompetitivite"),
+);
+const EntrepreneurProjects = lazy(
+  () => import("./pages/ressources/EntrepreneurProjects"),
+);
+const StarterCommunity = lazy(
+  () => import("./pages/ressources/StarterCommunity"),
+);
+
 // Loading component
 function LoadingSpinner() {
   return (
@@ -68,6 +86,32 @@ function App() {
             <Route path="/parcours" element={<Parcours />} />
             <Route path="/formations" element={<Formations />} />
             <Route path="/partenaires" element={<Partenaires />} />
+
+            {/* Resources Routes */}
+            <Route
+              path="/ressources/outils-bons-plans"
+              element={<ToolsAndTips />}
+            />
+            <Route
+              path="/ressources/informations"
+              element={<InformationCenter />}
+            />
+            <Route
+              path="/ressources/annuaire"
+              element={<ProfessionalDirectory />}
+            />
+            <Route
+              path="/ressources/innovation"
+              element={<InnovationCompetitivite />}
+            />
+            <Route
+              path="/ressources/projets"
+              element={<EntrepreneurProjects />}
+            />
+            <Route
+              path="/ressources/communaute"
+              element={<StarterCommunity />}
+            />
           </Route>
 
           {/* Private Routes */}
