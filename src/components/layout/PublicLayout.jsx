@@ -54,8 +54,9 @@ function PublicLayout() {
   const isTransparent = location.pathname === "/" && !scrolled;
 
   const navItems = [
+    { path: "/", label: "Accueil" },
     { path: "/parcours", label: "Parcours" },
-    { path: "/formations", label: "Formations" },
+    { path: "/formations", label: "Formations" }
   ];
 
   const resourcesMenu = [

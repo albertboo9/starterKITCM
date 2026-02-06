@@ -36,6 +36,15 @@ import {
   MessageCircle,
   Check,
   Lock,
+  Building,
+  Award,
+  DollarSign,
+  Truck,
+  GraduationCap,
+  BookOpen,
+  Factory,
+  Badge,
+  Coins,
 } from "lucide-react";
 
 // ============================================
@@ -143,6 +152,165 @@ const needOptions = [
         badgeColor: "#635bff",
       },
       { title: "Projet alternatif", badge: "Conseil", badgeColor: "#f59e0b" },
+    ],
+  },
+  // ============================================
+  // NOUVELLES OPTIONS ENRICHIES
+  // ============================================
+  {
+    id: "creer-entreprise",
+    title: "Creer mon entreprise",
+    subtitle: "Guide complet de creation d'entreprise",
+    icon: Building,
+    color: "#8b5cf6",
+    bgColor: "rgba(139, 92, 246, 0.08)",
+    borderColor: "rgba(139, 92, 246, 0.2)",
+    parcours: [
+      {
+        title: "Guide de creation",
+        badge: "Complet",
+        badgeColor: "#8b5cf6",
+      },
+      {
+        title: "Formalites administratives",
+        badge: "Checklist",
+        badgeColor: "#10b981",
+      },
+      {
+        title: "Statut juridique",
+        badge: "Conseil",
+        badgeColor: "#f59e0b",
+      },
+    ],
+  },
+  {
+    id: "certifier-produits",
+    title: "Normaliser, certifier",
+    subtitle: "Labelliser vos produits et services",
+    icon: Award,
+    color: "#f59e0b",
+    bgColor: "rgba(245, 158, 11, 0.08)",
+    borderColor: "rgba(245, 158, 11, 0.2)",
+    parcours: [
+      {
+        title: "Certification produits",
+        badge: "Procedures",
+        badgeColor: "#f59e0b",
+      },
+      {
+        title: "Label qualite",
+        badge: "Normes",
+        badgeColor: "#10b981",
+      },
+      {
+        title: "Homologation",
+        badge: "Regulation",
+        badgeColor: "#635bff",
+      },
+    ],
+  },
+  {
+    id: "financement",
+    title: "Trouver un financement",
+    subtitle: "Subventions, prets et investissements",
+    icon: DollarSign,
+    color: "#10b981",
+    bgColor: "rgba(16, 185, 129, 0.08)",
+    borderColor: "rgba(16, 185, 129, 0.2)",
+    parcours: [
+      {
+        title: "Appui financier MINPMEESA",
+        badge: "Subvention",
+        badgeColor: "#10b981",
+      },
+      {
+        title: "Banques partenaires",
+        badge: "Prets",
+        badgeColor: "#0ea5e9",
+      },
+      {
+        title: "Investisseurs",
+        badge: "Seed funding",
+        badgeColor: "#8b5cf6",
+      },
+    ],
+  },
+  {
+    id: "distribution",
+    title: "Reseau de distribution",
+    subtitle: "Partenaires et marketplaces",
+    icon: Truck,
+    color: "#0ea5e9",
+    bgColor: "rgba(14, 165, 233, 0.08)",
+    borderColor: "rgba(14, 165, 233, 0.2)",
+    parcours: [
+      {
+        title: "Partenaires distribution",
+        badge: "Annuaire",
+        badgeColor: "#0ea5e9",
+      },
+      {
+        title: "Marketplaces",
+        badge: "Plateformes",
+        badgeColor: "#10b981",
+      },
+      {
+        title: "Export",
+        badge: "International",
+        badgeColor: "#8b5cf6",
+      },
+    ],
+  },
+  {
+    id: "mentor",
+    title: "Trouver un mentor",
+    subtitle: "Accompagnement par des experts",
+    icon: GraduationCap,
+    color: "#ec4899",
+    bgColor: "rgba(236, 72, 153, 0.08)",
+    borderColor: "rgba(236, 72, 153, 0.2)",
+    parcours: [
+      {
+        title: "Mentorat individuel",
+        badge: "Matching",
+        badgeColor: "#ec4899",
+      },
+      {
+        title: "Reseau de mentors",
+        badge: "Annuaire",
+        badgeColor: "#8b5cf6",
+      },
+      {
+        title: "Coaching",
+        badge: "Sessions",
+        badgeColor: "#f59e0b",
+      },
+    ],
+  },
+  {
+    id: "formation",
+    title: "Demarrer une formation",
+    subtitle: "Campus e-learning certifiant",
+    icon: BookOpen,
+    color: "#6366f1",
+    bgColor: "rgba(99, 102, 241, 0.08)",
+    borderColor: "rgba(99, 102, 241, 0.2)",
+    parcours: [
+      {
+        title: "Campus e-learning",
+        badge: "Formations",
+        badgeColor: "#6366f1",
+      },
+      {
+        title: "Certifications",
+        badge: "Programme",
+        badgeColor: "#10b981",
+      },
+      {
+        title: "Webinaires",
+        badge: "Evenements",
+        badgeColor: "#0ea5e9",
+      },
     ],
   },
 ];
@@ -854,7 +1022,7 @@ function HeroSection() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
             gap: "16px",
             marginBottom: selectedNeeds.length > 0 ? "32px" : 0,
           }}
