@@ -765,26 +765,29 @@ function HeroSection() {
         >
           <h1
             style={{
-              fontSize: "clamp(32px, 4vw, 44px)",
+              fontSize: "clamp(36px, 5vw, 52px)",
               fontWeight: 800,
               color: "#1a1a2e",
-              marginBottom: "16px",
-              letterSpacing: "-0.02em",
+              marginBottom: "20px",
+              letterSpacing: "-0.03em",
+              lineHeight: 1.1,
             }}
           >
-            Bienvenue sur STARTERKIT CM
+            Bienvenue sur <span style={{ color: "#635bff" }}>STARTERKIT CM</span>{" "}
           </h1>
           <p
             style={{
-              fontSize: "clamp(16px, 1.8vw, 20px)",
+              fontSize: "clamp(18px, 2vw, 22px)",
               color: "#4b5563",
-              lineHeight: 1.7,
-              maxWidth: "700px",
+              lineHeight: 1.6,
+              maxWidth: "720px",
               margin: "0 auto",
+              fontWeight: 500,
             }}
           >
-            La plateforme connectee du CAMEROUN pour entreprendre en toute
-            confiance.
+            La plateforme connectée du{" "}
+            <span style={{ color: "#10b981", fontWeight: 700 }}>CAMEROUN</span>{" "}
+            pour entreprendre en toute confiance.
           </p>
         </motion.div>
       </div>
