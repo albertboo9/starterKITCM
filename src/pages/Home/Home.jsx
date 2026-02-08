@@ -886,7 +886,7 @@ function HeroSection() {
           pointerEvents: "none",
         }}
       />
-
+      {/* Welcome Section */}
       <div
         style={{
           margin: "0 auto",

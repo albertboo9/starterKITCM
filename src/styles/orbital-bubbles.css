@@ -1,0 +1,462 @@
+/* ========================================
+   ORBITAL BUBBLES - Design System
+   ======================================== */
+
+/* Variables Design System - Orbital Bubbles */
+:root {
+  /* ========================================
+     COULEURS PRINCIPALES - STARTERKIT CM
+     ======================================== */
+
+  /* Primaire */
+  --color-primary: #6366f1;
+  --color-primary-dark: #4f46e5;
+  --color-primary-light: rgba(99, 102, 241, 0.15);
+
+  /* Secondaire */
+  --color-secondary: #10b981;
+  --color-secondary-dark: #059669;
+  --color-secondary-light: rgba(16, 185, 129, 0.15);
+
+  /* Accent */
+  --color-accent: #f59e0b;
+  --color-accent-dark: #d97706;
+  --color-accent-light: rgba(245, 158, 11, 0.15);
+
+  /* Fond */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+
+  /* Texte */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+
+  /* Système de catégories */
+  --category-sensibiliser: #8b5cf6;
+  --category-reseau: #10b981;
+  --category-equipe: #ec4899;
+  --category-activite: #06b6d4;
+  --category-probleme: #f97316;
+  --category-autrement: #ef4444;
+  --category-entreprise: #14b8a6;
+  --category-certifier: #eab308;
+  --category-financement: #22c55e;
+  --category-distribution: #3b82f6;
+  --category-mentor: #a855f7;
+  --category-formation: #0ea5e9;
+
+  /* Ombres */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.3);
+
+  /* Typographie */
+  --font-primary: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Tailles */
+  --bubble-size-sm: 48px;
+  --bubble-size-md: 64px;
+  --bubble-size-lg: 80px;
+  --bubble-size-xl: 96px;
+
+  /* Animation */
+  --transition-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   ORBITAL BUBBLES CONTAINER
+   ======================================== */
+
+.orbital-bubbles-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+/* Grille de fond */
+.orbital-bubbles-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+/* Orbs décoratifs */
+.orbital-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orbital-orb--primary {
+  top: -10%;
+  right: -5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.08) 0%,
+    transparent 70%
+  );
+}
+
+.orbital-orb--secondary {
+  bottom: -10%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.06) 0%,
+    transparent 70%
+  );
+}
+
+/* ========================================
+   CENTRAL CONTENT
+   ======================================== */
+
+.orbital-central-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 48px 64px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid var(--color-primary);
+  border-radius: 24px;
+  box-shadow:
+    0 20px 60px rgba(99, 102, 241, 0.15),
+    0 0 0 1px rgba(99, 102, 241, 0.1);
+  max-width: 520px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.orbital-central-content h1 {
+  font-family: var(--font-primary);
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.orbital-central-content h1 span {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.orbital-central-content p {
+  font-family: var(--font-primary);
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+/* ========================================
+   BUBBLES GRID / ORBIT
+   ======================================== */
+
+.orbital-bubbles-wrapper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ========================================
+   ORBITAL BUBBLE COMPONENT
+   ======================================== */
+
+.orbital-bubble {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+
+  /* Fond gradient glassmorphism */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+
+  /* Bordure subtile */
+  border: 2px solid currentColor;
+  border-opacity: 0.3;
+
+  /* Ombres */
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
+  /* Transitions */
+  transition: all 0.4s var(--transition-elastic);
+
+  /* Performance GPU */
+  will-change: transform, box-shadow, color;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+
+  /* Taille par défaut */
+  width: var(--bubble-size-md);
+  height: var(--bubble-size-md);
+
+  /* Initial state for animation */
+  opacity: 0;
+}
+
+/* Couleurs par catégorie */
+.orbital-bubble[data-category="awareness"] {
+  color: var(--category-sensibiliser);
+}
+.orbital-bubble[data-category="community"] {
+  color: var(--category-reseau);
+}
+.orbital-bubble[data-category="team"] {
+  color: var(--category-equipe);
+}
+.orbital-bubble[data-category="growth"] {
+  color: var(--category-activite);
+}
+.orbital-bubble[data-category="challenge"] {
+  color: var(--category-probleme);
+}
+.orbital-bubble[data-category="innovation"] {
+  color: var(--category-autrement);
+}
+.orbital-bubble[data-category="business"] {
+  color: var(--category-entreprise);
+}
+.orbital-bubble[data-category="certification"] {
+  color: var(--category-certifier);
+}
+.orbital-bubble[data-category="funding"] {
+  color: var(--category-financement);
+}
+.orbital-bubble[data-category="logistics"] {
+  color: var(--category-distribution);
+}
+.orbital-bubble[data-category="guidance"] {
+  color: var(--category-mentor);
+}
+.orbital-bubble[data-category="education"] {
+  color: var(--category-formation);
+}
+
+/* Hover state */
+.orbital-bubble:hover {
+  transform: scale(1.15) translateY(-24px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.12),
+    0 0 30px var(--glow-color, currentColor);
+  border-opacity: 0.6;
+  z-index: 100;
+}
+
+/* Focus visible for keyboard navigation */
+.orbital-bubble:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+/* Icon inside bubble */
+.orbital-bubble-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  transition: transform 0.3s var(--transition-elastic);
+}
+
+.orbital-bubble:hover .orbital-bubble-icon {
+  transform: scale(1.2);
+}
+
+/* Title inside bubble */
+.orbital-bubble-title {
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  max-width: 50px;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* ========================================
+   ANIMATIONS - ENTRÉE
+   ======================================== */
+
+/* Staggered reveal animation */
+@keyframes orbitalEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) scale(0.5);
+  }
+  60% {
+    transform: translateY(-10px) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Floating animation */
+@keyframes floatVertical {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Pulse glow animation */
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.08),
+      0 0 20px var(--glow-color, currentColor),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Applied classes */
+.orbital-bubble--entering {
+  animation: orbitalEnter 0.8s var(--transition-elastic) forwards;
+}
+
+.orbital-bubble--floating {
+  animation: floatVertical 3s ease-in-out infinite;
+}
+
+/* ========================================
+   INSTRUCTIONS
+   ======================================== */
+
+.orbital-instructions {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.9);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 1000;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.orbital-instructions svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.8;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 767px) {
+  .orbital-central-content {
+    padding: 32px 24px;
+    margin: 16px;
+  }
+
+  .orbital-bubble {
+    width: var(--bubble-size-sm);
+    height: var(--bubble-size-sm);
+  }
+
+  .orbital-bubble-title {
+    font-size: 8px;
+    display: none; /* Hide titles on mobile */
+  }
+
+  .orbital-orb {
+    opacity: 0.5;
+  }
+
+  .orbital-instructions {
+    font-size: 12px;
+    padding: 10px 20px;
+    bottom: 16px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .orbital-bubble {
+    width: 56px;
+    height: 56px;
+  }
+
+  .orbital-bubble-title {
+    font-size: 9px;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .orbital-bubble,
+  .orbital-bubble *,
+  [class*="orbital"] {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .orbital-bubble {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
