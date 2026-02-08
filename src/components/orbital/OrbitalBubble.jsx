@@ -3,19 +3,20 @@ import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 
 /**
- * Composant OrbitalBubble
- *
- * Bulle individuelle avec icône, titre et animations
- *
- * @param {string} id - Identifiant unique
- * @param {string} title - Titre affiché
- * @param {string} icon - Nom de l'icône Lucide
- * @param {string} category - Catégorie pour la couleur
- * @param {string} color - Couleur CSS variable
- * @param {number} index - Index pour les animations staggerées
- * @param {object} position - Position {x, y}
- * @param {function} onClick - Handler click
+ * OrbitalBubble - Bulle avec animation de flottaison simple
  */
+
+/**
+ * Configuration des animations de flottaison
+ * Chaque bulle a un décalage de phase différent pour un effet naturel
+ */
+const floatDelays = {
+  top: [0, 0.5, 1, 1.5],
+  left: [0.3, 1.8],
+  right: [0.8, 2.2],
+  bottom: [0.2, 0.7, 1.2, 1.7],
+};
+
 export const OrbitalBubble = forwardRef(function OrbitalBubble(
   {
     id,
@@ -26,16 +27,21 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
     index,
     position,
     onClick,
-    style,
+    side = "top",
     className,
+    style,
     ...props
   },
   ref,
 ) {
-  // Récupérer le composant d'icône correspondant
+  // Récupérer le composant d'icône
   const IconComponent = Icons[icon] || Icons.HelpCircle;
 
-  // Calculer le délai d'animation basé sur l'index
+  // Calculer le délai de flottaison basé sur le côté et l'index
+  const sideDelays = floatDelays[side] || floatDelays.top;
+  const floatDelay = sideDelays[index % sideDelays.length];
+
+  // Délai d'entrée staggeré
   const enterDelay = index * 0.08;
 
   return (
@@ -49,21 +55,27 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
         color: color,
         left: position?.x,
         top: position?.y,
-        // Position initiale pour l'animation
-        x: 0,
-        y: 80,
       }}
-      initial={{ opacity: 0, scale: 0.5, y: 80 }}
+      initial={{ opacity: 0, scale: 0.5 }}
       animate={{
         opacity: 1,
         scale: 1,
-        y: 0,
-        x: 0,
+        y: [0, -8, 0], // Animation de flottaison simple: haut → bas → haut
       }}
       transition={{
+        // Animation d'entrée
         duration: 0.8,
         delay: enterDelay,
-        ease: [0.34, 1.56, 0.64, 1], // elastic
+        ease: [0.34, 1.56, 0.64, 1], // elastic easing
+
+        // Animation de flottaison continue
+        y: {
+          duration: 3,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut",
+          delay: floatDelay,
+        },
       }}
       whileHover={{
         scale: 1.15,
@@ -89,7 +101,7 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
         <IconComponent size={24} strokeWidth={1.5} style={{ color: color }} />
       </span>
 
-      {/* Titre (masqué sur mobile) */}
+      {/* Titre */}
       <span className="orbital-bubble-title">{title}</span>
     </motion.div>
   );
