@@ -56,7 +56,8 @@ function PublicLayout() {
   const navItems = [
     { path: "/", label: "Accueil" },
     { path: "/parcours", label: "Parcours" },
-    { path: "/formations", label: "Formations" }
+    { path: "/formations", label: "Formations" },
+    { path: "/partenaires", label: "Partenaires" },
   ];
 
   const resourcesMenu = [
@@ -375,25 +376,6 @@ function PublicLayout() {
                 EN
               </span>
             </button>
-            <Link to="/login">
-              <button
-                style={{
-                  padding: "10px 20px",
-                  background: "transparent",
-                  border: "none",
-                  color: "#1a1a2e",
-                  fontSize: "14px",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  opacity: 0.7,
-                  transition: "opacity 0.2s",
-                }}
-                onMouseEnter={(e) => (e.target.style.opacity = 1)}
-                onMouseLeave={(e) => (e.target.style.opacity = 0.7)}
-              >
-                Connexion
-              </button>
-            </Link>
             <Link to="/signup">
               <button
                 style={{
