@@ -1,58 +1,77 @@
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAuth } from "../../context/AuthContext";
-import FloatingLabelInput from "../../components/auth/FloatingLabelInput";
 import {
-  Mail,
-  Lock,
+  ArrowLeft,
   ArrowRight,
+  Rocket,
+  Building2,
   Sparkles,
   Users,
-  TrendingUp,
-  Rocket,
   Globe,
-  ArrowLeft,
+  TrendingUp,
+  Award,
+  Lightbulb,
 } from "lucide-react";
 
-function Login() {
+function SignupChoice() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { login } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [selected, setSelected] = useState(null);
 
-  const from = location.state?.from?.pathname || "/dashboard";
+  const choices = [
+    {
+      id: "entrepreneur",
+      icon: Rocket,
+      title: "Entrepreneur",
+      subtitle: "Accès complet aux ressources",
+      color: "#635bff",
+      features: [
+        "Formations gratuites",
+        "Mentorat personnalisé",
+        "Opportunités de financement",
+        "Communauté d'entrepreneurs",
+      ],
+      iconBg: "rgba(99, 91, 255, 0.1)",
+    },
+    {
+      id: "partner",
+      icon: Building2,
+      title: "Partenaire",
+      subtitle: "Institution, financeur, incubateur",
+      color: "#10B981",
+      features: [
+        "Espace dédié partenaires",
+        "Visibilité de votre organisation",
+        "Mise en relation avec entrepreneurs",
+        "Suivi des impacts",
+      ],
+      iconBg: "rgba(16, 185, 129, 0.1)",
+    },
+  ];
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-
-    try {
-      login(email, password);
-      navigate(from, { replace: true });
-    } catch (err) {
-      setError("Email ou mot de passe incorrect");
-    } finally {
-      setLoading(false);
-    }
+  const handleSelect = (choice) => {
+    setSelected(choice.id);
+    setTimeout(() => {
+      if (choice.id === "entrepreneur") {
+        navigate("/signup/entrepreneur");
+      } else {
+        navigate("/signup/partner");
+      }
+    }, 300);
   };
 
-  // Stats data
+  // Stats for right panel
   const stats = [
     { value: "+500", label: "Entrepreneurs", icon: Users },
-    { value: "+50", label: "Partenaires", icon: TrendingUp },
-    { value: "+1000", label: "Projets", icon: Rocket },
+    { value: "+50", label: "Partenaires", icon: Globe },
+    { value: "+1000", label: "Projets", icon: TrendingUp },
   ];
 
   return (
     <>
       <Helmet>
-        <title>Connexion - STARTERKIT CM</title>
+        <title>Créer un compte - STARTERKIT CM</title>
       </Helmet>
 
       <div
@@ -62,7 +81,7 @@ function Login() {
           gridTemplateColumns: "1fr 1fr",
         }}
       >
-        {/* Left Side - Form */}
+        {/* Left Side - Form / Choices */}
         <div
           style={{
             display: "flex",
@@ -70,14 +89,39 @@ function Login() {
             justifyContent: "center",
             padding: "48px",
             background: "white",
+            overflowY: "auto",
           }}
         >
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            style={{ width: "100%", maxWidth: "420px" }}
+            style={{ width: "100%", maxWidth: "500px" }}
           >
+            {/* Back link */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              style={{ marginBottom: "32px" }}
+            >
+              <Link
+                to="/login"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  color: "#6b7280",
+                  textDecoration: "none",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  transition: "color 0.2s ease",
+                }}
+              >
+                <ArrowLeft size={18} />
+                Retour à la connexion
+              </Link>
+            </motion.div>
+
             {/* Logo */}
             <div style={{ textAlign: "center", marginBottom: "40px" }}>
               <Link
@@ -126,7 +170,7 @@ function Login() {
                   marginBottom: "8px",
                 }}
               >
-                Bon retour parmi nous
+                Choisissez votre type de compte
               </h1>
               <p
                 style={{
@@ -136,247 +180,151 @@ function Login() {
                   margin: "0 auto",
                 }}
               >
-                Votre prochaine grande aventure commence ici
+                Rejoignez l'écosystème entrepreneurial camerounais
               </p>
             </div>
 
-            {/* Error */}
-            <AnimatePresence>
-              {error && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  style={{
-                    padding: "14px 16px",
-                    background: "rgba(239, 68, 68, 0.1)",
-                    borderRadius: "12px",
-                    color: "#EF4444",
-                    fontSize: "14px",
-                    marginBottom: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
-                  }}
-                >
-                  <span style={{ fontSize: "18px" }}><Lock size={18} /></span>
-                  {error}
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Form */}
-            <form onSubmit={handleSubmit}>
-              <FloatingLabelInput
-                label="Adresse email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                iconType="email"
-                required
-                placeholder="vous@email.com"
-              />
-
-              <div style={{ marginBottom: "16px" }}>
-                <FloatingLabelInput
-                  label="Mot de passe"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  iconType="password"
-                  required
-                />
-                <div
-                  style={{
-                    textAlign: "right",
-                    marginTop: "8px",
-                  }}
-                >
-                  <Link
-                    to="/forgot-password"
-                    style={{
-                      fontSize: "13px",
-                      color: "#635bff",
-                      textDecoration: "none",
-                      fontWeight: 500,
-                    }}
-                  >
-                    Mot de passe oublié ?
-                  </Link>
-                </div>
-              </div>
-
-              {/* Remember me */}
-              <label
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  marginBottom: "24px",
-                  cursor: "pointer",
-                }}
-              >
-                <input
-                  type="checkbox"
-                  style={{
-                    width: "18px",
-                    height: "18px",
-                    accentColor: "#635bff",
-                    cursor: "pointer",
-                  }}
-                />
-                <span style={{ fontSize: "14px", color: "#6b7280" }}>
-                  Se souvenir de moi
-                </span>
-              </label>
-
-              {/* Submit Button */}
-              <motion.button
-                type="submit"
-                disabled={loading}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                style={{
-                  width: "100%",
-                  padding: "16px",
-                  background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
-                  border: "none",
-                  borderRadius: "14px",
-                  color: "white",
-                  fontSize: "15px",
-                  fontWeight: 600,
-                  cursor: loading ? "not-allowed" : "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  boxShadow: "0 4px 15px rgba(99, 91, 255, 0.3)",
-                  opacity: loading ? 0.7 : 1,
-                  marginBottom: "24px",
-                }}
-              >
-                {loading ? (
-                  <>
-                    <motion.span
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    >
-                      <Rocket size={18} />
-                    </motion.span>
-                    Connexion...
-                  </>
-                ) : (
-                  <>
-                    Me connecter
-                    <ArrowRight size={18} />
-                  </>
-                )}
-              </motion.button>
-            </form>
-
-            {/* Divider */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "16px",
-                marginBottom: "24px",
-              }}
-            >
-              <div
-                style={{
-                  flex: 1,
-                  height: "1px",
-                  background: "#e5e7eb",
-                }}
-              />
-              <span
-                style={{
-                  fontSize: "13px",
-                  color: "#9ca3af",
-                }}
-              >
-                ou continuer avec
-              </span>
-              <div
-                style={{
-                  flex: 1,
-                  height: "1px",
-                  background: "#e5e7eb",
-                }}
-              />
-            </div>
-
-            {/* Social Login */}
+            {/* Choices */}
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
-                gap: "12px",
+                gap: "16px",
                 marginBottom: "32px",
               }}
             >
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "10px",
-                  padding: "14px",
-                  background: "white",
-                  border: "1px solid #e5e7eb",
-                  borderRadius: "12px",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  color: "#1a1a2e",
-                }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24">
-                  <path
-                    fill="#4285F4"
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                  />
-                  <path
-                    fill="#34A853"
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                  />
-                  <path
-                    fill="#FBBC05"
-                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                  />
-                  <path
-                    fill="#EA4335"
-                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                  />
-                </svg>
-                Google
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "10px",
-                  padding: "14px",
-                  background: "white",
-                  border: "1px solid #e5e7eb",
-                  borderRadius: "12px",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  color: "#1a1a2e",
-                }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#000">
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                </svg>
-                Apple
-              </motion.button>
+              {choices.map((choice, index) => (
+                <motion.div
+                  key={choice.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + index * 0.1 }}
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  onClick={() => handleSelect(choice)}
+                  style={{
+                    background:
+                      selected === choice.id
+                        ? `linear-gradient(135deg, ${choice.color} 0%, ${choice.color}dd 100%)`
+                        : "#f8fafc",
+                    borderRadius: "20px",
+                    padding: "24px",
+                    cursor: "pointer",
+                    border:
+                      selected === choice.id
+                        ? "none"
+                        : "2px solid transparent",
+                    transition: "all 0.3s ease",
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  {/* Icon */}
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    style={{
+                      width: "56px",
+                      height: "56px",
+                      background:
+                        selected === choice.id
+                          ? "rgba(255, 255, 255, 0.2)"
+                          : choice.iconBg,
+                      borderRadius: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    <choice.icon
+                      size={28}
+                      style={{
+                        color: selected === choice.id ? "white" : choice.color,
+                      }}
+                    />
+                  </motion.div>
+
+                  {/* Content */}
+                  <h2
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: 700,
+                      color: selected === choice.id ? "white" : "#1a1a2e",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {choice.title}
+                  </h2>
+                  <p
+                    style={{
+                      fontSize: "13px",
+                      color: selected === choice.id
+                        ? "rgba(255, 255, 255, 0.8)"
+                        : "#6b7280",
+                      marginBottom: "12px",
+                    }}
+                  >
+                    {choice.subtitle}
+                  </p>
+
+                  {/* Features */}
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      padding: 0,
+                      margin: 0,
+                    }}
+                  >
+                    {choice.features.map((feature, i) => (
+                      <motion.li
+                        key={i}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2 + i * 0.05 }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "8px",
+                          padding: "4px 0",
+                          color: selected === choice.id
+                            ? "rgba(255, 255, 255, 0.9)"
+                            : "#4b5563",
+                          fontSize: "12px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            width: "4px",
+                            height: "4px",
+                            background: selected === choice.id
+                              ? "white"
+                              : choice.color,
+                            borderRadius: "50%",
+                            flexShrink: 0,
+                          }}
+                        />
+                        {feature}
+                      </motion.li>
+                    ))}
+                  </ul>
+
+                  {/* Arrow */}
+                  <motion.div
+                    animate={{
+                      x: selected === choice.id ? 5 : 0,
+                      opacity: selected === choice.id ? 1 : 0.5,
+                    }}
+                    style={{
+                      position: "absolute",
+                      bottom: "20px",
+                      right: "20px",
+                      color: selected === choice.id ? "white" : choice.color,
+                    }}
+                  >
+                    <ArrowRight size={20} />
+                  </motion.div>
+                </motion.div>
+              ))}
             </div>
 
             {/* Footer */}
@@ -387,16 +335,16 @@ function Login() {
                 color: "#6b7280",
               }}
             >
-              Pas encore de compte ?{" "}
+              Vous hésitez ?{" "}
               <Link
-                to="/signup"
+                to="/"
                 style={{
                   color: "#635bff",
                   fontWeight: 600,
                   textDecoration: "none",
                 }}
               >
-                Créer un compte
+                Découvrir STARTERKIT CM
               </Link>
             </p>
           </motion.div>
@@ -422,7 +370,7 @@ function Login() {
               left: 0,
               right: 0,
               bottom: 0,
-              opacity: 0.15,
+              opacity: 0.12,
             }}
           >
             <img
@@ -543,7 +491,7 @@ function Login() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              style={{ marginBottom: "40px" }}
+              style={{ marginBottom: "48px" }}
             >
               <span
                 style={{
@@ -635,42 +583,48 @@ function Login() {
               ))}
             </motion.div>
 
-            {/* CTA */}
+            {/* Benefits */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "12px",
+              }}
             >
-              <p
-                style={{
-                  fontSize: "14px",
-                  color: "rgba(255, 255, 255, 0.5)",
-                  marginBottom: "16px",
-                }}
-              >
-                Vous représentez une institution ou un partenaire ?
-              </p>
-              <Link
-                to="/login/partner"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "14px 24px",
-                  background: "rgba(255, 255, 255, 0.1)",
-                  border: "1px solid rgba(255, 255, 255, 0.2)",
-                  borderRadius: "12px",
-                  color: "white",
-                  fontSize: "14px",
-                  fontWeight: 600,
-                  textDecoration: "none",
-                  transition: "all 0.2s ease",
-                }}
-              >
-                <Globe size={16} />
-                Espace Partenaires
-                <ArrowRight size={16} />
-              </Link>
+              {[
+                { icon: Lightbulb, text: "Accompagnement personnalisé" },
+                { icon: Award, text: "Programmes certifiants" },
+                { icon: Users, text: "Réseau national d'entrepreneurs" },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.9 + index * 0.1 }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    justifyContent: "center",
+                  }}
+                >
+                  <item.icon
+                    size={18}
+                    style={{ color: "#a78bfa" }}
+                  />
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      color: "rgba(255, 255, 255, 0.8)",
+                    }}
+                  >
+                    {item.text}
+                  </span>
+                </motion.div>
+              ))}
             </motion.div>
           </motion.div>
         </div>
@@ -691,4 +645,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignupChoice;

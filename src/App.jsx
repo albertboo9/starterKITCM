@@ -6,14 +6,23 @@ import { useAuth } from "./context/AuthContext";
 
 // Layouts
 import PublicLayout from "./components/layout/PublicLayout";
+import AuthLayout from "./components/layout/AuthLayout";
 import PrivateLayout from "./components/layout/PrivateLayout";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 // Lazy loading pages
 const Home = lazy(() => import("./pages/Home/Home"));
 const TestOrbitalBubbles = lazy(() => import("./pages/TestOrbitalBubbles"));
+// Auth pages (nouveau design multi-step)
 const Login = lazy(() => import("./pages/Auth/Login"));
-const Signup = lazy(() => import("./pages/Auth/Signup"));
+const LoginPartner = lazy(() => import("./pages/Auth/LoginPartner"));
+const SignupChoice = lazy(() => import("./pages/Auth/SignupChoice"));
+const SignupEntrepreneur = lazy(() => import("./pages/Auth/SignupEntrepreneur"));
+const SignupPartner = lazy(() => import("./pages/Auth/SignupPartner"));
+const TestAuth = lazy(() => import("./pages/Auth/TestAuth"));
+const TestLogin = lazy(() => import("./pages/Auth/TestLogin"));
+// Legacy signup (à supprimer après migration)
+// const Signup = lazy(() => import("./pages/Auth/Signup"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 const Parcours = lazy(() => import("./pages/Parcours/Parcours"));
 const Formations = lazy(() => import("./pages/Formations/Formations"));
@@ -79,12 +88,20 @@ function App() {
 
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
+          <Route element={<AuthLayout />}>
+            {/* Auth Routes - Nouveau Design */}
+            <Route path="/login" element={<TestLogin />} />
+            <Route path="/login/partner" element={<LoginPartner />} />
+            <Route path="/signup" element={<SignupChoice />} />
+            <Route path="/signup/entrepreneur" element={<SignupEntrepreneur />} />
+            <Route path="/signup/partner" element={<SignupPartner />} />
+          </Route>
+
           {/* Public Routes */}
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/test-login" element={<TestLogin />} />
             <Route path="/test-orbital" element={<TestOrbitalBubbles />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
             <Route path="/parcours" element={<Parcours />} />
             <Route path="/formations" element={<Formations />} />
             <Route path="/partenaires" element={<Partenaires />} />
@@ -128,24 +145,6 @@ function App() {
             <Route path="/certification" element={<Certification />} />
             <Route path="/upload" element={<Upload />} />
           </Route>
-
-          {/* Redirect to dashboard if authenticated */}
-          <Route
-            path="/login"
-            element={
-              isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              isAuthenticated ? (
-                <Navigate to="/dashboard" replace />
-              ) : (
-                <Signup />
-              )
-            }
-          />
 
           {/* Catch all */}
           <Route path="*" element={<Navigate to="/" replace />} />
