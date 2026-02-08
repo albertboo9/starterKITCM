@@ -1,0 +1,394 @@
+/* ========================================
+   ORBITAL BUBBLES - Design System
+   ======================================== */
+
+:root {
+  /* Couleurs principales */
+  --color-primary: #6366f1;
+  --color-primary-dark: #4f46e5;
+  --color-secondary: #10b981;
+
+  /* Fond */
+  --bg-primary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+
+  /* Catégories */
+  --category-sensibiliser: #8b5cf6;
+  --category-reseau: #10b981;
+  --category-equipe: #ec4899;
+  --category-activite: #06b6d4;
+  --category-probleme: #f97316;
+  --category-autrement: #ef4444;
+  --category-entreprise: #14b8a6;
+  --category-certifier: #eab308;
+  --category-financement: #22c55e;
+  --category-distribution: #3b82f6;
+  --category-mentor: #a855f7;
+  --category-formation: #0ea5e9;
+
+  --font-primary: "Inter", system-ui, sans-serif;
+  --bubble-size: 80px;
+}
+
+/* ========================================
+   CONTAINER
+   ======================================== */
+
+.orbital-bubbles-container {
+  position: relative;
+  width: 100%;
+  margin-top: 25px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+/* Grille de fond */
+.orbital-bubbles-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ========================================
+   ORBS DÉCORATIFS
+   ======================================== */
+
+.orbital-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orbital-orb--primary {
+  top: -15%;
+  right: -10%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.08) 0%,
+    transparent 70%
+  );
+}
+
+.orbital-orb--secondary {
+  bottom: -15%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.06) 0%,
+    transparent 70%
+  );
+}
+
+/* ========================================
+   CONTENU CENTRAL - VERSION MINIMALISTE
+   ======================================== */
+
+.orbital-central-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  width: 80%;
+}
+
+.orbital-central-content h1 {
+  font-family: var(--font-primary);
+  font-size: clamp(22px, 3.6vw, 56px); /* TRÈS GRAND */
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  line-height: 1.1;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.orbital-central-content h1 .highlight {
+  background:#4840e9;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.orbital-central-content p {
+  font-family: var(--font-primary);
+  font-size: clamp(16px, 2.5vw, 22px);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 36px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-container {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Boutons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--color-secondary);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+}
+
+/* ========================================
+   ORBITAL BUBBLE
+   ======================================== */
+
+.orbital-bubble {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+
+  border: 2px solid currentColor;
+  border-opacity: 0.3;
+
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+}
+
+/* Couleurs par catégorie */
+.orbital-bubble[data-category="awareness"] {
+  color: var(--category-sensibiliser);
+}
+.orbital-bubble[data-category="community"] {
+  color: var(--category-reseau);
+}
+.orbital-bubble[data-category="team"] {
+  color: var(--category-equipe);
+}
+.orbital-bubble[data-category="growth"] {
+  color: var(--category-activite);
+}
+.orbital-bubble[data-category="challenge"] {
+  color: var(--category-probleme);
+}
+.orbital-bubble[data-category="innovation"] {
+  color: var(--category-autrement);
+}
+.orbital-bubble[data-category="business"] {
+  color: var(--category-entreprise);
+}
+.orbital-bubble[data-category="certification"] {
+  color: var(--category-certifier);
+}
+.orbital-bubble[data-category="funding"] {
+  color: var(--category-financement);
+}
+.orbital-bubble[data-category="logistics"] {
+  color: var(--category-distribution);
+}
+.orbital-bubble[data-category="guidance"] {
+  color: var(--category-mentor);
+}
+.orbital-bubble[data-category="education"] {
+  color: var(--category-formation);
+}
+
+.orbital-bubble:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.orbital-bubble-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+}
+
+.orbital-bubble-title {
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  max-width: 55px;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+/* ========================================
+   INSTRUCTIONS
+   ======================================== */
+
+.orbital-instructions {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.95);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1000;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.orbital-instructions svg {
+  width: 18px;
+  height: 18px;
+  opacity: 0.8;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 1023px) {
+  .orbital-bubbles-container {
+    min-height: 600px;
+  }
+
+  .orbital-orb {
+    opacity: 0.5;
+  }
+
+  .orbital-orb--primary {
+    width: 500px;
+    height: 500px;
+  }
+
+  .orbital-orb--secondary {
+    width: 400px;
+    height: 400px;
+  }
+
+  .orbital-central-content {
+    padding: 36px 48px;
+    max-width: 480px;
+  }
+
+  .orbital-bubble {
+    width: 64px;
+    height: 64px;
+  }
+
+  .orbital-bubble-title {
+    font-size: 9px;
+  }
+
+  .orbital-instructions {
+    font-size: 13px;
+    padding: 12px 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .orbital-central-content {
+    padding: 28px 36px;
+    max-width: 90%;
+    margin: 16px;
+  }
+
+  .orbital-bubble {
+    width: 56px;
+    height: 56px;
+  }
+
+  .orbital-bubble-title {
+    font-size: 8px;
+    display: none;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .orbital-bubble {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .orbital-bubble {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

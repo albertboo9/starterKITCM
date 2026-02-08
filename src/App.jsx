@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 // Lazy loading pages
 const Home = lazy(() => import("./pages/Home/Home"));
+const TestOrbitalBubbles = lazy(() => import("./pages/TestOrbitalBubbles"));
 const Login = lazy(() => import("./pages/Auth/Login"));
 const Signup = lazy(() => import("./pages/Auth/Signup"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
@@ -81,6 +82,7 @@ function App() {
           {/* Public Routes */}
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/test-orbital" element={<TestOrbitalBubbles />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/parcours" element={<Parcours />} />
