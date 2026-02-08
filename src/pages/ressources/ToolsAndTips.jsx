@@ -21,7 +21,7 @@ const toolsAndTips = [
     title: "Comment rédiger un business plan efficace",
     category: "Conseils",
     type: "article",
-    image: "/images/business-plan.jpg",
+    image: "/training.jpg",
     summary:
       "Guide complet pour structurer votre projet et convaincre vos investisseurs.",
     date: "2024-01-15",
@@ -34,7 +34,7 @@ const toolsAndTips = [
     title: "Modèle de facture gratuit - Format Excel & Word",
     category: "Modèles",
     type: "download",
-    image: "/images/facture.jpg",
+    image: "/training2.jpg",
     summary:
       "Télécharger notre modèle de facture professionnel adapté aux PME camerounaises.",
     date: "2024-01-10",
@@ -47,7 +47,7 @@ const toolsAndTips = [
     title: "Checklist de création d'entreprise au Cameroun",
     category: "Outils",
     type: "article",
-    image: "/images/checklist.jpg",
+    image: "/training3.jpg",
     summary:
       "Toutes les étapes et documents nécessaires pour créer votre entreprise.",
     date: "2024-01-08",
@@ -60,7 +60,7 @@ const toolsAndTips = [
     title: "Guide des aides et financements disponibles",
     category: "Opportunités",
     type: "article",
-    image: "/images/financement.jpg",
+    image: "/training4.jpg",
     summary:
       "Découvrez tous les dispositifs de financement pour votre projet au Cameroun.",
     date: "2024-01-05",
@@ -73,9 +73,8 @@ const toolsAndTips = [
     title: "Modèle de statuts SARL",
     category: "Modèles",
     type: "download",
-    image: "/images/statuts.jpg",
-    summary:
-      "Statuts type pour SARL adaptés à la législation camerounaise.",
+    image: "/training5.jpg",
+    summary: "Statuts type pour SARL adaptés à la législation camerounaise.",
     date: "2024-01-03",
     downloads: 890,
     tags: ["juridique", "SARL", "documents"],
@@ -86,9 +85,8 @@ const toolsAndTips = [
     title: "Comment trouver des associés pour votre projet",
     category: "Conseils",
     type: "article",
-    image: "/images/associes.jpg",
-    summary:
-      "Stratégies pour rencontrer et sélectionner vos cofondateurs.",
+    image: "/training6.jpg",
+    summary: "Stratégies pour rencontrer et sélectionner vos cofondateurs.",
     date: "2024-01-01",
     readTime: "7 min",
     tags: ["équipe", "cofondateurs", "réseau"],
@@ -99,9 +97,8 @@ const toolsAndTips = [
     title: "Outil de calcul du seuil de rentabilité",
     category: "Outils",
     type: "tool",
-    image: "/images/rentabilite.jpg",
-    summary:
-      "Calculez facilement le point mort de votre entreprise.",
+    image: "/training7.jpg",
+    summary: "Calculez facilement le point mort de votre entreprise.",
     date: "2023-12-28",
     tags: ["finance", "calculateur", "gestion"],
     isFeatured: false,
@@ -111,7 +108,7 @@ const toolsAndTips = [
     title: "Top 10 des erreurs à éviter lors du démarrage",
     category: "Conseils",
     type: "article",
-    image: "/images/erreurs.jpg",
+    image: "/training3.jpg",
     summary:
       "Les pièges courants des jeunes entrepreneurs et comment les éviter.",
     date: "2023-12-25",
@@ -141,7 +138,7 @@ function ToolsAndTips() {
       searchQuery === "" ||
       tool.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tool.tags.some((tag) =>
-        tag.toLowerCase().includes(searchQuery.toLowerCase())
+        tag.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     return matchesCategory && matchesSearch;
   });
@@ -203,17 +200,21 @@ function ToolsAndTips() {
 
           {/* Quick Tags */}
           <div className="quick-tags">
-            {["Business plan", "Facture", "Statuts", "Financement", "Marketing"].map(
-              (tag) => (
-                <button
-                  key={tag}
-                  className="quick-tag"
-                  onClick={() => setSearchQuery(tag)}
-                >
-                  {tag}
-                </button>
-              )
-            )}
+            {[
+              "Business plan",
+              "Facture",
+              "Statuts",
+              "Financement",
+              "Marketing",
+            ].map((tag) => (
+              <button
+                key={tag}
+                className="quick-tag"
+                onClick={() => setSearchQuery(tag)}
+              >
+                {tag}
+              </button>
+            ))}
           </div>
         </div>
       </section>
@@ -280,7 +281,6 @@ function ToolsAndTips() {
         .resources-page {
           min-height: 100vh;
           background: #f8fafc;
-          padding-top: 72px;
         }
 
         /* Hero */
@@ -681,7 +681,15 @@ function ToolCard({ tool, featured, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
     >
-      <div className="featured-card-image" />
+      <div className="featured-card-image">
+        <img
+          src={tool.image}
+          alt={tool.title}
+          srcset=""
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </div>
+
       <div className="featured-card-content">
         <div className="featured-badge">
           <Star size={14} />
@@ -711,7 +719,15 @@ function ToolCard({ tool, featured, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05, duration: 0.4 }}
     >
-      <div className="card-image" />
+      <div className="card-image">
+        {" "}
+        <img
+          src={tool.image}
+          alt={tool.title}
+          srcset=""
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </div>
       <div className="card-content">
         <span className={`card-category ${tool.type}`}>
           <typeInfo.icon size={12} />
