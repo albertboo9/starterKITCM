@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import OrbitalBubbles from "../../components/orbital/OrbitalBubbles";
 import {
   motion,
   useScroll,
@@ -886,80 +887,10 @@ function HeroSection() {
           pointerEvents: "none",
         }}
       />
-      
-      {/* Welcome Section */}
-      <div
-        style={{
-          margin: "0 auto",
-          padding: "40px 24px 60px",
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
-        {/* Needs Bubbles - SINGLE ROW ON DESKTOP */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: "10px",
-            width: "100%",
-            marginBottom: "60px",
-            marginTop: "60px",
-          }}
-        >
-          {needsBubbles.map((item, index) => (
-            <BubbleCard
-              key={item.id}
-              item={item}
-              index={index}
-              onSelect={(selectedItem) => {
-                toggleNeed(selectedItem);
-                scrollToAssistant();
-              }}
-            />
-          ))}
-        </div>
 
-        {/* Welcome Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          style={{
-            textAlign: "center",
-            marginBottom: "60px",
-            padding: "0 20px",
-          }}
-        >
-          <h1
-            style={{
-              fontSize: "clamp(36px, 5vw, 52px)",
-              fontWeight: 800,
-              color: "#1a1a2e",
-              marginBottom: "20px",
-              letterSpacing: "-0.03em",
-              lineHeight: 1.1,
-            }}
-          >
-            Bienvenue sur <span style={{ color: "#635bff" }}>STARTERKIT CM</span>{" "}
-          </h1>
-          <p
-            style={{
-              fontSize: "clamp(18px, 2vw, 22px)",
-              color: "#4b5563",
-              lineHeight: 1.6,
-              maxWidth: "720px",
-              margin: "0 auto",
-              fontWeight: 500,
-            }}
-          >
-            La plateforme connectée du{" "}
-            <span style={{ color: "#10b981", fontWeight: 700 }}>CAMEROUN</span>{" "}
-            pour entreprendre en toute confiance.
-          </p>
-        </motion.div>
-      </div>
+    <div>
+      <OrbitalBubbles />
+    </div>
 
       {/* Assistant Section */}
       <motion.div

@@ -38,8 +38,8 @@
 .orbital-bubbles-container {
   position: relative;
   width: 100%;
+  margin-top: 25px;
   height: 100vh;
-  min-height: 700px;
   display: flex;
   align-items: center;
   justify-content: center;

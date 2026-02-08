@@ -228,18 +228,7 @@ export function OrbitalBubbles({ onBubbleClick }) {
         </motion.div>
       </div>
 
-      {/* Instructions */}
-      {!prefersReducedMotion && (
-        <motion.div
-          className="orbital-instructions"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.5 }}
-        >
-          <Hand size={16} />
-          Survolez les bulles pour les explorer
-        </motion.div>
-      )}
+
     </div>
   );
 }

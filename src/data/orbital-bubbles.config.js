@@ -21,6 +21,14 @@ export const orbitalBubblesConfig = [
     category: "community",
     description: "Construction et développement de réseau professionnel",
   },
+    {
+    id: "financement",
+    title: "Financement",
+    icon: "PiggyBank",
+    color: "var(--category-financement)",
+    category: "funding",
+    description: "Solutions de financement",
+  },
   {
     id: "equipe",
     title: "Équipe",
@@ -68,14 +76,6 @@ export const orbitalBubblesConfig = [
     color: "var(--category-certifier)",
     category: "certification",
     description: "Certification et reconnaissance",
-  },
-  {
-    id: "financement",
-    title: "Financement",
-    icon: "PiggyBank",
-    color: "var(--category-financement)",
-    category: "funding",
-    description: "Solutions de financement",
   },
   {
     id: "distribution",
