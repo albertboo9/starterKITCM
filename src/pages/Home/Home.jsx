@@ -886,6 +886,7 @@ function HeroSection() {
           pointerEvents: "none",
         }}
       />
+      
       {/* Welcome Section */}
       <div
         style={{

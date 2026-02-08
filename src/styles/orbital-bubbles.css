@@ -4,30 +4,30 @@
 
 :root {
   /* Couleurs principales */
-  --color-primary: #6366F1;
-  --color-primary-dark: #4F46E5;
-  --color-secondary: #10B981;
-  
+  --color-primary: #6366f1;
+  --color-primary-dark: #4f46e5;
+  --color-secondary: #10b981;
+
   /* Fond */
-  --bg-primary: #FFFFFF;
-  --text-primary: #0F172A;
+  --bg-primary: #ffffff;
+  --text-primary: #0f172a;
   --text-secondary: #475569;
-  
+
   /* Catégories */
-  --category-sensibiliser: #8B5CF6;
-  --category-reseau: #10B981;
-  --category-equipe: #EC4899;
-  --category-activite: #06B6D4;
-  --category-probleme: #F97316;
-  --category-autrement: #EF4444;
-  --category-entreprise: #14B8A6;
-  --category-certifier: #EAB308;
-  --category-financement: #22C55E;
-  --category-distribution: #3B82F6;
-  --category-mentor: #A855F7;
-  --category-formation: #0EA5E9;
-  
-  --font-primary: 'Inter', system-ui, sans-serif;
+  --category-sensibiliser: #8b5cf6;
+  --category-reseau: #10b981;
+  --category-equipe: #ec4899;
+  --category-activite: #06b6d4;
+  --category-probleme: #f97316;
+  --category-autrement: #ef4444;
+  --category-entreprise: #14b8a6;
+  --category-certifier: #eab308;
+  --category-financement: #22c55e;
+  --category-distribution: #3b82f6;
+  --category-mentor: #a855f7;
+  --category-formation: #0ea5e9;
+
+  --font-primary: "Inter", system-ui, sans-serif;
   --bubble-size: 80px;
 }
 
@@ -49,7 +49,7 @@
 
 /* Grille de fond */
 .orbital-bubbles-container::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background-image:
@@ -96,37 +96,31 @@
 }
 
 /* ========================================
-   CONTENU CENTRAL - VERSION AGRANDIE
+   CONTENU CENTRAL - VERSION MINIMALISTE
    ======================================== */
 
 .orbital-central-content {
   position: relative;
   z-index: 10;
   text-align: center;
-  padding: 48px 64px;
-  background: rgba(255, 255, 255, 0.98);
-  border: 3px solid var(--color-primary);
-  border-radius: 24px;
-  box-shadow: 
-    0 20px 60px rgba(99, 102, 241, 0.15),
-    0 0 0 1px rgba(99, 102, 241, 0.1);
-  max-width: 560px;  /* AGRANDI - Plus large */
-  width: 90%;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  width: 80%;
 }
 
 .orbital-central-content h1 {
   font-family: var(--font-primary);
-  font-size: clamp(24px, 4vw, 36px);
+  font-size: clamp(22px, 3.6vw, 56px); /* TRÈS GRAND */
   font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 16px;
-  line-height: 1.2;
+  margin-bottom: 20px;
+  line-height: 1.1;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 
 .orbital-central-content h1 .highlight {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background:#4840e9;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -134,10 +128,13 @@
 
 .orbital-central-content p {
   font-family: var(--font-primary);
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: clamp(16px, 2.5vw, 22px);
   color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 28px;
+  margin-bottom: 36px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cta-container {
@@ -153,15 +150,19 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 14px 32px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  padding: 16px 36px;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
   color: white;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
 }
 
 .btn-secondary {
@@ -169,15 +170,15 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 14px 32px;
+  padding: 16px 36px;
   background: var(--color-secondary);
   color: white;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
 }
 
 /* ========================================
@@ -194,7 +195,7 @@
   border-radius: 50%;
   cursor: pointer;
   pointer-events: auto;
-  
+
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.95) 0%,
@@ -202,34 +203,58 @@
   );
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  
+
   border: 2px solid currentColor;
   border-opacity: 0.3;
-  
-  box-shadow: 
+
+  box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  
+
   will-change: transform, box-shadow;
   transform: translateZ(0);
-  
+
   width: var(--bubble-size);
   height: var(--bubble-size);
 }
 
 /* Couleurs par catégorie */
-.orbital-bubble[data-category="awareness"] { color: var(--category-sensibiliser); }
-.orbital-bubble[data-category="community"] { color: var(--category-reseau); }
-.orbital-bubble[data-category="team"] { color: var(--category-equipe); }
-.orbital-bubble[data-category="growth"] { color: var(--category-activite); }
-.orbital-bubble[data-category="challenge"] { color: var(--category-probleme); }
-.orbital-bubble[data-category="innovation"] { color: var(--category-autrement); }
-.orbital-bubble[data-category="business"] { color: var(--category-entreprise); }
-.orbital-bubble[data-category="certification"] { color: var(--category-certifier); }
-.orbital-bubble[data-category="funding"] { color: var(--category-financement); }
-.orbital-bubble[data-category="logistics"] { color: var(--category-distribution); }
-.orbital-bubble[data-category="guidance"] { color: var(--category-mentor); }
-.orbital-bubble[data-category="education"] { color: var(--category-formation); }
+.orbital-bubble[data-category="awareness"] {
+  color: var(--category-sensibiliser);
+}
+.orbital-bubble[data-category="community"] {
+  color: var(--category-reseau);
+}
+.orbital-bubble[data-category="team"] {
+  color: var(--category-equipe);
+}
+.orbital-bubble[data-category="growth"] {
+  color: var(--category-activite);
+}
+.orbital-bubble[data-category="challenge"] {
+  color: var(--category-probleme);
+}
+.orbital-bubble[data-category="innovation"] {
+  color: var(--category-autrement);
+}
+.orbital-bubble[data-category="business"] {
+  color: var(--category-entreprise);
+}
+.orbital-bubble[data-category="certification"] {
+  color: var(--category-certifier);
+}
+.orbital-bubble[data-category="funding"] {
+  color: var(--category-financement);
+}
+.orbital-bubble[data-category="logistics"] {
+  color: var(--category-distribution);
+}
+.orbital-bubble[data-category="guidance"] {
+  color: var(--category-mentor);
+}
+.orbital-bubble[data-category="education"] {
+  color: var(--category-formation);
+}
 
 .orbital-bubble:focus-visible {
   outline: 3px solid var(--color-primary);
@@ -293,35 +318,35 @@
   .orbital-bubbles-container {
     min-height: 600px;
   }
-  
+
   .orbital-orb {
     opacity: 0.5;
   }
-  
+
   .orbital-orb--primary {
     width: 500px;
     height: 500px;
   }
-  
+
   .orbital-orb--secondary {
     width: 400px;
     height: 400px;
   }
-  
+
   .orbital-central-content {
     padding: 36px 48px;
     max-width: 480px;
   }
-  
+
   .orbital-bubble {
     width: 64px;
     height: 64px;
   }
-  
+
   .orbital-bubble-title {
     font-size: 9px;
   }
-  
+
   .orbital-instructions {
     font-size: 13px;
     padding: 12px 24px;
@@ -334,17 +359,17 @@
     max-width: 90%;
     margin: 16px;
   }
-  
+
   .orbital-bubble {
     width: 56px;
     height: 56px;
   }
-  
+
   .orbital-bubble-title {
     font-size: 8px;
     display: none;
   }
-  
+
   .btn-primary,
   .btn-secondary {
     padding: 12px 24px;
@@ -361,7 +386,7 @@
     animation: none !important;
     transition: none !important;
   }
-  
+
   .orbital-bubble {
     opacity: 1 !important;
     transform: none !important;

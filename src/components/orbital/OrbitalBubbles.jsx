@@ -193,7 +193,7 @@ export function OrbitalBubbles({ onBubbleClick }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          Bienvenue sur <span className="highlight">STARTERKIT CM</span>
+          Bienvenue sur le <span className="highlight">STARTERKIT CM</span>
         </motion.h1>
 
         <motion.p
@@ -201,10 +201,8 @@ export function OrbitalBubbles({ onBubbleClick }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          Votre plateforme complète pour développer votre entreprise au
-          Cameroun.
-          <br />
-          Découvrez nos services et ressources adaptés à vos besoins.
+          La plateforme connectée du CAMEROUN pour entreprendre en toute
+          confiance.
         </motion.p>
 
         <motion.div
