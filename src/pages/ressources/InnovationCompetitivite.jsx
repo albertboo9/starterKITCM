@@ -433,7 +433,7 @@ function InnovationCompetitivite() {
         .innovation-page {
           min-height: 100vh;
           background: #f8fafc;
-          padding-top: 72px;
+
         }
 
         /* Hero */

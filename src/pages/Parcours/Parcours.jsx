@@ -736,30 +736,7 @@ function Parcours() {
                 </p>
 
                 {/* Quick stats */}
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "16px",
-                    paddingTop: "16px",
-                    borderTop: "1px solid #f1f5f9",
-                  }}
-                >
-                  {category.options.map((option) => (
-                    <span
-                      key={option.id}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        fontSize: "13px",
-                        color: "#6b7280",
-                      }}
-                    >
-                      {Icons.clock}
-                      {option.duration}
-                    </span>
-                  ))}
-                </div>
+
 
                 {/* Arrow indicator */}
                 <div
