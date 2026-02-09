@@ -33,40 +33,43 @@ export function OrbitalBubbles({ onBubbleClick }) {
   }, []);
 
   // Calculate orbit positions for 6 bubbles in 3 zones (2 per zone)
-  const getOrbitConfig = useCallback((index, bubbleId) => {
-    const zoneIndex = Math.floor(index / 2) % 3;
-    const bubbleInZone = index % 2; // 0 or 1
+  const getOrbitConfig = useCallback(
+    (index, bubbleId) => {
+      const zoneIndex = Math.floor(index / 2) % 3;
+      const bubbleInZone = index % 2; // 0 or 1
 
-    // Zone centers (horizontal positions)
-    const zoneCenters = [0.17, 0.5, 0.83]; // Left, Center, Right
+      // Zone centers (horizontal positions)
+      const zoneCenters = [0.17, 0.5, 0.83]; // Left, Center, Right
 
-    // Orbit parameters
-    const centerX = dimensions.width * zoneCenters[zoneIndex];
-    const centerY = dimensions.height * 0.5;
+      // Orbit parameters
+      const centerX = dimensions.width * zoneCenters[zoneIndex];
+      const centerY = dimensions.height * 0.5;
 
-    // Much slower orbital speed for smooth, elegant movement
-    const baseSpeed = 0.00015; // Much slower than 0.0008
-    const speed = baseSpeed + (index * 0.00002);
-    const direction = bubbleInZone === 0 ? 1 : -1;
+      // Much slower orbital speed for smooth, elegant movement
+      const baseSpeed = 0.00015; // Much slower than 0.0008
+      const speed = baseSpeed + index * 0.00002;
+      const direction = bubbleInZone === 0 ? 1 : -1;
 
-    // Larger orbit radius for more dramatic movement
-    const radiusX = dimensions.width * 0.14;
-    const radiusY = dimensions.height * 0.30;
+      // Larger orbit radius for more dramatic movement
+      const radiusX = dimensions.width * 0.14;
+      const radiusY = dimensions.height * 0.3;
 
-    // Phase offset - 2 bubbles per zone: one at top (0), one at bottom (PI)
-    // This ensures bubbles in same zone are 180° apart
-    const phase = bubbleInZone === 0 ? 80 : -80;
+      // Phase offset - 2 bubbles per zone: one at top (0), one at bottom (PI)
+      // This ensures bubbles in same zone are 180° apart
+      const phase = bubbleInZone === 0 ? 80 : -80;
 
-    return {
-      centerX,
-      centerY,
-      radiusX,
-      radiusY,
-      speed,
-      direction,
-      phase,
-    };
-  }, [dimensions]);
+      return {
+        centerX,
+        centerY,
+        radiusX,
+        radiusY,
+        speed,
+        direction,
+        phase,
+      };
+    },
+    [dimensions],
+  );
 
   // Animation loop using requestAnimationFrame
   useEffect(() => {
@@ -114,13 +117,28 @@ export function OrbitalBubbles({ onBubbleClick }) {
   );
 
   return (
-    <div ref={containerRef} className="orbital-bubbles-container" role="region" aria-label="Navigation orbitale">
+    <div
+      ref={containerRef}
+      className="orbital-bubbles-container"
+      role="region"
+      aria-label="Navigation orbitale"
+    >
       {/* Decorative orbs */}
       <div className="orbital-orb orbital-orb--primary" />
       <div className="orbital-orb orbital-orb--secondary" />
 
       {/* Orbit paths (subtle) */}
-      <svg className="orbital-orbits" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 1 }}>
+      <svg
+        className="orbital-orbits"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      >
         {[0.17, 0.5, 0.83].map((centerX, i) => (
           <ellipse
             key={i}
@@ -136,12 +154,90 @@ export function OrbitalBubbles({ onBubbleClick }) {
         ))}
       </svg>
 
+      {/* Institutionnal logos in outer orbits */}
+      {dimensions.width > 0 && (
+        <>
+          {/* Left orbit logo - MINPMEESA */}
+          <div
+            className="orbital-institution-logo orbital-institution-logo--left"
+            style={{
+              position: "absolute",
+              left: dimensions.width * 0.17,
+              top: dimensions.height * 0.5,
+              transform: "translate(-50%, -50%)",
+              width: "var(--institution-logo-size)",
+              height: "var(--institution-logo-size)",
+              borderRadius: "50%",
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)",
+              boxShadow:
+                "0 4px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,1)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 2,
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src="/logos/minpmeesa.png"
+              alt="MINPMEESA"
+              style={{
+                width: "75%",
+                height: "75%",
+                objectFit: "contain",
+              }}
+            />
+          </div>
+
+          {/* Right orbit logo - EMBLEME */}
+          <div
+            className="orbital-institution-logo orbital-institution-logo--right"
+            style={{
+              position: "absolute",
+              left: dimensions.width * 0.83,
+              top: dimensions.height * 0.5,
+              transform: "translate(-50%, -50%)",
+              width: "var(--institution-logo-size)",
+              height: "var(--institution-logo-size)",
+              borderRadius: "50%",
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)",
+              boxShadow:
+                "0 4px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,1)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 2,
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src="/logos/embleme.png"
+              alt="Emblème"
+              style={{
+                width: "75%",
+                height: "75%",
+                objectFit: "contain",
+              }}
+            />
+          </div>
+        </>
+      )}
+
       {/* Bubbles */}
       {orbitalBubblesConfig.map((bubble, index) => {
         const pos = positions[bubble.id] || { x: 0, y: 0 };
-        
+
         // Assigner chaque bulle à un coin
-        const corners = ["top-left", "top-right", "bottom-right", "bottom-left", "top-right", "bottom-left"];
+        const corners = [
+          "top-left",
+          "top-right",
+          "bottom-right",
+          "bottom-left",
+          "top-right",
+          "bottom-left",
+        ];
         const corner = corners[index % corners.length];
 
         return (
@@ -161,48 +257,53 @@ export function OrbitalBubbles({ onBubbleClick }) {
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            delay: 0.5, 
+          transition={{
+            delay: 0.5,
             duration: 0.8,
-            ease: [0.25, 0.46, 0.45, 0.94] 
+            ease: [0.25, 0.46, 0.45, 0.94],
           }}
         >
           Bienvenue sur le <span className="highlight">STARTER</span>
           <span style={{ color: "#ef4444", fontWeight: 700 }}>KIT</span>
-          <span style={{ color: "rgb(255 240 0 / 81%)", fontWeight: 700 }}> CM</span>
+          <span style={{ color: "rgb(255 240 0 / 81%)", fontWeight: 700 }}>
+            {" "}
+            CM
+          </span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            delay: 0.8, 
+          transition={{
+            delay: 0.8,
             duration: 0.7,
-            ease: [0.25, 0.46, 0.45, 0.94] 
+            ease: [0.25, 0.46, 0.45, 0.94],
           }}
         >
-          La plateforme connectée du <span style={{ color: "#10b981", fontWeight: 700 }}>CAMEROUN</span> pour entreprendre en toute confiance.
+          La plateforme connectée du{" "}
+          <span style={{ color: "#10b981", fontWeight: 700 }}>CAMEROUN</span>{" "}
+          pour entreprendre en toute confiance.
         </motion.p>
 
         <motion.div
           className="cta-container"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            delay: 1.1, 
+          transition={{
+            delay: 1.1,
             duration: 0.6,
-            ease: [0.25, 0.46, 0.45, 0.94] 
+            ease: [0.25, 0.46, 0.45, 0.94],
           }}
         >
-          <motion.button 
-            className="btn-primary" 
+          <motion.button
+            className="btn-primary"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.25 }}
           >
             Découvrir
           </motion.button>
-          
+
           {/* Logo APME Circle */}
           <motion.div
             className="apme-logo-circle"
@@ -211,15 +312,15 @@ export function OrbitalBubbles({ onBubbleClick }) {
             transition={{ delay: 1.3, duration: 0.5 }}
             whileHover={{ scale: 1.08 }}
           >
-            <img 
-              src="/logos/partners/APME.png" 
+            <img
+              src="/logos/partners/APME.png"
               alt="APME Cameroun"
               className="apme-logo-img"
             />
           </motion.div>
-          
-          <motion.button 
-            className="btn-secondary" 
+
+          <motion.button
+            className="btn-secondary"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.25 }}
@@ -233,4 +334,3 @@ export function OrbitalBubbles({ onBubbleClick }) {
 }
 
 export default OrbitalBubbles;
-
