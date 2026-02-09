@@ -27,6 +27,7 @@ const MenuStylesDemo = lazy(() => import("./pages/MenuStylesDemo"));
 const MegaMenuDemo = lazy(() => import("./pages/MegaMenuDemo"));
 const TestAuth = lazy(() => import("./pages/Auth/TestAuth"));
 const TestLogin = lazy(() => import("./pages/Auth/TestLogin"));
+const TestOrbitalRedesign = lazy(() => import("./pages/TestOrbitalRedesign"));
 // Legacy signup (à supprimer après migration)
 // const Signup = lazy(() => import("./pages/Auth/Signup"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
@@ -125,6 +126,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/test-login" element={<TestLogin />} />
             <Route path="/test-orbital" element={<TestOrbitalBubbles />} />
+          <Route path="/test-redesign" element={<TestOrbitalRedesign />} />
             <Route path="/demo/menus" element={<MenuStylesDemo />} />
             <Route path="/demo/mega-menu" element={<MegaMenuDemo />} />
             <Route path="/parcours" element={<Parcours />} />

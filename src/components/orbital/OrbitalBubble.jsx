@@ -42,6 +42,7 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
     index,
     position,
     corner = "center",
+    size = "normal",
     onClick,
     className,
     style,
@@ -58,6 +59,24 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
   // Calculer la position de départ selon le coin
   const cornerOffset = getCornerPosition(corner, position);
 
+  // Taille des bulles
+  const bubbleSizes = {
+    small: "85px",
+    normal: "100px",
+    large: "140px",
+    xlarge: "180px",
+  };
+  const bubbleSize = bubbleSizes[size] || bubbleSizes.normal;
+
+  // Ajuster l'icône selon la taille
+  const iconSizes = {
+    small: 22,
+    normal: 28,
+    large: 36,
+    xlarge: 44,
+  };
+  const iconSize = iconSizes[size] || iconSizes.normal;
+
   return (
     <motion.div
       ref={ref}
@@ -66,16 +85,17 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
       style={{
         ...style,
         "--glow-color": color,
+        "--bubble-size": bubbleSize,
         left: position?.x,
         top: position?.y,
       }}
       // Entrée depuis le coin avec rebond
-      initial={{ 
-        opacity: 0, 
+      initial={{
+        opacity: 0,
         scale: 0.3,
         x: cornerOffset.x,
         y: cornerOffset.y,
-        rotate: cornerOffset.x > 0 ? 15 : -15
+        rotate: cornerOffset.x > 0 ? 15 : -15,
       }}
       animate={{
         opacity: 1,
@@ -93,7 +113,7 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
       whileHover={{
         scale: 1.12,
         y: -12,
-        transition: { duration: HOVER_DURATION, ease: "easeOut" }
+        transition: { duration: HOVER_DURATION, ease: "easeOut" },
       }}
       whileTap={{ scale: 0.96 }}
       onClick={() => onClick?.({ id, title, category })}
@@ -125,7 +145,7 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: enterDelay + 0.2, duration: 0.4 }}
         >
-          <IconComponent size={28} strokeWidth={1.5} color={color} />
+          <IconComponent size={iconSize} strokeWidth={1.5} color={color} />
         </motion.div>
       </span>
 

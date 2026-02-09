@@ -11,18 +11,19 @@ export const orbitalBubblesConfig = [
     icon: "Lightbulb",
     color: "var(--category-sensibiliser)",
     category: "awareness",
+    size: "large",
     description: "Sensibilisation aux opportunités entrepreneuriales",
   },
 
-    {
+  {
     id: "financement",
     title: "Financement",
     icon: "PiggyBank",
     color: "var(--category-financement)",
     category: "funding",
+    size: "large",
     description: "Solutions de financement",
   },
-
 
   {
     id: "entreprise",
@@ -30,12 +31,14 @@ export const orbitalBubblesConfig = [
     icon: "Building2",
     color: "var(--category-entreprise)",
     category: "business",
+    size: "large",
     description: "Structuration et gestion d'entreprise",
   },
   {
     id: "certifier",
     title: "Certifier",
     icon: "Award",
+    size: "large",
     color: "var(--category-certifier)",
     category: "certification",
     description: "Certification et reconnaissance",
@@ -47,6 +50,7 @@ export const orbitalBubblesConfig = [
     icon: "GraduationCap",
     color: "var(--category-mentor)",
     category: "guidance",
+    size: "large",
     description: "Accompagnement par des mentors",
   },
   {
@@ -55,6 +59,7 @@ export const orbitalBubblesConfig = [
     icon: "BookOpen",
     color: "var(--category-formation)",
     category: "education",
+    size: "large",
     description: "Formation et développement des compétences",
   },
 ];
