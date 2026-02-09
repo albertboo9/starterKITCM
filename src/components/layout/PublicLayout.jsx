@@ -37,8 +37,8 @@ function PublicLayout() {
     { path: "/ressources/outils-bons-plans", label: "Outils", color: "#8B5CF6" },
     { path: "/ressources/informations", label: "Infos", color: "#3B82F6" },
     { path: "/ressources/annuaire", label: "Annuaire", color: "#10B981" },
-    { path: "/ressources/innovation", label: "Innov", color: "#EC4899" },
-    { path: "/ressources/projets", label: "Projets", color: "#F59E0B" },
+    { path: "/ressources/innovation", label: "Innov", color: "#7c3aed" },
+    { path: "/ressources/projets", label: "Projets", color: "#7c3aed" },
     { path: "/ressources/communaute", label: "Commune", color: "#06B6D4" },
   ];
 

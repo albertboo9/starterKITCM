@@ -554,12 +554,13 @@ function StarterCommunity() {
           font-size: 15px;
           font-weight: 600;
           cursor: pointer;
+          
           transition: all 0.2s ease;
         }
 
         .join-btn {
           background: white;
-          color: #db2777;
+          color: #059669;
           border: none;
         }
 
@@ -595,7 +596,7 @@ function StarterCommunity() {
         }
 
         .stat-item svg {
-          color: #ec4899;
+          color:#059669;
         }
 
         .stat-value {
@@ -649,7 +650,7 @@ function StarterCommunity() {
           border: none;
           font-size: 14px;
           font-weight: 500;
-          color: #6b7280;
+          color: #059669;
           cursor: pointer;
           transition: all 0.2s ease;
           text-align: left;
