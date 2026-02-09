@@ -140,30 +140,31 @@
 
 .cta-container {
   display: flex;
-  gap: 16px;
+  gap: 32px; /* Plus d'espace entre les éléments */
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
 }
 
-/* Boutons */
+/* Boutons - VERSION AGRANDIE */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 16px 36px;
+  padding: 20px 44px; /* Plus grand */
   background: linear-gradient(
     135deg,
     var(--color-primary) 0%,
     var(--color-primary-dark) 100%
   );
   color: white;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 18px; /* Plus grand */
+  font-weight: 700;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 6px 30px rgba(99, 102, 241, 0.45);
 }
 
 .btn-secondary {
@@ -171,21 +172,21 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 16px 36px;
+  padding: 20px 44px; /* Plus grand */
   background: var(--color-secondary);
   color: white;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 18px; /* Plus grand */
+  font-weight: 700;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 6px 30px rgba(16, 185, 129, 0.45);
 }
 
-/* Logo APME Circle */
+/* Logo APME Circle - VERSION AGRANDIE ET PLUS VISIBLE */
 .apme-logo-circle {
-  width: 48px;
-  height: 48px;
+  width: 72px; /* Plus grand: 48px -> 72px */
+  height: 72px; /* Plus grand */
   border-radius: 50%;
   overflow: hidden;
   display: flex;
@@ -193,23 +194,23 @@
   justify-content: center;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(255, 255, 255, 0.85) 100%
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(255, 255, 255, 0.92) 100%
   );
-  border: 2px solid rgba(255, 255, 255, 0.8);
+  border: 3px solid rgba(255, 255, 255, 0.9);
   box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    0 6px 30px rgba(0, 0, 0, 0.1),
+    inset 0 2px 0 rgba(255, 255, 255, 1);
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .apme-logo-circle:hover {
-  transform: scale(1.08);
+  transform: scale(1.1);
   box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 0 20px rgba(99, 102, 241, 0.15);
+    0 10px 40px rgba(0, 0, 0, 0.15),
+    inset 0 2px 0 rgba(255, 255, 255, 0.95),
+    0 0 30px rgba(99, 102, 241, 0.2);
 }
 
 .apme-logo-img {
@@ -220,9 +221,19 @@
 
 /* Responsive adjustments for CTA */
 @media (max-width: 767px) {
+  .cta-container {
+    gap: 20px;
+  }
+  
   .apme-logo-circle {
-    width: 40px;
-    height: 40px;
+    width: 56px;
+    height: 56px;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 16px 32px;
+    font-size: 16px;
   }
 }
 
