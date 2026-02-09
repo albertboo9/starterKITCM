@@ -394,7 +394,7 @@ function EntrepreneurProjects() {
 
         /* Hero */
         .projects-hero {
-          background: #7c3aed ;
+          background: #7c3aed;
           padding: 80px 24px;
         }
 
@@ -701,6 +701,7 @@ function EntrepreneurProjects() {
 
         .project-placeholder {
           display: flex;
+          background: #7c3aed;
           align-items: center;
           justify-content: center;
           width: 100%;
@@ -837,7 +838,7 @@ function EntrepreneurProjects() {
         }
 
         .invest-btn {
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+          background: #7c3aed;
           color: white;
           border: none;
           padding: 10px 20px;
