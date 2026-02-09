@@ -4,15 +4,32 @@ import * as Icons from "lucide-react";
 
 /**
  * OrbitalBubble - Bulle avec animation premium et fluide
- * Animations lentes, élégantes avec entrée staggerée
+ * Animations lentes, élégantes avec entrée depuis les coins + rebond
  */
 
 // Délais d'entrée pour chaque index (0-5) - entrée cascade élégante
-const enterDelays = [0, 0.2, 0.4, 0.6, 0.8, 1.0];
+const enterDelays = [0, 0.15, 0.3, 0.45, 0.6, 0.75];
 
 // Durées d'animation pour effet premium
-const ANIMATION_DURATION = 0.8;
+const ANIMATION_DURATION = 1.0;
 const HOVER_DURATION = 0.4;
+
+// Fonction pour calculer la position de départ selon le coin
+const getCornerPosition = (corner, position) => {
+  const offset = 400; // Distance de départ depuis le coin
+  switch (corner) {
+    case "top-left":
+      return { x: -offset, y: -offset };
+    case "top-right":
+      return { x: offset, y: -offset };
+    case "bottom-left":
+      return { x: -offset, y: offset };
+    case "bottom-right":
+      return { x: offset, y: offset };
+    default:
+      return { x: 0, y: 0 };
+  }
+};
 
 export const OrbitalBubble = forwardRef(function OrbitalBubble(
   {
@@ -24,6 +41,7 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
     description,
     index,
     position,
+    corner = "center",
     onClick,
     className,
     style,
@@ -37,6 +55,9 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
   // Délai de'entrée selon l'index
   const enterDelay = enterDelays[index % enterDelays.length];
 
+  // Calculer la position de départ selon le coin
+  const cornerOffset = getCornerPosition(corner, position);
+
   return (
     <motion.div
       ref={ref}
@@ -48,17 +69,25 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
         left: position?.x,
         top: position?.y,
       }}
-      // Entrée élégante avec scale et opacity
-      initial={{ opacity: 0, scale: 0.3, y: 50 }}
+      // Entrée depuis le coin avec rebond
+      initial={{ 
+        opacity: 0, 
+        scale: 0.3,
+        x: cornerOffset.x,
+        y: cornerOffset.y,
+        rotate: cornerOffset.x > 0 ? 15 : -15
+      }}
       animate={{
         opacity: 1,
         scale: 1,
+        x: 0,
         y: 0,
+        rotate: 0,
       }}
       transition={{
         duration: ANIMATION_DURATION,
         delay: enterDelay,
-        ease: [0.25, 0.46, 0.45, 0.94], // Ease premium smooth
+        ease: [0.34, 1.56, 0.64, 1], // Ease avec rebond
       }}
       // Hover avec effet de "levée" elegant
       whileHover={{

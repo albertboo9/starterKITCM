@@ -138,6 +138,10 @@ export function OrbitalBubbles({ onBubbleClick }) {
       {/* Bubbles */}
       {orbitalBubblesConfig.map((bubble, index) => {
         const pos = positions[bubble.id] || { x: 0, y: 0 };
+        
+        // Assigner chaque bulle à un coin
+        const corners = ["top-left", "top-right", "bottom-right", "bottom-left", "top-right", "bottom-left"];
+        const corner = corners[index % corners.length];
 
         return (
           <OrbitalBubble
@@ -145,6 +149,7 @@ export function OrbitalBubbles({ onBubbleClick }) {
             {...bubble}
             position={pos}
             index={index}
+            corner={corner}
             onClick={handleBubbleClick}
           />
         );
@@ -175,7 +180,7 @@ export function OrbitalBubbles({ onBubbleClick }) {
             ease: [0.25, 0.46, 0.45, 0.94] 
           }}
         >
-          La plateforme connectée du CAMEROUN pour entreprendre en toute confiance.
+          La plateforme connectée du <span style={{ color: "#10b981", fontWeight: 700 }}>CAMEROUN</span> pour entreprendre en toute confiance.
         </motion.p>
 
         <motion.div
