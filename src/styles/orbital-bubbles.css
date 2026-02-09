@@ -1,4 +1,4 @@
-/* ========================================
+  /* ========================================
    ORBITAL BUBBLES - Design System
    ======================================== */
 
@@ -114,34 +114,45 @@
   border: none;
   box-shadow: none;
   width: 80%;
+  transform: translateY(-40px); /* Légèrement plus haut */
 }
 
 .orbital-central-content h1 {
   font-family: var(--font-primary);
-  font-size: clamp(32px, 9.6vw, 56px); /* TRÈS GRAND */
-  font-weight: 800;
+  font-size: clamp(42px, 10vw, 72px); /* PLUS GRAND ET IMPOSANT */
+  font-weight: 900;
   color: var(--text-primary);
-  margin-bottom: 20px;
-  line-height: 1.1;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  line-height: 1.05;
+  letter-spacing: -2px; /* Plus serré */
+  white-space: nowrap; /* FORCE UNE SEULE LIGNE */
+  text-shadow: 
+    0 2px 10px rgba(0, 0, 0, 0.15),
+    0 4px 30px rgba(0, 0, 0, 0.1),
+    0 0 60px rgba(99, 102, 241, 0.1);
 }
 
 .orbital-central-content h1 .highlight {
-  background: #00CEC8;
+  background: linear-gradient(135deg, #00CEC8 0%, #00B894 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 0 40px rgba(0, 206, 200, 0.4);
 }
 
 .orbital-central-content p {
   font-family: var(--font-primary);
-  font-size: clamp(16px, 2.5vw, 22px);
+  font-size: clamp(18px, 2.8vw, 26px);
+  font-weight: 600;
   color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 36px;
-  max-width: 600px;
+  line-height: 1.5;
+  margin-bottom: 48px;
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
+  white-space: nowrap; /* FORCE UNE SEULE LIGNE */
 }
 
 .cta-container {

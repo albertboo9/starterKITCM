@@ -253,8 +253,11 @@ export function OrbitalBubbles({ onBubbleClick }) {
         );
       })}
 
-      {/* Central content */}
-      <div className="orbital-central-content">
+      {/* Central content - VERSION IMPACTANTE */}
+      <div
+        className="orbital-central-content"
+        style={{ transform: "translate(-90px, -95px)" }}
+      >
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -263,8 +266,16 @@ export function OrbitalBubbles({ onBubbleClick }) {
             duration: 0.8,
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
+          style={{
+            fontSize: "clamp(42px, 10vw, 72px)",
+            fontWeight: 900,
+            letterSpacing: "-1px",
+           
+            textShadow:
+              "0 2px 10px rgba(0, 0, 0, 0.15), 0 4px 30px rgba(0, 0, 0, 0.1), 0 0 60px rgba(99, 102, 241, 0.1)",
+          }}
         >
-          Bienvenue sur le <span className="highlight">STARTER</span>
+          BIENVENUE SUR LE <span className="highlight">STARTER</span>
           <span style={{ color: "#ef4444", fontWeight: 700 }}>KIT</span>
           <span style={{ color: "rgb(255 240 0 / 81%)", fontWeight: 700 }}>
             {" "}
@@ -279,6 +290,13 @@ export function OrbitalBubbles({ onBubbleClick }) {
             delay: 0.8,
             duration: 0.7,
             ease: [0.25, 0.46, 0.45, 0.94],
+          }}
+          style={{
+            fontSize: "clamp(18px, 2.8vw, 26px)",
+            fontWeight: 600,
+            letterSpacing: "0.5px",
+            textShadow: "0 1px 10px rgba(0, 0, 0, 0.08)",
+            whiteSpace: "nowrap",
           }}
         >
           La plateforme connectée du{" "}
