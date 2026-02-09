@@ -90,6 +90,8 @@ function PublicLayout() {
                 height: "40px",
                 borderRadius: "10px",
                 display: "flex",
+                marginRight: "70px",
+                marginLeft: "20px",
                 alignItems: "center",
                 justifyContent: "center",
                 overflow: "hidden",
@@ -106,19 +108,6 @@ function PublicLayout() {
                 }}
               />
             </div>
-            <span
-              style={{
-                fontSize: "20px",
-                fontWeight: 700,
-                marginRight: "4px",
-                background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-              className="header-logo-text"
-            >
-            MINPEEMSA
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -213,6 +202,7 @@ function PublicLayout() {
               display: "flex",
               alignItems: "center",
               gap: "12px",
+              marginLeft: "65px",
             }}
             className="desktop-actions"
           >
