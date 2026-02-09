@@ -28,6 +28,7 @@
   --category-formation: #0ea5e9;
 
   --font-primary: "Inter", system-ui, sans-serif;
+  --font-bubble-title: "Great Vibes", cursive;
   --bubble-size: 100px;
   --bubble-icon-size: 24px;
 }
@@ -359,19 +360,17 @@
 }
 
 .orbital-bubble-title {
-  font-family: var(--font-primary);
-  font-size: 10px;
+  font-family: var(--font-bubble-title);
+  font-size: 20px;
   font-weight: 700;
   color: var(--text-primary);
   text-align: center;
   line-height: 1.2;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
 }
 
 .orbital-bubble-description {
   font-family: var(--font-primary);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 500;
   color: var(--text-secondary);
   text-align: center;
