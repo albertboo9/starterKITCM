@@ -8,7 +8,7 @@ import * as Icons from "lucide-react";
  */
 
 // Délais d'entrée pour chaque index (0-5) - entrée cascade élégante
-const enterDelays = [0, 0.15, 0.3, 0.45, 0.6, 0.75];
+const enterDelays = [0, 0.3, 0.5, 0.6, 0.8, 0.9];
 
 // Durées d'animation pour effet premium
 const ANIMATION_DURATION = 1.0;

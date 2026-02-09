@@ -888,9 +888,226 @@ function HeroSection() {
         }}
       />
 
-    <div>
+    <div style={{ minHeight: "100vh", position: "relative" }}>
       <OrbitalBubbles />
     </div>
+
+    {/* APME Split Screen Section */}
+    <motion.section
+      id="apme-section"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      style={{
+        display: "flex",
+        minHeight: "500px",
+        background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Background decorative elements */}
+      <div style={{
+        position: "absolute",
+        top: "-100px",
+        left: "-100px",
+        width: "400px",
+        height: "400px",
+        borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(99, 91, 255, 0.08) 0%, transparent 70%)",
+        filter: "blur(60px)",
+      }} />
+      <div style={{
+        position: "absolute",
+        bottom: "-150px",
+        right: "-100px",
+        width: "500px",
+        height: "500px",
+        borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%)",
+        filter: "blur(80px)",
+      }} />
+
+      {/* Left side - Image */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "60px",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          whileHover={{ scale: 1.02 }}
+          style={{
+            position: "relative",
+            borderRadius: "24px",
+            overflow: "hidden",
+            boxShadow: "0 25px 60px rgba(0, 0, 0, 0.15)",
+          }}
+        >
+          <img
+            src="/employees-explaining-business.jpg"
+            alt="Équipe APME - Accompagnement des entrepreneurs"
+            style={{
+              width: "100%",
+              maxWidth: "500px",
+              height: "auto",
+              display: "block",
+            }}
+          />
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(to top, rgba(99, 91, 255, 0.1) 0%, transparent 50%)",
+            pointerEvents: "none",
+          }} />
+        </motion.div>
+      </motion.div>
+
+      {/* Right side - Content */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "60px 80px 60px 40px",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "12px",
+            marginBottom: "24px",
+            padding: "10px 20px",
+            background: "rgba(255, 255, 255, 0.9)",
+            borderRadius: "50px",
+            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
+            width: "fit-content",
+          }}
+        >
+          <img
+            src="/logos/partners/APME.png"
+            alt="APME Cameroun"
+            style={{
+              width: "32px",
+              height: "32px",
+              objectFit: "contain",
+            }}
+          />
+          <span style={{
+            fontSize: "14px",
+            fontWeight: 700,
+            color: "#1a1a2e",
+            letterSpacing: "0.5px",
+          }}>
+            AGENCE DES PME
+          </span>
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          style={{
+            fontSize: "clamp(28px, 3.5vw, 42px)",
+            fontWeight: 800,
+            color: "#1a1a2e",
+            lineHeight: 1.2,
+            marginBottom: "24px",
+          }}
+        >
+          L'APME vous <span style={{ color: "#635bff" }}>accompagne</span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          style={{
+            fontSize: "16px",
+            color: "#475569",
+            lineHeight: 1.7,
+            marginBottom: "16px",
+          }}
+        >
+          Informations, accompagnement, conseils, l'<strong>AGENCE DES PME</strong> est là pour vous aider à chaque étape de votre projet.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          style={{
+            fontSize: "16px",
+            color: "#475569",
+            lineHeight: 1.7,
+            marginBottom: "24px",
+          }}
+        >
+          De nombreux acteurs innovent pour donner plus d'impact à leur projet.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.9 }}
+        >
+          <motion.button
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "10px",
+              padding: "16px 32px",
+              background: "linear-gradient(135deg, #635bff 0%, #4f46e5 100%)",
+              color: "white",
+              fontSize: "16px",
+              fontWeight: 600,
+              border: "none",
+              borderRadius: "12px",
+              cursor: "pointer",
+              boxShadow: "0 8px 30px rgba(99, 91, 255, 0.35)",
+              transition: "all 0.3s ease",
+            }}
+          >
+            À votre tour d'être l'entrepreneur que vous rêvez!
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </motion.button>
+        </motion.div>
+      </motion.div>
+    </motion.section>
 
       {/* Assistant Section */}
       <motion.div
