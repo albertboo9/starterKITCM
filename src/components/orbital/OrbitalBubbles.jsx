@@ -169,7 +169,7 @@ export function OrbitalBubbles({ onBubbleClick }) {
         >
           Bienvenue sur le <span className="highlight">STARTER</span>
           <span style={{ color: "#ef4444", fontWeight: 700 }}>KIT</span>
-          <span style={{ color: "#eab308", fontWeight: 700 }}> CM</span>
+          <span style={{ color: "rgb(255 240 0 / 81%)", fontWeight: 700 }}> CM</span>
         </motion.h1>
 
         <motion.p
