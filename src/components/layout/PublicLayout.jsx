@@ -320,6 +320,35 @@ function PublicLayout() {
         </div>
       </header>
 
+      {/* Bannière Cameroon - Drapeau officiel avec étoile centrée */}
+      <div
+        style={{
+          height: "7px",
+          width: "100%",
+          background: "linear-gradient(90deg, #009E49 0%, #009E49 33.33%, #CE1126 33.33%, #CE1126 66.66%, #FCD116 66.66%, #FCD116 100%)",
+          position: "fixed",
+          top: scrolled ? "72px" : "72px",
+          left: 0,
+          zIndex: 999,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {/* Étoile centrée dans la partie jaune */}
+        <span
+          style={{
+            color: "#FCD116",
+            fontSize: "14px",
+             // Centre de la partie jaune (66.66% + 16.5% = 83.16%)
+            textShadow: "0 1px 2px rgba(0,0,0,0.3)",
+            filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.2))",
+          }}
+        >
+          ★
+        </span>
+      </div>
+
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
@@ -586,7 +615,7 @@ function PublicLayout() {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
           style={{
-            paddingTop: location.pathname === "/" ? "0" : "72px",
+            paddingTop: location.pathname === "/" ? "72px" : "78px",
           }}
         >
           <Outlet />

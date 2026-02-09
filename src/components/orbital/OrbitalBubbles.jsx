@@ -247,6 +247,7 @@ export function OrbitalBubbles({ onBubbleClick }) {
             position={pos}
             index={index}
             corner={corner}
+            image="/bubble.jpg"
             onClick={handleBubbleClick}
           />
         );
