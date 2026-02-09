@@ -17,8 +17,14 @@ const TestOrbitalBubbles = lazy(() => import("./pages/TestOrbitalBubbles"));
 const Login = lazy(() => import("./pages/Auth/Login"));
 const LoginPartner = lazy(() => import("./pages/Auth/LoginPartner"));
 const SignupChoice = lazy(() => import("./pages/Auth/SignupChoice"));
-const SignupEntrepreneur = lazy(() => import("./pages/Auth/SignupEntrepreneur"));
+const SignupEntrepreneur = lazy(
+  () => import("./pages/Auth/SignupEntrepreneur"),
+);
 const SignupPartner = lazy(() => import("./pages/Auth/SignupPartner"));
+
+// Test pages
+const MenuStylesDemo = lazy(() => import("./pages/MenuStylesDemo"));
+const MegaMenuDemo = lazy(() => import("./pages/MegaMenuDemo"));
 const TestAuth = lazy(() => import("./pages/Auth/TestAuth"));
 const TestLogin = lazy(() => import("./pages/Auth/TestLogin"));
 // Legacy signup (à supprimer après migration)
@@ -93,7 +99,10 @@ function App() {
             <Route path="/login" element={<TestLogin />} />
             <Route path="/login/partner" element={<LoginPartner />} />
             <Route path="/signup" element={<SignupChoice />} />
-            <Route path="/signup/entrepreneur" element={<SignupEntrepreneur />} />
+            <Route
+              path="/signup/entrepreneur"
+              element={<SignupEntrepreneur />}
+            />
             <Route path="/signup/partner" element={<SignupPartner />} />
           </Route>
 
@@ -102,6 +111,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/test-login" element={<TestLogin />} />
             <Route path="/test-orbital" element={<TestOrbitalBubbles />} />
+            <Route path="/demo/menus" element={<MenuStylesDemo />} />
+            <Route path="/demo/mega-menu" element={<MegaMenuDemo />} />
             <Route path="/parcours" element={<Parcours />} />
             <Route path="/formations" element={<Formations />} />
             <Route path="/partenaires" element={<Partenaires />} />

@@ -3,18 +3,32 @@ import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 
 /**
- * OrbitalBubble - Bulle avec animation de flottaison simple
+ * OrbitalBubble - Bulle avec animation premium et fluide
+ * Animations lentes, élégantes avec entrée depuis les coins + rebond
  */
 
-/**
- * Configuration des animations de flottaison
- * Chaque bulle a un décalage de phase différent pour un effet naturel
- */
-const floatDelays = {
-  top: [0, 0.5, 1, 1.5],
-  left: [0.3, 1.8],
-  right: [0.8, 2.2],
-  bottom: [0.2, 0.7, 1.2, 1.7],
+// Délais d'entrée pour chaque index (0-5) - entrée cascade élégante
+const enterDelays = [0, 0.3, 0.5, 0.6, 0.8, 0.9];
+
+// Durées d'animation pour effet premium
+const ANIMATION_DURATION = 1.0;
+const HOVER_DURATION = 0.4;
+
+// Fonction pour calculer la position de départ selon le coin
+const getCornerPosition = (corner, position) => {
+  const offset = 400; // Distance de départ depuis le coin
+  switch (corner) {
+    case "top-left":
+      return { x: offset, y: offset };
+    case "top-right":
+      return { x: -offset, y: offset };
+    case "bottom-left":
+      return { x: offset, y: -offset };
+    case "bottom-right":
+      return { x: -offset, y: offset };
+    default:
+      return { x: 0, y: 0 };
+  }
 };
 
 export const OrbitalBubble = forwardRef(function OrbitalBubble(
@@ -24,10 +38,11 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
     icon,
     category,
     color,
+    description,
     index,
     position,
+    corner = "center",
     onClick,
-    side = "top",
     className,
     style,
     ...props
@@ -37,12 +52,11 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
   // Récupérer le composant d'icône
   const IconComponent = Icons[icon] || Icons.HelpCircle;
 
-  // Calculer le délai de flottaison basé sur le côté et l'index
-  const sideDelays = floatDelays[side] || floatDelays.top;
-  const floatDelay = sideDelays[index % sideDelays.length];
+  // Délai de'entrée selon l'index
+  const enterDelay = enterDelays[index % enterDelays.length];
 
-  // Délai d'entrée staggeré
-  const enterDelay = index * 0.08;
+  // Calculer la position de départ selon le coin
+  const cornerOffset = getCornerPosition(corner, position);
 
   return (
     <motion.div
@@ -52,57 +66,91 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
       style={{
         ...style,
         "--glow-color": color,
-        color: color,
         left: position?.x,
         top: position?.y,
       }}
-      initial={{ opacity: 0, scale: 0.5 }}
+      // Entrée depuis le coin avec rebond
+      initial={{ 
+        opacity: 0, 
+        scale: 0.3,
+        x: cornerOffset.x,
+        y: cornerOffset.y,
+        rotate: cornerOffset.x > 0 ? 15 : -15
+      }}
       animate={{
         opacity: 1,
         scale: 1,
-        y: [0, -8, 0], // Animation de flottaison simple: haut → bas → haut
+        x: 0,
+        y: 0,
+        rotate: 0,
       }}
       transition={{
-        // Animation d'entrée
-        duration: 0.8,
+        duration: ANIMATION_DURATION,
         delay: enterDelay,
-        ease: [0.34, 1.56, 0.64, 1], // elastic easing
-
-        // Animation de flottaison continue
-        y: {
-          duration: 3,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-          delay: floatDelay,
-        },
+        ease: [0.34, 1.56, 0.64, 1], // Ease avec rebond
       }}
+      // Hover avec effet de "levée" elegant
       whileHover={{
-        scale: 1.15,
-        y: -24,
-        boxShadow: `0 20px 40px rgba(0, 0, 0, 0.12), 0 0 30px ${color}`,
+        scale: 1.12,
+        y: -12,
+        transition: { duration: HOVER_DURATION, ease: "easeOut" }
       }}
-      whileTap={{ scale: 0.95 }}
+      whileTap={{ scale: 0.96 }}
       onClick={() => onClick?.({ id, title, category })}
       role="button"
       tabIndex={0}
-      aria-label={`${title} - ${category}`}
-      title={title}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onClick?.({ id, title, category });
-        }
-      }}
+      aria-label={`${title} - ${description || category}`}
       {...props}
     >
+      {/* Glow effect au hover */}
+      <motion.span
+        className="orbital-bubble-glow"
+        initial={{ opacity: 0 }}
+        whileHover={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        style={{
+          position: "absolute",
+          inset: -8,
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${color}20 0%, transparent 70%)`,
+          filter: "blur(12px)",
+          zIndex: -1,
+        }}
+      />
+
       {/* Icône */}
       <span className="orbital-bubble-icon">
-        <IconComponent size={24} strokeWidth={1.5} style={{ color: color }} />
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: enterDelay + 0.2, duration: 0.4 }}
+        >
+          <IconComponent size={28} strokeWidth={1.5} color={color} />
+        </motion.div>
       </span>
 
-      {/* Titre */}
-      <span className="orbital-bubble-title">{title}</span>
+      {/* Titre avec révélation */}
+      <motion.span
+        className="orbital-bubble-title"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: enterDelay + 0.15, duration: 0.4 }}
+        style={{ color: color }}
+      >
+        {title}
+      </motion.span>
+
+      {/* Description courte */}
+      {description && (
+        <motion.span
+          className="orbital-bubble-description"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.85 }}
+          transition={{ delay: enterDelay + 0.25, duration: 0.4 }}
+        >
+          {description}
+        </motion.span>
+      )}
     </motion.div>
   );
 });

@@ -394,7 +394,7 @@ function EntrepreneurProjects() {
 
         /* Hero */
         .projects-hero {
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+          background: #7c3aed ;
           padding: 80px 24px;
         }
 
