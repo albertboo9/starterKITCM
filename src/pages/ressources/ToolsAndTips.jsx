@@ -285,7 +285,7 @@ function ToolsAndTips() {
 
         /* Hero */
         .tools-hero {
-          background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+          background: #7c3aed ;
           padding: 80px 24px;
         }
 

@@ -493,7 +493,7 @@ function StarterCommunity() {
 
         /* Hero */
         .community-hero {
-          background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+          background: #059669;
           padding: 80px 24px;
         }
 

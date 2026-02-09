@@ -19,13 +19,13 @@ const getCornerPosition = (corner, position) => {
   const offset = 400; // Distance de départ depuis le coin
   switch (corner) {
     case "top-left":
-      return { x: -offset, y: -offset };
-    case "top-right":
-      return { x: offset, y: -offset };
-    case "bottom-left":
-      return { x: -offset, y: offset };
-    case "bottom-right":
       return { x: offset, y: offset };
+    case "top-right":
+      return { x: -offset, y: offset };
+    case "bottom-left":
+      return { x: offset, y: -offset };
+    case "bottom-right":
+      return { x: -offset, y: offset };
     default:
       return { x: 0, y: 0 };
   }

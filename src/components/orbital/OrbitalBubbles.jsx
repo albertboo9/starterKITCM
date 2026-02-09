@@ -53,8 +53,9 @@ export function OrbitalBubbles({ onBubbleClick }) {
     const radiusX = dimensions.width * 0.14;
     const radiusY = dimensions.height * 0.30;
 
-    // Phase offset for animation - spread out for visual interest
-    const phase = index * 0.5;
+    // Phase offset - 2 bubbles per zone: one at top (0), one at bottom (PI)
+    // This ensures bubbles in same zone are 180° apart
+    const phase = bubbleInZone === 0 ? 80 : -80;
 
     return {
       centerX,
@@ -232,3 +233,4 @@ export function OrbitalBubbles({ onBubbleClick }) {
 }
 
 export default OrbitalBubbles;
+

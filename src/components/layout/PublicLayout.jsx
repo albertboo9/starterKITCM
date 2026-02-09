@@ -117,7 +117,7 @@ function PublicLayout() {
               }}
               className="header-logo-text"
             >
-              STARTERKITCM
+            MINPEEMSA
             </span>
           </Link>
 

@@ -1042,7 +1042,7 @@ function HeroSection() {
             marginBottom: "24px",
           }}
         >
-          L'APME vous <span style={{ color: "#635bff" }}>accompagne</span>
+          L'<span style={{ color: "#635bff" }}>APME</span> vous accompagne
         </motion.h2>
 
         <motion.p
@@ -1112,19 +1112,29 @@ function HeroSection() {
       {/* Assistant Section */}
       <motion.div
         id="assistant-section"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.6 }}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, delay: 0.2 }}
         style={{
           background: "white",
           borderRadius: "24px",
           padding: "40px",
           boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
           border: "1px solid #e5e7eb",
+          marginTop: "60px",
+          marginBottom: "60px",
+          maxWidth: "1200px",
+          marginLeft: "auto",
+          marginRight: "auto",
         }}
       >
         {/* Assistant Header */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           style={{
             display: "flex",
             alignItems: "center",
@@ -1165,7 +1175,7 @@ function HeroSection() {
               Choisissez ce que vous souhaitez faire et laissez-vous guider
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Need Options Grid */}
         <div
