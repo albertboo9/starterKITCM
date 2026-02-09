@@ -7,12 +7,13 @@ import { useReducedMotion } from "../../hooks/useOrbitalAnimation";
 import "../../styles/orbital-bubbles.css";
 
 /**
- * Layout: Rounded Rectangle Surrounding
+ * Layout: 6 Bulles - Disposition Équilibrée
  *
- *     ○  ○  ○  ○         ← HAUT (4 bulles)
- *   ○              ○       ← GAUCHE (2 bulles)
- *   ○              ○       ← DROITE (2 bulles)
- *     ○  ○  ○  ○         ← BAS (4 bulles)
+ *        ○  ○  ○            ← TOP (3 bulles)
+ *
+ *      ○        ○          ← SIDES (2 bulles)
+ *
+ *          ○              ← BOTTOM (1 bulle)
  */
 function calculateSurroundingPositions(
   bubbles,
@@ -24,61 +25,48 @@ function calculateSurroundingPositions(
   const positions = {};
   const count = bubbles.length;
 
-  const sideOffsetX = width * 0.38;
-  const sideOffsetY = height * 0.38;
+  const offsetX = width * 0.35;
+  const offsetY = height * 0.35;
 
-  // HAUT (4 bulles)
-  const topCount = 4;
-  const topSpacing = (width * 0.65) / (topCount - 1);
+  // TOP (3 bulles) - demi-cercle supérieur
+  const topCount = 3;
+  const topSpacing = (width * 0.5) / (topCount - 1);
   for (let i = 0; i < topCount && i < count; i++) {
     const bubble = bubbles[i];
-    const x = centerX - (width * 0.65) / 2 + topSpacing * i;
+    const x = centerX - (width * 0.5) / 2 + topSpacing * i;
+    // Position en arc de cercle
+    const angle = Math.PI + (Math.PI / topCount) * i;
+    const curvedX = centerX + Math.cos(angle) * offsetX * 0.8;
+    const curvedY = centerY - offsetY - Math.sin(angle) * offsetY * 0.3;
     positions[bubble.id] = {
-      x: x - 40,
-      y: centerY - sideOffsetY - 40,
+      x: curvedX - 40,
+      y: curvedY - 40,
       side: "top",
     };
   }
 
-  // GAUCHE (2 bulles)
-  const leftStart = 4;
-  const leftCount = 2;
-  const leftSpacing = (height * 0.25) / (leftCount - 1);
-  for (let i = 0; i < leftCount && leftStart + i < count; i++) {
-    const bubble = bubbles[leftStart + i];
-    const y = centerY - (height * 0.25) / 2 + leftSpacing * i;
-    const curvedX =
-      centerX - sideOffsetX + Math.sin(((i + 1) * Math.PI) / 3) * 30;
-    positions[bubble.id] = {
-      x: curvedX - 40,
-      y: y - 40,
-      side: "left",
-    };
-  }
-
-  // DROITE (2 bulles)
-  const rightStart = 6;
-  for (let i = 0; i < leftCount && rightStart + i < count; i++) {
-    const bubble = bubbles[rightStart + i];
-    const y = centerY - (height * 0.25) / 2 + leftSpacing * i;
-    const curvedX =
-      centerX + sideOffsetX - Math.sin(((i + 1) * Math.PI) / 3) * 30;
-    positions[bubble.id] = {
-      x: curvedX - 40,
-      y: y - 40,
-      side: "right",
-    };
-  }
-
-  // BAS (4 bulles)
-  const bottomStart = 8;
-  const bottomCount = 4;
-  for (let i = 0; i < bottomCount && bottomStart + i < count; i++) {
-    const bubble = bubbles[bottomStart + i];
-    const x = centerX - (width * 0.65) / 2 + topSpacing * i;
+  // SIDES (2 bulles) - gauche et droite
+  const sideStart = 3;
+  const sideCount = 2;
+  for (let i = 0; i < sideCount && sideStart + i < count; i++) {
+    const bubble = bubbles[sideStart + i];
+    const isLeft = i === 0;
+    const y = centerY - (height * 0.15) + (height * 0.3) * i;
+    const x = isLeft ? centerX - offsetX : centerX + offsetX;
     positions[bubble.id] = {
       x: x - 40,
-      y: centerY + sideOffsetY - 40,
+      y: y - 40,
+      side: isLeft ? "left" : "right",
+    };
+  }
+
+  // BOTTOM (1 bulle) - centre bas
+  const bottomStart = 5;
+  if (bottomStart < count) {
+    const bubble = bubbles[bottomStart];
+    positions[bubble.id] = {
+      x: centerX - 40,
+      y: centerY + offsetY - 40,
       side: "bottom",
     };
   }
@@ -193,7 +181,7 @@ export function OrbitalBubbles({ onBubbleClick }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          Bienvenue sur le <span className="highlight">STARTERKIT CM</span>
+          Bienvenue sur le <span className="highlight">STARTER</span><span style={{color: "#ef4444", fontWeight: 700}}>KIT</span><span style={{color: "#eab308", fontWeight: 700}}> CM</span>
         </motion.h1>
 
         <motion.p

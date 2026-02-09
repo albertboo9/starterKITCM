@@ -7,20 +7,13 @@
 export const orbitalBubblesConfig = [
   {
     id: "sensibiliser",
-    title: "Sensibiliser",
+    title: "Me Sensibiliser",
     icon: "Lightbulb",
     color: "var(--category-sensibiliser)",
     category: "awareness",
     description: "Sensibilisation aux opportunités entrepreneuriales",
   },
-  {
-    id: "reseau",
-    title: "Réseau",
-    icon: "Users",
-    color: "var(--category-reseau)",
-    category: "community",
-    description: "Construction et développement de réseau professionnel",
-  },
+
     {
     id: "financement",
     title: "Financement",
@@ -29,38 +22,8 @@ export const orbitalBubblesConfig = [
     category: "funding",
     description: "Solutions de financement",
   },
-  {
-    id: "equipe",
-    title: "Équipe",
-    icon: "UserPlus",
-    color: "var(--category-equipe)",
-    category: "team",
-    description: "Montée et structuration d'équipe",
-  },
-  {
-    id: "activite",
-    title: "Activité",
-    icon: "TrendingUp",
-    color: "var(--category-activite)",
-    category: "growth",
-    description: "Développement et croissance d'activité",
-  },
-  {
-    id: "probleme",
-    title: "Problème",
-    icon: "AlertCircle",
-    color: "var(--category-probleme)",
-    category: "challenge",
-    description: "Résolution de problèmes entrepreneuriaux",
-  },
-  {
-    id: "autrement",
-    title: "Autrement",
-    icon: "Sparkles",
-    color: "var(--category-autrement)",
-    category: "innovation",
-    description: "Approches innovantes et alternatives",
-  },
+
+
   {
     id: "entreprise",
     title: "Entreprise",
@@ -77,14 +40,7 @@ export const orbitalBubblesConfig = [
     category: "certification",
     description: "Certification et reconnaissance",
   },
-  {
-    id: "distribution",
-    title: "Distribution",
-    icon: "Truck",
-    color: "var(--category-distribution)",
-    category: "logistics",
-    description: "Stratégies de distribution",
-  },
+
   {
     id: "mentor",
     title: "Mentor",

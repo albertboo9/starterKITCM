@@ -1,42 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../../context/LanguageContext";
-import {
-  BookOpen,
-  Search,
-  Users,
-  Lightbulb,
-  Rocket,
-  Building2,
-  ChevronDown,
-} from "lucide-react";
 
 function PublicLayout() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
   const { language, toggleLanguage } = useLanguage();
-
-  // Close resources dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (resourcesOpen) {
-        setResourcesOpen(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, [resourcesOpen]);
-
-  const toggleResources = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setResourcesOpen(!resourcesOpen);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,49 +32,14 @@ function PublicLayout() {
     { path: "/partenaires", label: "Partenaires" },
   ];
 
-  const resourcesMenu = [
-    {
-      path: "/ressources/outils-bons-plans",
-      label: "Boîtes à outils & Bons plans",
-      icon: BookOpen,
-      color: "#8B5CF6",
-      description: "Articles, modèles et conseils pratiques",
-    },
-    {
-      path: "/ressources/informations",
-      label: "Point d'informations",
-      icon: Search,
-      color: "#3B82F6",
-      description: "Textes de loi, décrets, réglementations",
-    },
-    {
-      path: "/ressources/annuaire",
-      label: "Annuaire des professionnels",
-      icon: Users,
-      color: "#10B981",
-      description: "Experts, partenaires et conseils",
-    },
-    {
-      path: "/ressources/innovation",
-      label: "Innovation & Compétitivité",
-      icon: Lightbulb,
-      color: "#EC4899",
-      description: "Programmes, concours et outils d'innovation",
-    },
-    {
-      path: "/ressources/projets",
-      label: "Projets d'entrepreneurs",
-      icon: Rocket,
-      color: "#F59E0B",
-      description: "Découvrez les projets des PME",
-    },
-    {
-      path: "/ressources/communaute",
-      label: "Communauté Starter",
-      icon: Building2,
-      color: "#06B6D4",
-      description: "Échangez avec d'autres entrepreneurs",
-    },
+  // Resources - directly in nav with short labels
+  const resourcesItems = [
+    { path: "/ressources/outils-bons-plans", label: "Outils", color: "#8B5CF6" },
+    { path: "/ressources/informations", label: "Infos", color: "#3B82F6" },
+    { path: "/ressources/annuaire", label: "Annuaire", color: "#10B981" },
+    { path: "/ressources/innovation", label: "Innov", color: "#EC4899" },
+    { path: "/ressources/projets", label: "Projets", color: "#F59E0B" },
+    { path: "/ressources/communaute", label: "Commune", color: "#06B6D4" },
   ];
 
   return (
@@ -114,7 +51,9 @@ function PublicLayout() {
           top: 0,
           left: 0,
           right: 0,
+          transform: "translateX(-243px)",
           zIndex: 1000,
+          width: "calc(100% + 294px)",
           background: isTransparent
             ? "transparent"
             : "rgba(255, 255, 255, 0.95)",
@@ -141,7 +80,7 @@ function PublicLayout() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "10px",
+              gap: "6px",
               textDecoration: "none",
             }}
           >
@@ -171,6 +110,7 @@ function PublicLayout() {
               style={{
                 fontSize: "20px",
                 fontWeight: 700,
+                marginRight: "4px",
                 background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -186,149 +126,85 @@ function PublicLayout() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "32px",
+              gap: "8px",
             }}
             className="desktop-nav"
           >
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                style={{
-                  color: "#1a1a2e",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  textDecoration: "none",
-                  opacity: 0.7,
-                  transition: "opacity 0.2s",
-                }}
-                onMouseEnter={(e) => (e.target.style.opacity = 1)}
-                onMouseLeave={(e) => (e.target.style.opacity = 0.7)}
-              >
-                {item.label}
-              </Link>
-            ))}
-
-            {/* Resources Dropdown */}
-            <div style={{ position: "relative", pointerEvents: "auto" }}>
-              <Link
-                to="/ressources/informations"
-                onClick={toggleResources}
-                style={{
-                  color: "#1a1a2e",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  textDecoration: "none",
-                  opacity: resourcesOpen ? 1 : 0.7,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "4px",
-                  transition: "opacity 0.2s",
-                  cursor: "pointer",
-                }}
-              >
-                Ressources
-                <ChevronDown
-                  size={16}
+            {/* Main nav items */}
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
                   style={{
-                    transition: "transform 0.2s",
-                    transform: resourcesOpen
-                      ? "rotate(180deg)"
-                      : "rotate(0deg)",
+                    color: isActive ? "#635bff" : "#4b5563",
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    padding: "8px 14px",
+                    borderRadius: "8px",
+                    background: isActive ? "rgba(99, 91, 255, 0.1)" : "transparent",
+                    transition: "all 0.2s ease",
                   }}
-                />
-              </Link>
-
-              {resourcesOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.2 }}
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    marginTop: "12px",
-                    background: "white",
-                    borderRadius: "16px",
-                    boxShadow: "0 10px 40px rgba(0, 0, 0, 0.15)",
-                    padding: "12px",
-                    minWidth: "320px",
-                    zIndex: 1002,
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.target.style.background = "rgba(99, 91, 255, 0.08)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.target.style.background = "transparent";
+                    }
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "4px",
-                    }}
-                  >
-                    {resourcesMenu.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: "12px",
-                          padding: "12px 16px",
-                          borderRadius: "12px",
-                          textDecoration: "none",
-                          transition: "background 0.2s",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = "#f8fafc";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = "transparent";
-                        }}
-                      >
-                        <div
-                          style={{
-                            width: "40px",
-                            height: "40px",
-                            borderRadius: "10px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            backgroundColor: `${item.color}15`,
-                            flexShrink: 0,
-                          }}
-                        >
-                          <item.icon size={20} color={item.color} />
-                        </div>
-                        <div style={{ flex: 1 }}>
-                          <span
-                            style={{
-                              display: "block",
-                              fontSize: "14px",
-                              fontWeight: 600,
-                              color: "#1a1a2e",
-                              marginBottom: "2px",
-                            }}
-                          >
-                            {item.label}
-                          </span>
-                          <span
-                            style={{
-                              display: "block",
-                              fontSize: "12px",
-                              color: "#9ca3af",
-                              lineHeight: 1.4,
-                            }}
-                          >
-                            {item.description}
-                          </span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </div>
+                  {item.label}
+                </Link>
+              );
+            })}
+
+            {/* Separator */}
+            <div
+              style={{
+                width: "1px",
+                height: "24px",
+                background: "#e5e7eb",
+                margin: "0 8px",
+              }}
+            />
+
+            {/* Resources items */}
+            {resourcesItems.map((item) => {
+              const isActive = location.pathname.startsWith(item.path);
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  style={{
+                    color: isActive ? item.color : "#4b5563",
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    padding: "8px 14px",
+                    borderRadius: "8px",
+                    background: isActive ? `${item.color}12` : "transparent",
+                    transition: "all 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.target.style.background = `${item.color}10`;
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.target.style.background = "transparent";
+                    }
+                  }}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Desktop Actions */}
@@ -348,7 +224,7 @@ function PublicLayout() {
                 alignItems: "center",
                 gap: "6px",
                 padding: "8px 12px",
-                background: "rgba(99, 91, 255, 0.1)",
+                background: "rgba(99, 91, 255, 0.08)",
                 border: "none",
                 borderRadius: "8px",
                 color: "#635bff",
@@ -366,7 +242,7 @@ function PublicLayout() {
               >
                 FR
               </span>
-              <span style={{ color: "#635bff" }}>/</span>
+              <span style={{ color: "#d1d5db" }}>/</span>
               <span
                 style={{
                   opacity: language === "en" ? 1 : 0.5,
@@ -376,12 +252,13 @@ function PublicLayout() {
                 EN
               </span>
             </button>
+
+            {/* Commencer Button */}
             <Link to="/signup">
               <button
                 style={{
                   padding: "10px 20px",
-                  background:
-                    "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                  background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
                   border: "none",
                   borderRadius: "8px",
                   color: "white",
@@ -389,6 +266,7 @@ function PublicLayout() {
                   fontWeight: 600,
                   cursor: "pointer",
                   boxShadow: "0 4px 12px rgba(99, 91, 255, 0.3)",
+                  transition: "all 0.2s ease",
                 }}
               >
                 Commencer
