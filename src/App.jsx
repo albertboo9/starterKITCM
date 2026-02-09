@@ -1,5 +1,5 @@
-import { Suspense, lazy } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Suspense, lazy, useEffect } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { useAuth } from "./context/AuthContext";
@@ -82,6 +82,17 @@ function LoadingSpinner() {
   );
 }
 
+// ScrollToTop - Réinitialise le scroll au début de chaque page
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   const { isAuthenticated } = useAuth();
 
@@ -91,6 +102,9 @@ function App() {
         <html lang="fr" />
         <title>STARTERKITCM - Portail de l'Entrepreneuriat Camerounais</title>
       </Helmet>
+
+      {/* ScrollToTop - Réinitialise le scroll au début de chaque page */}
+      <ScrollToTop />
 
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
