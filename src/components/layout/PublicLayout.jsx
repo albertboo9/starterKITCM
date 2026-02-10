@@ -23,7 +23,10 @@ function PublicLayout() {
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
-  const isTransparent = location.pathname === "/" && !scrolled;
+  // Check if we're on home page for special header background
+  const isHomePage = location.pathname === "/";
+
+  const isTransparent = !scrolled;
 
   const navItems = [
     { path: "/", label: "Accueil" },
@@ -34,7 +37,11 @@ function PublicLayout() {
 
   // Resources - directly in nav with short labels
   const resourcesItems = [
-    { path: "/ressources/outils-bons-plans", label: "Outils", color: "#8B5CF6" },
+    {
+      path: "/ressources/outils-bons-plans",
+      label: "Outils",
+      color: "#8B5CF6",
+    },
     { path: "/ressources/informations", label: "Infos", color: "#3B82F6" },
     { path: "/ressources/annuaire", label: "Annuaire", color: "#10B981" },
     { path: "/ressources/innovation", label: "Innov", color: "#7c3aed" },
@@ -43,7 +50,7 @@ function PublicLayout() {
   ];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#ffffff" }}>
+    <div style={{ minHeight: "100vh", background: "#ffffff11" }}>
       {/* Header */}
       <header
         style={{
@@ -55,12 +62,15 @@ function PublicLayout() {
           zIndex: 1000,
           width: "calc(100% + 294px)",
           background: isTransparent
-            ? "transparent"
-            : "rgba(255, 255, 255, 0.95)",
-          backdropFilter: isTransparent ? "none" : "blur(20px)",
+            ? isHomePage
+              ? "url(/heàder-bàckground.png) center/cover no-repeat"
+              : "rgba(255, 255, 255, 0.15)"
+            : "rgba(255, 255, 255, 0.85)", // Home page: image background, Other pages: transparent at top, Scrolled: opaque
+          backdropFilter: "blur(20px)", // Always blur for glass effect
           borderBottom: scrolled ? "1px solid rgba(0, 0, 0, 0.08)" : "none",
           transition: "all 0.3s ease",
           pointerEvents: "auto",
+          borderRadius: "0 0 24px 24px",
         }}
       >
         <div
@@ -95,7 +105,7 @@ function PublicLayout() {
                 alignItems: "center",
                 justifyContent: "center",
                 overflow: "hidden",
-                background: "white",
+                // background: "white", // Removed as requested
               }}
             >
               <img
@@ -133,7 +143,9 @@ function PublicLayout() {
                     textDecoration: "none",
                     padding: "8px 14px",
                     borderRadius: "8px",
-                    background: isActive ? "rgba(99, 91, 255, 0.1)" : "transparent",
+                    background: isActive
+                      ? "rgba(99, 91, 255, 0.1)"
+                      : "transparent",
                     transition: "all 0.2s ease",
                   }}
                   onMouseEnter={(e) => {
@@ -157,7 +169,7 @@ function PublicLayout() {
               style={{
                 width: "1px",
                 height: "24px",
-                background: "#e5e7eb",
+                background: isTransparent ? "rgba(255,255,255,0.3)" : "#e5e7eb", // Adaptive separator
                 margin: "0 8px",
               }}
             />
@@ -248,7 +260,8 @@ function PublicLayout() {
               <button
                 style={{
                   padding: "10px 20px",
-                  background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                  background:
+                    "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
                   border: "none",
                   borderRadius: "8px",
                   color: "white",
@@ -325,7 +338,8 @@ function PublicLayout() {
         style={{
           height: "7px",
           width: "100%",
-          background: "linear-gradient(90deg, #009E49 0%, #009E49 33.33%, #CE1126 33.33%, #CE1126 66.66%, #FCD116 66.66%, #FCD116 100%)",
+          background:
+            "linear-gradient(90deg, #009E49 0%, #009E49 33.33%, #CE1126 33.33%, #CE1126 66.66%, #FCD116 66.66%, #FCD116 100%)",
           position: "fixed",
           top: scrolled ? "72px" : "72px",
           left: 0,
@@ -340,7 +354,7 @@ function PublicLayout() {
           style={{
             color: "#FCD116",
             fontSize: "14px",
-             // Centre de la partie jaune (66.66% + 16.5% = 83.16%)
+            // Centre de la partie jaune (66.66% + 16.5% = 83.16%)
             textShadow: "0 1px 2px rgba(0,0,0,0.3)",
             filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.2))",
           }}
