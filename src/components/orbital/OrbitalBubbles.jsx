@@ -70,11 +70,31 @@ export function OrbitalBubbles({ onBubbleClick }) {
             <span style={{ color: "var(--color-cam-yellow)" }}>CM</span>
           </h1>
           <p>
-           La plateforme connectée du  <span style={{ color: "var(--color-cam-green)" }}><h1>CAMEROUN</h1></span> pour entreprendre en toute confiance.
+            <span style={{ color: "var(--color-cam-green)" }}>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#4b5563",
+                  lineHeight: "1.06",
+                }}
+              >
+                La plateforme connectée du{" "}
+                <span
+                  style={{
+                    fontFamily: "Caveat, cursive",
+                    fontSize: "60px",
+                    fontWeight: 600,
+                    color: "var(--color-cam-green)",
+                  }}
+                > <br />CAMEROUN <br />
+                </span>{" "}
+                pour entreprendre en toute confiance.
+              </p>
+            </span>
           </p>
           <div className="hero-cta-group">
             <button className="btn-premium-solid">Commencer maintenant</button>
-            <button className="btn-premium-glass">Explorer les guides</button>
+            <button className="btn-premium-glass">Explorer les parcours</button>
           </div>
         </motion.div>
 
