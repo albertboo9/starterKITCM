@@ -1007,20 +1007,20 @@ function HeroSection() {
             background: "rgba(255, 255, 255, 0.9)",
             borderRadius: "50px",
             boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
-            width: "fit-content",
+            width: "100%",
           }}
         >
           <img
             src="/logos/partners/APME.png"
             alt="APME Cameroun"
             style={{
-              width: "32px",
-              height: "32px",
+              width: "95px",
+              height: "95px",
               objectFit: "contain",
             }}
           />
           <span style={{
-            fontSize: "14px",
+            fontSize: "34px",
             fontWeight: 700,
             color: "#1a1a2e",
             letterSpacing: "0.5px",

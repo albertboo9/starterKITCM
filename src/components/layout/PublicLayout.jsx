@@ -42,11 +42,11 @@ function PublicLayout() {
       label: "Outils",
       color: "#8B5CF6",
     },
-    { path: "/ressources/informations", label: "Infos", color: "#3B82F6" },
+    { path: "/ressources/informations", label: "Information", color: "#3B82F6" },
     { path: "/ressources/annuaire", label: "Annuaire", color: "#10B981" },
-    { path: "/ressources/innovation", label: "Innov", color: "#7c3aed" },
+    { path: "/ressources/innovation", label: "Innovation", color: "#7c3aed" },
     { path: "/ressources/projets", label: "Projets", color: "#7c3aed" },
-    { path: "/ressources/communaute", label: "Commune", color: "#06B6D4" },
+    { path: "/ressources/communaute", label: "Communeauté", color: "#06B6D4" },
   ];
 
   return (
@@ -100,7 +100,7 @@ function PublicLayout() {
                 height: "40px",
                 borderRadius: "10px",
                 display: "flex",
-                marginRight: "70px",
+                marginRight: "20px",
                 marginLeft: "20px",
                 alignItems: "center",
                 justifyContent: "center",
@@ -164,15 +164,6 @@ function PublicLayout() {
               );
             })}
 
-            {/* Separator */}
-            <div
-              style={{
-                width: "1px",
-                height: "24px",
-                background: isTransparent ? "rgba(255,255,255,0.3)" : "#e5e7eb", // Adaptive separator
-                margin: "0 8px",
-              }}
-            />
 
             {/* Resources items */}
             {resourcesItems.map((item) => {
@@ -214,7 +205,7 @@ function PublicLayout() {
               display: "flex",
               alignItems: "center",
               gap: "12px",
-              marginLeft: "65px",
+              marginLeft: "35px",
             }}
             className="desktop-actions"
           >
