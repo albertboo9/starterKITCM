@@ -20,8 +20,8 @@ export function AuthProvider({ children }) {
     const mockUser = {
       id: "1",
       email,
-      firstName: "Marie",
-      lastName: "Dupont",
+      firstName: "BO'O",
+      lastName: "ALBERT",
       avatar: null,
       role: "entrepreneur",
       createdAt: new Date().toISOString(),

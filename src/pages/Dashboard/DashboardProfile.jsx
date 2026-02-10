@@ -23,9 +23,9 @@ function DashboardProfile() {
 
   // Form state
   const [formData, setFormData] = useState({
-    firstName: user?.firstName || "Jean",
-    lastName: user?.lastName || "Dupont",
-    email: user?.email || "jean.dupont@email.com",
+    firstName: user?.firstName || "BO'O",
+    lastName: user?.lastName || "ALBERT",
+    email: user?.email || "bo.albert@email.com",
     phone: "+237 6XX XXX XXX",
     city: "Yaoundé",
     entrepreneurType: "entrepreneur",
