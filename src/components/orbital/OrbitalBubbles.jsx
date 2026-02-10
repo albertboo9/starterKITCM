@@ -69,28 +69,28 @@ export function OrbitalBubbles({ onBubbleClick }) {
             <span style={{ color: "var(--color-cam-red)" }}>KIT</span>{" "}
             <span style={{ color: "var(--color-cam-yellow)" }}>CM</span>
           </h1>
-          <p>
-            <span style={{ color: "var(--color-cam-green)" }}>
-              <p
-                style={{
-                  fontSize: "22px",
-                  color: "#4b5563",
-                  lineHeight: "1.06",
-                }}
-              >
-                La plateforme connectée du{" "}
-                <span
-                  style={{
-                    fontFamily: "Caveat, cursive",
-                    fontSize: "60px",
-                    fontWeight: 600,
-                    color: "var(--color-cam-green)",
-                  }}
-                > <br />CAMEROUN <br />
-                </span>{" "}
-                pour entreprendre en toute confiance.
-              </p>
-            </span>
+          <p
+            style={{
+              fontSize: "22px",
+              color: "#4b5563",
+              lineHeight: "1.6",
+              marginTop: "16px",
+            }}
+          >
+            La plateforme connectée du{" "}
+            <span
+              style={{
+                fontFamily: "Caveat, cursive",
+                fontSize: "48px",
+                fontWeight: 600,
+                color: "var(--color-cam-green)",
+                display: "inline-block",
+                marginTop: "8px",
+              }}
+            >
+              CAMEROUN
+            </span>{" "}
+            pour entreprendre en toute confiance.
           </p>
           <div className="hero-cta-group">
             <button className="btn-premium-solid">Commencer maintenant</button>
