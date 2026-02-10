@@ -827,7 +827,7 @@ function HeroSection() {
       style={{
         minHeight: "100vh",
         position: "relative",
-        background: "#ffffff",
+        background: "#ffffff27",
         overflow: "hidden",
       }}
     >
@@ -888,7 +888,7 @@ function HeroSection() {
         }}
       />
 
-    <div style={{ minHeight: "100vh", position: "relative" }}>
+    <div style={{ minHeight: "80vh", position: "relative", transform: "translateY(-60px)" }}>
       <OrbitalBubbles />
     </div>
 

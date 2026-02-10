@@ -43,6 +43,7 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
     position,
     corner = "center",
     size = "normal",
+    image,
     onClick,
     className,
     style,
@@ -59,23 +60,33 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
   // Calculer la position de départ selon le coin
   const cornerOffset = getCornerPosition(corner, position);
 
-  // Taille des bulles
-  const bubbleSizes = {
-    small: "85px",
-    normal: "100px",
-    large: "140px",
-    xlarge: "180px",
-  };
-  const bubbleSize = bubbleSizes[size] || bubbleSizes.normal;
+  // Taille des bulles (supporte nombre pixels ou string)
+  let bubbleSize;
+  if (typeof size === "number") {
+    bubbleSize = `${size}px`;
+  } else {
+    const bubbleSizes = {
+      small: "85px",
+      normal: "100px",
+      large: "140px",
+      xlarge: "180px",
+    };
+    bubbleSize = bubbleSizes[size] || bubbleSizes.normal;
+  }
 
   // Ajuster l'icône selon la taille
-  const iconSizes = {
-    small: 22,
-    normal: 28,
-    large: 36,
-    xlarge: 44,
-  };
-  const iconSize = iconSizes[size] || iconSizes.normal;
+  let iconSize;
+  if (typeof size === "number") {
+    iconSize = Math.round(size * 0.25); // 25% de la taille de la bulle
+  } else {
+    const iconSizes = {
+      small: 22,
+      normal: 28,
+      large: 36,
+      xlarge: 44,
+    };
+    iconSize = iconSizes[size] || iconSizes.normal;
+  }
 
   return (
     <motion.div
@@ -138,38 +149,59 @@ export const OrbitalBubble = forwardRef(function OrbitalBubble(
         }}
       />
 
-      {/* Icône */}
-      <span className="orbital-bubble-icon">
-        <motion.div
+      {/* Image de la bulle ou contenu par défaut */}
+      {image ? (
+        /* Image au centre de la bulle */
+        <motion.img
+          src={image}
+          alt={title || "Bubble image"}
+          className="orbital-bubble-image"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: enterDelay + 0.2, duration: 0.4 }}
-        >
-          <IconComponent size={iconSize} strokeWidth={1.5} color={color} />
-        </motion.div>
-      </span>
+          style={{
+            width: "var(--bubble-image-size)",
+            height: "var(--bubble-image-size)",
+            objectFit: "contain",
+          }}
+        />
+      ) : (
+        /* Contenu par défaut: icône + titre + description */
+        <>
+          {/* Icône */}
+          <span className="orbital-bubble-icon">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: enterDelay + 0.2, duration: 0.4 }}
+            >
+              <IconComponent size={iconSize} strokeWidth={1.5} color={color} />
+            </motion.div>
+          </span>
 
-      {/* Titre avec révélation */}
-      <motion.span
-        className="orbital-bubble-title"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: enterDelay + 0.15, duration: 0.4 }}
-        style={{ color: color }}
-      >
-        {title}
-      </motion.span>
+          {/* Titre avec révélation */}
+          <motion.span
+            className="orbital-bubble-title"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: enterDelay + 0.15, duration: 0.4 }}
+            style={{ color: color }}
+          >
+            {title}
+          </motion.span>
 
-      {/* Description courte */}
-      {description && (
-        <motion.span
-          className="orbital-bubble-description"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.85 }}
-          transition={{ delay: enterDelay + 0.25, duration: 0.4 }}
-        >
-          {description}
-        </motion.span>
+          {/* Description courte */}
+          {description && (
+            <motion.span
+              className="orbital-bubble-description"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.85 }}
+              transition={{ delay: enterDelay + 0.25, duration: 0.4 }}
+            >
+              {description}
+            </motion.span>
+          )}
+        </>
       )}
     </motion.div>
   );
