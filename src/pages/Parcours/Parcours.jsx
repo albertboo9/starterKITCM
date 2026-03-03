@@ -6,78 +6,183 @@ import { motion } from "framer-motion";
 // Professional SVG Icons
 const Icons = {
   sensibilisation: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
     </svg>
   ),
   creation: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
     </svg>
   ),
   formation: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
     </svg>
   ),
   financement: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
   reseau: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
     </svg>
   ),
   probleme: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
   certifier: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 114.874 3.42 3.42 0 00-1.946.806 3.42 3.42 0 013.42 3.42 3.42 3.42 0 11-3.42 3.42 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-3.42zm3.42 3.42a3.42 3.42 0 003.42-3.42 3.42 3.42 0 00-3.42-3.42 3.42 3.42 0 00-3.42 3.42 3.42 3.42 0 003.42 3.42zm-3.42 3.42a3.42 3.42 0 003.42 3.42 3.42 3.42 0 00-3.42-3.42 3.42 3.42 0 00-3.42 3.42 3.42 3.42 0 003.42-3.42z" />
     </svg>
   ),
   distribution: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
     </svg>
   ),
   mentor: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M12 14l9-5-9-5-9 5 9 5z" />
       <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
     </svg>
   ),
   tools: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
     </svg>
   ),
   arrow: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M9 5l7 7-7 7" />
     </svg>
   ),
   check: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M5 13l4 4L19 7" />
     </svg>
   ),
   clock: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
   information: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
   partners: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5" />
     </svg>
   ),
@@ -85,6 +190,7 @@ const Icons = {
 
 function Parcours() {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Categories with improved copywriting
   const categories = [
@@ -98,7 +204,8 @@ function Parcours() {
         {
           id: "sensibilisation",
           title: "Sensibilisation a l'entrepreneuriat",
-          description: "Decouvrez les fondamentaux de l'entrepreneuriat au Cameroun",
+          description:
+            "Decouvrez les fondamentaux de l'entrepreneuriat au Cameroun",
           duration: "2 semaines",
           level: " Debutant",
           modules: 4,
@@ -134,7 +241,8 @@ function Parcours() {
         {
           id: "creation",
           title: "Creation d'entreprise",
-          description: "Structurez et formalisez votre entreprise selon les regles en vigueur",
+          description:
+            "Structurez et formalisez votre entreprise selon les regles en vigueur",
           duration: "6 semaines",
           level: " Intermediaire",
           modules: 8,
@@ -152,7 +260,8 @@ function Parcours() {
         {
           id: "statut-juridique",
           title: "Choix du statut juridique",
-          description: "Guide pour choisir le meilleur statut pour votre entreprise",
+          description:
+            "Guide pour choisir le meilleur statut pour votre entreprise",
           duration: "1 semaine",
           level: " Intermediaire",
           modules: 2,
@@ -224,7 +333,8 @@ function Parcours() {
         {
           id: "gestion",
           title: "Gestion d'entreprise",
-          description: "Maitrisez les bases de la gestion commerciale et financiere",
+          description:
+            "Maitrisez les bases de la gestion commerciale et financiere",
           duration: "4 semaines",
           level: " Intermediaire",
           modules: 6,
@@ -422,7 +532,8 @@ function Parcours() {
         {
           id: "reseau-entrepreneur",
           title: "Reseau entrepreneurial",
-          description: "Connectez-vous avec d'autres entrepreneurs et partenaires",
+          description:
+            "Connectez-vous avec d'autres entrepreneurs et partenaires",
           duration: " ongoing",
           level: " Tous niveaux",
           modules: 2,
@@ -467,7 +578,8 @@ function Parcours() {
         {
           id: "assistance-juridique",
           title: "Assistance juridique et fiscale",
-          description: "Obtenez des reponses a vos questions juridiques et fiscales",
+          description:
+            "Obtenez des reponses a vos questions juridiques et fiscales",
           duration: "Sur demande",
           level: " Tous niveaux",
           modules: 1,
@@ -624,6 +736,20 @@ function Parcours() {
   // Get selected category details
   const currentCategory = categories.find((cat) => cat.id === selectedCategory);
 
+  // Filter categories based on search query
+  const filteredCategories = categories.filter((category) => {
+    const searchLower = searchQuery.toLowerCase();
+    return (
+      category.title.toLowerCase().includes(searchLower) ||
+      category.subtitle.toLowerCase().includes(searchLower) ||
+      category.options.some(
+        (option) =>
+          option.title.toLowerCase().includes(searchLower) ||
+          option.description.toLowerCase().includes(searchLower),
+      )
+    );
+  });
+
   return (
     <>
       <Helmet>
@@ -636,7 +762,7 @@ function Parcours() {
 
       <div
         style={{
-          padding: "100px 24px 60px",
+          padding: "50px 24px 60px",
           background: "#f8fafc",
           minHeight: "100vh",
           position: "relative",
@@ -644,6 +770,105 @@ function Parcours() {
       >
         {/* Header */}
 
+        {/* Search Bar */}
+        <div
+          style={{
+            maxWidth: "600px",
+            margin: "0 auto 40px",
+            position: "relative",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              background: "white",
+              borderRadius: "16px",
+              padding: "4px",
+              boxShadow: "0 4px 20px rgba(99, 91, 255, 0.12)",
+              border: "2px solid rgba(99, 91, 255, 0.1)",
+              transition: "all 0.3s ease",
+            }}
+          >
+            <div
+              style={{
+                padding: "12px 16px",
+                color: "#635bff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>
+            </div>
+            <input
+              type="text"
+              placeholder="Rechercher un parcours, une formation..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                flex: 1,
+                border: "none",
+                outline: "none",
+                padding: "14px 0",
+                fontSize: "15px",
+                color: "#1a1a2e",
+                background: "transparent",
+                fontFamily: "'Inter', sans-serif",
+              }}
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                style={{
+                  padding: "12px 16px",
+                  background: "rgba(99, 91, 255, 0.1)",
+                  border: "none",
+                  borderRadius: "12px",
+                  color: "#635bff",
+                  cursor: "pointer",
+                  marginRight: "4px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) =>
+                  (e.target.style.background = "rgba(99, 91, 255, 0.2)")
+                }
+                onMouseLeave={(e) =>
+                  (e.target.style.background = "rgba(99, 91, 255, 0.1)")
+                }
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+        </div>
 
         {/* Category Grid */}
         {!selectedCategory && (
@@ -656,7 +881,7 @@ function Parcours() {
               margin: "0 auto",
             }}
           >
-            {categories.map((category, index) => (
+            {filteredCategories.map((category, index) => (
               <motion.div
                 key={category.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -737,7 +962,6 @@ function Parcours() {
 
                 {/* Quick stats */}
 
-
                 {/* Arrow indicator */}
                 <div
                   style={{
@@ -755,6 +979,43 @@ function Parcours() {
                 </div>
               </motion.div>
             ))}
+            {searchQuery && filteredCategories.length === 0 && (
+              <div
+                style={{
+                  textAlign: "center",
+                  padding: "60px 20px",
+                  color: "#6b7280",
+                }}
+              >
+                <svg
+                  width="64"
+                  height="64"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  style={{
+                    margin: "0 auto 16px",
+                    color: "#9ca3af",
+                  }}
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.35-4.35" />
+                </svg>
+                <p
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: 500,
+                    marginBottom: "8px",
+                  }}
+                >
+                  Aucun résultat trouvé
+                </p>
+                <p style={{ fontSize: "14px" }}>
+                  Essayez avec d'autres mots-clés
+                </p>
+              </div>
+            )}
           </div>
         )}
 
@@ -999,7 +1260,8 @@ function Parcours() {
                               alignItems: "center",
                               gap: "8px",
                               padding: "14px 28px",
-                              background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                              background:
+                                "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
                               color: "white",
                               border: "none",
                               borderRadius: "12px",
@@ -1056,7 +1318,8 @@ function Parcours() {
                 marginBottom: "24px",
               }}
             >
-              Utilisez notre assistant intelligent pour obtenir une recommandation person
+              Utilisez notre assistant intelligent pour obtenir une
+              recommandation person
             </p>
             <Link to="/assistant">
               <motion.button

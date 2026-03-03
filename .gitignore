@@ -11,7 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
-
+DOSSIER_MINPMEESA/*
+DOSSIER_MINPMEESA
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

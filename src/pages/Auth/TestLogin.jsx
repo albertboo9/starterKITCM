@@ -1,12 +1,22 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Mail, Lock, ArrowRight, Sparkles } from "lucide-react";
+import { useAuth } from "../../context/AuthContext";
 
 function TestLogin() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // For demo purposes: bypass authentication and redirect to dashboard
+    login(email, password);
+    navigate("/dashboard", { replace: true });
+  };
 
   return (
     <>
@@ -52,7 +62,8 @@ function TestLogin() {
                   style={{
                     width: "52px",
                     height: "52px",
-                    background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                    background:
+                      "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
                     borderRadius: "14px",
                     display: "flex",
                     alignItems: "center",
@@ -65,7 +76,8 @@ function TestLogin() {
                   style={{
                     fontSize: "24px",
                     fontWeight: 700,
-                    background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                    background:
+                      "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}
@@ -93,7 +105,7 @@ function TestLogin() {
             </div>
 
             {/* Form */}
-            <form>
+            <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: "16px" }}>
                 <label
                   style={{
@@ -179,11 +191,12 @@ function TestLogin() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                type="button"
+                type="submit"
                 style={{
                   width: "100%",
                   padding: "16px",
-                  background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                  background:
+                    "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
                   border: "none",
                   borderRadius: "14px",
                   color: "white",
@@ -246,7 +259,8 @@ function TestLogin() {
               left: "10%",
               width: "300px",
               height: "300px",
-              background: "radial-gradient(circle, rgba(99, 91, 255, 0.2) 0%, transparent 70%)",
+              background:
+                "radial-gradient(circle, rgba(99, 91, 255, 0.2) 0%, transparent 70%)",
               borderRadius: "50%",
               filter: "blur(60px)",
             }}
@@ -258,7 +272,8 @@ function TestLogin() {
               right: "5%",
               width: "400px",
               height: "400px",
-              background: "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
+              background:
+                "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
               borderRadius: "50%",
               filter: "blur(80px)",
             }}
@@ -295,7 +310,8 @@ function TestLogin() {
                 lineHeight: 1.6,
               }}
             >
-              Rejoignez des milliers d'entrepreneurs camerounais qui transforment leurs idées en entreprises prospères.
+              Rejoignez des milliers d'entrepreneurs camerounais qui
+              transforment leurs idées en entreprises prospères.
             </p>
           </motion.div>
         </div>

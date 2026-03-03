@@ -33,10 +33,11 @@ function Login() {
     setLoading(true);
 
     try {
-      login(email, password);
-      navigate(from, { replace: true });
+      // For demo purposes: bypass authentication and redirect to dashboard
+      console.log("Demo login - redirecting to dashboard");
+      navigate("/dashboard", { replace: true });
     } catch (err) {
-      setError("Email ou mot de passe incorrect");
+      setError("Une erreur est survenue");
     } finally {
       setLoading(false);
     }
@@ -93,7 +94,8 @@ function Login() {
                   style={{
                     width: "52px",
                     height: "52px",
-                    background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                    background:
+                      "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
                     borderRadius: "14px",
                     display: "flex",
                     alignItems: "center",
@@ -106,7 +108,8 @@ function Login() {
                   style={{
                     fontSize: "24px",
                     fontWeight: 700,
-                    background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                    background:
+                      "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}
@@ -159,7 +162,9 @@ function Login() {
                     gap: "10px",
                   }}
                 >
-                  <span style={{ fontSize: "18px" }}><Lock size={18} /></span>
+                  <span style={{ fontSize: "18px" }}>
+                    <Lock size={18} />
+                  </span>
                   {error}
                 </motion.div>
               )}
@@ -239,7 +244,8 @@ function Login() {
                 style={{
                   width: "100%",
                   padding: "16px",
-                  background: "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
+                  background:
+                    "linear-gradient(135deg, #635bff 0%, #7c3aed 100%)",
                   border: "none",
                   borderRadius: "14px",
                   color: "white",
@@ -259,7 +265,11 @@ function Login() {
                   <>
                     <motion.span
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
                     >
                       <Rocket size={18} />
                     </motion.span>
@@ -444,7 +454,8 @@ function Login() {
               left: "10%",
               width: "300px",
               height: "300px",
-              background: "radial-gradient(circle, rgba(99, 91, 255, 0.2) 0%, transparent 70%)",
+              background:
+                "radial-gradient(circle, rgba(99, 91, 255, 0.2) 0%, transparent 70%)",
               borderRadius: "50%",
               filter: "blur(60px)",
             }}
@@ -456,7 +467,8 @@ function Login() {
               right: "5%",
               width: "400px",
               height: "400px",
-              background: "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
+              background:
+                "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
               borderRadius: "50%",
               filter: "blur(80px)",
             }}
@@ -574,7 +586,8 @@ function Login() {
                   marginTop: "20px",
                 }}
               >
-                Rejoignez plus de 500 entrepreneurs qui construisent l'avenir du Cameroun
+                Rejoignez plus de 500 entrepreneurs qui construisent l'avenir du
+                Cameroun
               </p>
             </motion.div>
 

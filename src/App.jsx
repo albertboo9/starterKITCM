@@ -31,6 +31,24 @@ const TestOrbitalRedesign = lazy(() => import("./pages/TestOrbitalRedesign"));
 // Legacy signup (à supprimer après migration)
 // const Signup = lazy(() => import("./pages/Auth/Signup"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
+const DashboardParcours = lazy(
+  () => import("./pages/Dashboard/DashboardParcours"),
+);
+const ParcoursDetail = lazy(
+  () => import("./pages/Dashboard/ParcoursDetail"),
+);
+const DashboardProfile = lazy(
+  () => import("./pages/Dashboard/DashboardProfile"),
+);
+const DashboardFormations = lazy(
+  () => import("./pages/Dashboard/DashboardFormations"),
+);
+const DashboardDocuments = lazy(
+  () => import("./pages/Dashboard/DashboardDocuments"),
+);
+const DashboardMessages = lazy(
+  () => import("./pages/Dashboard/DashboardMessages"),
+);
 const Parcours = lazy(() => import("./pages/Parcours/Parcours"));
 const Formations = lazy(() => import("./pages/Formations/Formations"));
 const Certification = lazy(() => import("./pages/Certification/Certification"));
@@ -126,7 +144,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/test-login" element={<TestLogin />} />
             <Route path="/test-orbital" element={<TestOrbitalBubbles />} />
-          <Route path="/test-redesign" element={<TestOrbitalRedesign />} />
+            <Route path="/test-redesign" element={<TestOrbitalRedesign />} />
             <Route path="/demo/menus" element={<MenuStylesDemo />} />
             <Route path="/demo/mega-menu" element={<MegaMenuDemo />} />
             <Route path="/parcours" element={<Parcours />} />
@@ -169,6 +187,22 @@ function App() {
             }
           >
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/parcours" element={<DashboardParcours />} />
+            <Route path="/dashboard/parcours/:id" element={<ParcoursDetail />} />
+            <Route
+              path="/dashboard/formations"
+              element={<DashboardFormations />}
+            />
+            <Route path="/dashboard/profile" element={<DashboardProfile />} />
+            <Route
+              path="/dashboard/documents"
+              element={<DashboardDocuments />}
+            />
+            <Route path="/dashboard/messages" element={<DashboardMessages />} />
+            <Route
+              path="/dashboard/certification"
+              element={<Certification />}
+            />
             <Route path="/certification" element={<Certification />} />
             <Route path="/upload" element={<Upload />} />
           </Route>
