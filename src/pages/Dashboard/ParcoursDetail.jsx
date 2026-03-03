@@ -258,78 +258,37 @@ function ParcoursDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD]">
+    <div className="min-h-screen bg-white">
       <Helmet>
         <title>{parcours.title} — Campus PME</title>
       </Helmet>
 
-      <nav className="border-b border-gray-100 bg-white/60 backdrop-blur-2xl sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-14 sm:h-16 lg:h-20 flex items-center justify-between gap-2 sm:gap-8">
+      {/* Navbar minimaliste */}
+      <nav className="border-b border-gray-100 bg-white sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between">
           <Link
             to="/dashboard/parcours"
-            className="group flex items-center gap-3 text-gray-900 font-bold transition-all text-sm"
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
           >
-            <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-primaryBlue group-hover:text-white transition-all border border-gray-100">
-              <ArrowLeft size={18} />
-            </div>
-            <span className="hidden sm:inline">Retour aux Parcours</span>
+            <ArrowLeft size={16} />
+            <span>Retour</span>
           </Link>
-          <div className="flex items-center gap-8">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-              <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">
-                Votre Avancement
-              </span>
-              <span className="text-sm font-black text-gray-900 tracking-tight">
-                {parcours.progress}% complété
-              </span>
-            </div>
-            <div className="w-24 sm:w-32 lg:w-48 h-2 bg-gray-100 rounded-full overflow-hidden border border-gray-100/50">
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-gray-500">{parcours.progress}%</span>
+            <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${parcours.progress}%` }}
-                className="h-full bg-primaryBlue shadow-[0_0_20px_rgba(102,126,234,0.5)]"
+                className="h-full bg-primaryBlue"
               />
             </div>
           </div>
         </div>
       </nav>
 
-      <header className="relative pt-16 pb-16 md:pt-24 md:pb-24 lg:pt-32 lg:pb-48 overflow-hidden bg-gray-50/50">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1400px] h-[600px] bg-primaryBlue/5 rounded-full blur-[140px] pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-3 px-6 py-2 bg-white/80 backdrop-blur-xl rounded-full text-[11px] font-black text-primaryBlue uppercase tracking-[0.3em] mb-12 border border-primaryBlue/10 shadow-xl shadow-primaryBlue/5"
-          >
-            <div className="w-2 h-2 rounded-full bg-primaryBlue animate-pulse" />
-            {parcours.category}
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.8 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-6 sm:mb-8 tracking-tighter leading-[0.9]"
-          >
-            {parcours.title.split(" ").map((word, i) => (
-              <span key={i} className={i === 1 ? "text-primaryBlue" : ""}>
-                {word}{" "}
-              </span>
-            ))}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-base sm:text-lg md:text-xl text-gray-500 leading-relaxed max-w-3xl mx-auto font-medium tracking-tight"
-          >
-            {parcours.description}
-          </motion.p>
-        </div>
-      </header>
-
-      <div className="sticky top-14 sm:top-16 lg:top-20 z-40 py-4 sm:py-6 lg:py-8 bg-[#FDFDFD]/80 backdrop-blur-xl border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+      {/* Tabs fines */}
+      <div className="sticky top-12 z-40 bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4">
           <PremiumTabs
             steps={steps}
             activeStep={activeStep}
@@ -338,77 +297,42 @@ function ParcoursDetail() {
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 md:py-20 lg:py-32 min-h-screen">
+      <main className="max-w-7xl mx-auto px-4 py-6 min-h-screen">
         <AnimatePresence mode="wait">
           <motion.div
             key={steps[activeStep].id}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -40 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
           >
-            <div className="flex flex-col sm:flex-row justify-between items-end gap-4 sm:gap-8 mb-12 sm:mb-20">
-              <div className="max-w-2xl">
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="text-primaryBlue font-black text-5xl sm:text-6xl opacity-10 mb-4 sm:mb-6 block leading-none"
-                >
-                  0{activeStep + 1}
-                </motion.span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 tracking-tight leading-tight uppercase">
-                  {steps[activeStep].title}
-                </h2>
-                <p className="text-lg text-gray-400 font-medium mt-4">
-                  Module stratégique de votre parcours d'excellence.
-                </p>
-              </div>
-              <div className="flex bg-gray-50 p-2 rounded-2xl border border-gray-100">
-                <button
-                  disabled={activeStep === 0}
-                  onClick={() => setActiveStep(activeStep - 1)}
-                  className={`w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl flex items-center justify-center transition-all ${activeStep === 0 ? "opacity-20" : "bg-white shadow-sm hover:bg-primaryBlue hover:text-white"}`}
-                >
-                  <ArrowLeft size={20} />
-                </button>
-                <div className="w-px h-10 bg-gray-200 my-auto mx-2" />
-                <button
-                  disabled={activeStep === steps.length - 1}
-                  onClick={handleNext}
-                  className={`w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl flex items-center justify-center transition-all ${activeStep === steps.length - 1 ? "opacity-20" : "bg-white shadow-sm hover:bg-primaryBlue hover:text-white"}`}
-                >
-                  <ArrowRight size={20} />
-                </button>
-              </div>
-            </div>
-
             {renderStepContent(steps[activeStep].id)}
 
-            {/* Footer Navigation */}
-            <footer className="mt-12 sm:mt-20 pt-8 sm:pt-12 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            {/* Navigation simple */}
+            <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
               <button
                 disabled={activeStep === 0}
                 onClick={() => setActiveStep(activeStep - 1)}
-                className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${activeStep === 0 ? "opacity-30" : "text-gray-500 hover:bg-gray-100"}`}
+                className={`text-sm font-medium transition-colors ${activeStep === 0 ? "text-gray-300" : "text-gray-500 hover:text-gray-900"}`}
               >
-                Précédent
+                ← Précédent
               </button>
               {activeStep < steps.length - 1 ? (
                 <button
                   onClick={handleNext}
-                  className="px-6 sm:px-10 py-3 sm:py-4 bg-primaryBlue text-white rounded-xl sm:rounded-2xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-primaryBlueDark hover:translate-x-1 transition-all shadow-xl shadow-primaryBlue/20 w-full sm:w-auto"
+                  className="px-4 py-2 bg-primaryBlue text-white text-sm font-medium rounded-lg hover:bg-primaryBlueDark transition-colors"
                 >
-                  Étape suivante <ArrowRight size={18} />
+                  Suivant →
                 </button>
               ) : (
                 <Link
                   to="/dashboard/parcours"
-                  className="px-6 sm:px-10 py-3 sm:py-4 bg-gray-900 text-white rounded-xl sm:rounded-2xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-black transition-all shadow-xl w-full sm:w-auto"
+                  className="px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
                 >
-                  Terminer le parcours
+                  Terminer
                 </Link>
               )}
-            </footer>
+            </div>
           </motion.div>
         </AnimatePresence>
       </main>
