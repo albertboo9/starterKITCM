@@ -263,8 +263,8 @@ function ParcoursDetail() {
         <title>{parcours.title} — Campus PME</title>
       </Helmet>
 
-      {/* Navbar minimaliste */}
-      <nav className="border-b border-gray-100 bg-white sticky top-0 z-50">
+      {/* Navbar minimaliste - z-60 pour être AU-DESSUS du header global */}
+      <nav className="border-b border-gray-100 bg-white sticky top-0 z-[60]">
         <div className="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between">
           <Link
             to="/dashboard/parcours"
@@ -286,8 +286,8 @@ function ParcoursDetail() {
         </div>
       </nav>
 
-      {/* Tabs fines */}
-      <div className="sticky top-12 z-40 bg-white border-b border-gray-100">
+      {/* Tabs fines - z-59 */}
+      <div className="sticky top-12 z-[59] bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4">
           <PremiumTabs
             steps={steps}
