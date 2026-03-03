@@ -34,6 +34,9 @@ const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 const DashboardParcours = lazy(
   () => import("./pages/Dashboard/DashboardParcours"),
 );
+const ParcoursDetail = lazy(
+  () => import("./pages/Dashboard/ParcoursDetail"),
+);
 const DashboardProfile = lazy(
   () => import("./pages/Dashboard/DashboardProfile"),
 );
@@ -185,6 +188,7 @@ function App() {
           >
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/parcours" element={<DashboardParcours />} />
+            <Route path="/dashboard/parcours/:id" element={<ParcoursDetail />} />
             <Route
               path="/dashboard/formations"
               element={<DashboardFormations />}

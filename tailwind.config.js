@@ -20,6 +20,8 @@ export default {
         primary: "#1a1a2e",
         primaryLight: "#16213e",
         primaryDark: "#0f3460",
+        primaryBlue: "#667eea",
+        primaryBlueDark: "#5a6fd6",
         accent: "#e94560",
       },
       fontFamily: {

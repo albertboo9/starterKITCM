@@ -7,11 +7,21 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing session
-    const savedUser = localStorage.getItem("starter_user");
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
+    // Clear old session data and set new default user
+    localStorage.removeItem("starter_user");
+
+    // Set default user
+    const defaultUser = {
+      id: "1",
+      email: "bo.albert@email.com",
+      firstName: "BO'O",
+      lastName: "ALBERT",
+      avatar: null,
+      role: "entrepreneur",
+      createdAt: new Date().toISOString(),
+    };
+    setUser(defaultUser);
+    localStorage.setItem("starter_user", JSON.stringify(defaultUser));
     setLoading(false);
   }, []);
 
