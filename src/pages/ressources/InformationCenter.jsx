@@ -12,108 +12,421 @@ import {
   ChevronRight,
   Filter,
   BookOpen,
+  Gavel,
+  Landmark,
+  Briefcase,
+  Users,
+  Calculator,
+  Building,
+  Shield,
+  GraduationCap,
+  Heart,
+  Car,
+  Package,
+  Globe,
+  FileSignature,
+  Scroll,
+  ClipboardList,
 } from "lucide-react";
 
-// Mock data - Information Center
+// Mock data - Information Center with comprehensive legislation
 const informations = [
+  // ==================== LÉGISLATION PRINCIPALE ====================
   {
     id: 1,
-    title: "Loi sur l'entrepreneuriat au Cameroun 2023",
-    type: "Texte de loi",
+    title:
+      "Loi n° 2015/020 du 21 décembre 2015 relative à l'entrepreneuriat au Cameroun",
+    type: "Loi",
     category: "Législation",
-    date: "2023-12-01",
+    subcategory: "Entrepreneuriat",
+    date: "2015-12-21",
     description:
-      "Texte complet de la loi relative à l'orientation de l'activité entrepreneuriale au Cameroun.",
-    link: "/documents/loi-entrepreneuriat-2023.pdf",
-    isNew: true,
+      "Texte de loi fondateur définissant le cadre juridique de l'entrepreneuriat au Cameroun. Établit les droits et obligations des entrepreneurs.",
+    link: "/documents/loi-entrepreneuriat-2015.pdf",
+    isNew: false,
+    isKey: true,
   },
   {
     id: 2,
-    title: "Décret d'application - Statut auto-entrepreneur",
-    type: "Décret",
-    category: "Décrets",
-    date: "2023-11-15",
+    title: "Loi n° 2019/018 du 24 juillet 2019 portant Code General des Impôts",
+    type: "Loi",
+    category: "Législation",
+    subcategory: "Fiscalité",
+    date: "2019-07-24",
     description:
-      "Décret présidentiel définissant les conditions d'application du statut d'auto-entrepreneur.",
-    link: "/documents/decret-auto-entrepreneur.pdf",
+      "Code Général des Impôts camerounais regroupant l'ensemble des dispositions fiscales en vigueur.",
+    link: "/documents/cgi-2019.pdf",
     isNew: false,
+    isKey: true,
   },
   {
     id: 3,
-    title: "Guide des procédures de création d'entreprise",
-    type: "Guide",
-    category: "Guides",
-    date: "2023-11-10",
+    title: "Loi n° 92/007 du 14 août 1992 portant Code du Travail",
+    type: "Loi",
+    category: "Législation",
+    subcategory: "Social",
+    date: "1992-08-14",
     description:
-      "Guide pratique détaillant toutes les étapes pour créer votre entreprise au Cameroun.",
-    link: "/documents/guide-creation.pdf",
+      "Code du travail camerounais définissant les relations entre employeurs et employés.",
+    link: "/documents/code-travail.pdf",
     isNew: false,
+    isKey: true,
   },
   {
     id: 4,
-    title: "Réglementation fiscale des PME",
-    type: "Réglementation",
-    category: "Fiscalité",
-    date: "2023-10-28",
+    title:
+      "Loi n° 2000/011 du 19 décembre 2000 relative aux Sociétés Coopératives",
+    type: "Loi",
+    category: "Législation",
+    subcategory: "Coopératives",
+    date: "2000-12-19",
     description:
-      "Comprendre le régime fiscal applicable aux petites et moyennes entreprises.",
-    link: "/documents/fiscalite-pme.pdf",
+      "Loi régissant la création et le fonctionnement des sociétés coopératives au Cameroun.",
+    link: "/documents/loi-cooperatives.pdf",
     isNew: false,
+    isKey: false,
   },
   {
     id: 5,
+    title:
+      "Loi n° 2016/007 du 12 juillet 2016 relative aux Partenariats Public-Privé",
+    type: "Loi",
+    category: "Législation",
+    subcategory: "PPP",
+    date: "2016-07-12",
+    description:
+      "Cadre juridique des partenariats entre le secteur public et le secteur privé.",
+    link: "/documents/loi-ppp.pdf",
+    isNew: false,
+    isKey: true,
+  },
+  // ==================== DÉCRETS ====================
+  {
+    id: 6,
+    title:
+      "Décret n° 2018/1912/PM du 26 mars 2018 fixant les conditions de création d'entreprise",
+    type: "Décret",
+    category: "Décrets",
+    subcategory: "Création d'entreprise",
+    date: "2018-03-26",
+    description:
+      "Décret fixant les procédures administratives pour la création d'entreprise au Cameroun.",
+    link: "/documents/decret-creation.pdf",
+    isNew: false,
+    isKey: true,
+  },
+  {
+    id: 7,
+    title:
+      "Décret n° 2019/001/PM du 24 janvier 2019 portant création du Guichet Unique",
+    type: "Décret",
+    category: "Décrets",
+    subcategory: "Administration",
+    date: "2019-01-24",
+    description:
+      "Création et organisation du Guichet Unique des formalités d'entreprise.",
+    link: "/documents/decret-guichet-unique.pdf",
+    isNew: false,
+    isKey: true,
+  },
+  {
+    id: 8,
+    title:
+      "Décret n° 2017/093 du 23 février 2017 fixant le régime des Auto-entrepreneurs",
+    type: "Décret",
+    category: "Décrets",
+    subcategory: "Auto-entrepreneur",
+    date: "2017-02-23",
+    description:
+      "Décret définissant les conditions d'exercice et le régime fiscal des auto-entrepreneurs.",
+    link: "/documents/decret-auto-entrepreneur.pdf",
+    isNew: false,
+    isKey: true,
+  },
+  {
+    id: 9,
+    title:
+      "Décret n° 2020/365 du 22 mai 2020 relatif à la Zone Economique à Regime Privilégié",
+    type: "Décret",
+    category: "Décrets",
+    subcategory: "Zones économiques",
+    date: "2020-05-22",
+    description:
+      "Dispositions relatives aux Zones Economiques à Regime Privilégié (ZERP) au Cameroun.",
+    link: "/documents/decret-zerp.pdf",
+    isNew: false,
+    isKey: false,
+  },
+  // ==================== ARRÊTÉS ====================
+  {
+    id: 10,
+    title:
+      "Arrêté n° 045/MINMIDT/SG relative aux conditions d'agrément des Startups",
+    type: "Arrêté",
+    category: "Arrêtés",
+    subcategory: "Startups",
+    date: "2020-03-15",
+    description:
+      "Critères et procédures d'agrément des entreprises startups au Cameroun.",
+    link: "/documents/arret-startup.pdf",
+    isNew: true,
+    isKey: true,
+  },
+  {
+    id: 11,
+    title: "Arrêté n° 078/MINFI fixant les taux d'imposition des PME",
+    type: "Arrêté",
+    category: "Arrêtés",
+    subcategory: "Fiscalité",
+    date: "2019-06-20",
+    description:
+      "Tableau des taux d'imposition applicables aux petites et moyennes entreprises.",
+    link: "/documents/arret-taux-pme.pdf",
+    isNew: false,
+    isKey: false,
+  },
+  {
+    id: 12,
+    title: "Arrêté n° 023/MINTSS fixant le SMIG",
+    type: "Arrêté",
+    category: "Arrêtés",
+    subcategory: "Social",
+    date: "2024-01-01",
+    description:
+      "Salaire Minimum Interprofessionnel Garanti en vigueur au Cameroun.",
+    link: "/documents/arret-smig.pdf",
+    isNew: true,
+    isKey: true,
+  },
+  // ==================== CIRCULAIRES ====================
+  {
+    id: 13,
+    title:
+      "Circulaire n° 001/PM relative à la simplification des procédures administratives",
+    type: "Circulaire",
+    category: "Circulaires",
+    subcategory: "Administration",
+    date: "2021-04-10",
+    description:
+      "Mesures de simplification des procédures administratives pour les entreprises.",
+    link: "/documents/circ-admin.pdf",
+    isNew: false,
+    isKey: false,
+  },
+  {
+    id: 14,
+    title:
+      "Circulaire n° 005/MINFI relative aux déclarations fiscales numériques",
+    type: "Circulaire",
+    category: "Circulaires",
+    subcategory: "Fiscalité",
+    date: "2022-08-15",
+    description:
+      "Obligations relatives à la déclaration fiscale par voie électronique.",
+    link: "/documents/circ-fiscal-numerique.pdf",
+    isNew: false,
+    isKey: false,
+  },
+  // ==================== GUIDES PRATIQUES ====================
+  {
+    id: 15,
+    title: "Guide des procédures de création d'entreprise 2024",
+    type: "Guide",
+    category: "Guides",
+    subcategory: "Création d'entreprise",
+    date: "2024-01-15",
+    description:
+      "Guide pratique détaillant toutes les étapes pour créer votre entreprise au Cameroun.",
+    link: "/documents/guide-creation-2024.pdf",
+    isNew: true,
+    isKey: true,
+  },
+  {
+    id: 16,
+    title: "Guide des aides et financements pour les PME",
+    type: "Guide",
+    category: "Guides",
+    subcategory: "Financement",
+    date: "2023-11-20",
+    description:
+      "Compilation des dispositifs d'aide et de financement disponibles pour les PME camerounaises.",
+    link: "/documents/guide-financement.pdf",
+    isNew: false,
+    isKey: true,
+  },
+  {
+    id: 17,
+    title: "Guide de la Fiscalité des PME au Cameroun",
+    type: "Guide",
+    category: "Guides",
+    subcategory: "Fiscalité",
+    date: "2023-09-10",
+    description: "Comprendre et optimiser la gestion fiscale de votre PME.",
+    link: "/documents/guide-fiscalite-pme.pdf",
+    isNew: false,
+    isKey: false,
+  },
+  {
+    id: 18,
+    title: "Guide des Zones Economiques à Regime Privilégié",
+    type: "Guide",
+    category: "Guides",
+    subcategory: "Zones économiques",
+    date: "2023-06-05",
+    description:
+      "Avantages et procédures pour s'implanter dans les ZERP du Cameroun.",
+    link: "/documents/guide-zerp.pdf",
+    isNew: false,
+    isKey: false,
+  },
+  // ==================== FORMULAIRES ====================
+  {
+    id: 19,
+    title: "Formulaire de demande d'agrément au statut Auto-entrepreneur",
+    type: "Formulaire",
+    category: "Formulaires",
+    subcategory: "Auto-entrepreneur",
+    date: "2024-01-01",
+    description:
+      "Formulaire officiel de demande d'agrément au statut d'auto-entrepreneur.",
+    link: "/documents/formulaire-auto-entrepreneur.xlsx",
+    isNew: true,
+    isKey: true,
+  },
+  {
+    id: 20,
     title: "Formulaire de demande de financement MINPMEESA",
     type: "Formulaire",
     category: "Formulaires",
+    subcategory: "Financement",
     date: "2023-10-20",
     description:
       "Formulaire à remplir pour soumettre votre dossier de demande de financement.",
     link: "/documents/formulaire-financement.xlsx",
-    isNew: true,
+    isNew: false,
+    isKey: true,
   },
   {
-    id: 6,
-    title: "Calendrier des événements MINPMEESA 2024",
+    id: 21,
+    title:
+      "Formulaire d'immatriculation au Registre du Commerce et du Crédit Mobilier",
+    type: "Formulaire",
+    category: "Formulaires",
+    subcategory: "Création d'entreprise",
+    date: "2023-05-15",
+    description:
+      "Formulaire d'immatriculation au RCCM pour les personnes morales.",
+    link: "/documents/formulaire-rccm.xlsx",
+    isNew: false,
+    isKey: true,
+  },
+  {
+    id: 22,
+    title: "Déclaration mensuelle des charges sociales CNPS",
+    type: "Formulaire",
+    category: "Formulaires",
+    subcategory: "Social",
+    date: "2023-01-01",
+    description:
+      "Formulaire de déclaration mensuelle des cotisations sociales CNPS.",
+    link: "/documents/formulaire-cnps.xlsx",
+    isNew: false,
+    isKey: false,
+  },
+  // ==================== CONVENTIONS ====================
+  {
+    id: 23,
+    title: "Convention Collective Nationale des Employees des PME",
+    type: "Convention",
+    category: "Conventions",
+    subcategory: "Social",
+    date: "2020-03-15",
+    description:
+      "Convention collective applicable aux employés des petites et moyennes entreprises.",
+    link: "/documents/convention-collective-pme.pdf",
+    isNew: false,
+    isKey: false,
+  },
+  {
+    id: 24,
+    title: "Accord sectoriel de la promotion de l'Entrepreneuriat Jeune",
+    type: "Convention",
+    category: "Conventions",
+    subcategory: "Emploi",
+    date: "2022-06-20",
+    description:
+      "Accord entre l'État et le secteur privé pour la promotion de l'entrepreneuriat jeune.",
+    link: "/documents/accord-jeune.pdf",
+    isNew: false,
+    isKey: false,
+  },
+  // ==================== ÉVÉNEMENTS ====================
+  {
+    id: 25,
+    title: "Salon International des PME 2024",
     type: "Événement",
     category: "Événements",
-    date: "2023-10-15",
+    subcategory: "Salons",
+    date: "2024-09-15",
     description:
-      "Liste des événements, salons et journées portes ouvertes organisés par le MINPMEESA.",
-    link: "/evenements",
-    isNew: false,
+      "Plus grand rendez-vous des PME camerounaises - Yaoundé, Palais des Congrès.",
+    link: "/evenements/salon-pme-2024",
+    isNew: true,
+    isKey: false,
   },
   {
-    id: 7,
-    title: "Liens utiles - Institutions publiques",
+    id: 26,
+    title: "Journée Nationale de l'Entrepreneur 2024",
+    type: "Événement",
+    category: "Événements",
+    subcategory: "Journées",
+    date: "2024-08-15",
+    description:
+      "Célébration de la journée nationale de l'entrepreneur - Toutes les régions du Cameroun.",
+    link: "/evenements/journee-entrepreneur",
+    isNew: false,
+    isKey: false,
+  },
+  // ==================== LIENS UTILES ====================
+  {
+    id: 27,
+    title: "Annuaire des institutions publiques liées aux PME",
     type: "Liens",
     category: "Liens utiles",
-    date: "2023-10-01",
+    subcategory: "Institutions",
+    date: "2024-01-10",
     description:
-      "Compilation des liens vers les institutions publiques et organismes de soutien.",
-    link: "/liens-utiles",
+      "Compilation des liens vers les institutions publiques et organismes de soutien aux PME.",
+    link: "/ressources/annuaire-institutions",
     isNew: false,
+    isKey: false,
   },
   {
-    id: 8,
-    title: "Convention collective applicable aux employés de PME",
-    type: "Convention",
-    category: "Social",
-    date: "2023-09-20",
+    id: 28,
+    title: "Plateformes numériques administratives",
+    type: "Liens",
+    category: "Liens utiles",
+    subcategory: "Services en ligne",
+    date: "2023-12-01",
     description:
-      "Convention collective régissant les relations de travail dans les petites et moyennes entreprises.",
-    link: "/documents/convention-collective.pdf",
+      "Liste des plateformes numériques pour les démarches administratives.",
+    link: "/ressources/plateformes-admin",
     isNew: false,
+    isKey: false,
   },
 ];
 
 const categories = [
-  { id: "all", label: "Tout", count: 24 },
-  { id: "Législation", label: "Législation", count: 5 },
-  { id: "Décrets", label: "Décrets", count: 3 },
-  { id: "Fiscalité", label: "Fiscalité", count: 4 },
-  { id: "Guides", label: "Guides", count: 6 },
-  { id: "Événements", label: "Événements", count: 3 },
-  { id: "Formulaires", label: "Formulaires", count: 3 },
+  { id: "all", label: "Tout voir", count: 28, icon: Landmark },
+  { id: "Législation", label: "Législation", count: 5, icon: Scale },
+  { id: "Décrets", label: "Décrets", count: 4, icon: FileSignature },
+  { id: "Arrêtés", label: "Arrêtés", count: 3, icon: Gavel },
+  { id: "Circulaires", label: "Circulaires", count: 2, icon: Scroll },
+  { id: "Guides", label: "Guides", count: 4, icon: BookOpen },
+  { id: "Formulaires", label: "Formulaires", count: 4, icon: ClipboardList },
+  { id: "Conventions", label: "Conventions", count: 2, icon: FileText },
+  { id: "Événements", label: "Événements", count: 2, icon: Calendar },
+  { id: "Liens utiles", label: "Liens utiles", count: 2, icon: LinkIcon },
 ];
 
 function InformationCenter() {
@@ -134,19 +447,32 @@ function InformationCenter() {
 
   const toggleBookmark = (id) => {
     setBookmarked((prev) =>
-      prev.includes(id) ? prev.filter((b) => b !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((b) => b !== id) : [...prev, id],
     );
   };
 
   const typeIcons = {
-    "Texte de loi": FileText,
-    Décret: Scale,
+    Loi: Scale,
+    Décret: FileSignature,
+    Arrêté: Gavel,
+    Circulaire: Scroll,
     Guide: BookOpen,
-    Réglementation: FileText,
-    Formulaire: FileText,
+    Formulaire: ClipboardList,
+    Convention: FileText,
     Événement: Calendar,
     Liens: LinkIcon,
-    Convention: FileText,
+  };
+
+  const typeColors = {
+    Loi: "bg-red-100 text-red-600",
+    Décret: "bg-blue-100 text-blue-600",
+    Arrêté: "bg-purple-100 text-purple-600",
+    Circulaire: "bg-orange-100 text-orange-600",
+    Guide: "bg-green-100 text-green-600",
+    Formulaire: "bg-amber-100 text-amber-600",
+    Convention: "bg-pink-100 text-pink-600",
+    Événement: "bg-cyan-100 text-cyan-600",
+    Liens: "bg-gray-100 text-gray-600",
   };
 
   return (
@@ -175,12 +501,14 @@ function InformationCenter() {
               <span>Moteur de recherche</span>
             </div>
             <h1>
-              Point<br />
+              Point
+              <br />
               <span className="gradient-text">d'informations</span>
             </h1>
             <p>
               Accédez à toutes les informations administratives, textes de loi,
-              décrets et ressources officielles pour votre entreprise au Cameroun.
+              décrets et ressources officielles pour votre entreprise au
+              Cameroun.
             </p>
           </motion.div>
 
@@ -213,7 +541,7 @@ function InformationCenter() {
                 >
                   {filter}
                 </button>
-              )
+              ),
             )}
           </div>
         </div>
@@ -224,20 +552,29 @@ function InformationCenter() {
         <div className="info-layout">
           {/* Sidebar Categories */}
           <aside className="info-sidebar">
-            <h3>Catégories</h3>
+            <h3>
+              <Landmark size={20} />
+              Catégories
+            </h3>
             <div className="category-list">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  className={`category-item ${
-                    selectedCategory === cat.id ? "active" : ""
-                  }`}
-                  onClick={() => setSelectedCategory(cat.id)}
-                >
-                  <span className="cat-name">{cat.label}</span>
-                  <span className="cat-count">{cat.count}</span>
-                </button>
-              ))}
+              {categories.map((cat) => {
+                const CatIcon = cat.icon || FileText;
+                return (
+                  <button
+                    key={cat.id}
+                    className={`category-item ${
+                      selectedCategory === cat.id ? "active" : ""
+                    }`}
+                    onClick={() => setSelectedCategory(cat.id)}
+                  >
+                    <span className="cat-icon">
+                      <CatIcon size={18} />
+                    </span>
+                    <span className="cat-name">{cat.label}</span>
+                    <span className="cat-count">{cat.count}</span>
+                  </button>
+                );
+              })}
             </div>
 
             {/* Bookmarks */}
@@ -290,6 +627,7 @@ function InformationCenter() {
               {filteredInfos.map((info, index) => {
                 const TypeIcon = typeIcons[info.type] || FileText;
                 const isBookmarked = bookmarked.includes(info.id);
+                const colorClass = typeColors[info.type] || "bg-gray-100 text-gray-600";
 
                 return (
                   <motion.div
@@ -299,13 +637,18 @@ function InformationCenter() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05, duration: 0.4 }}
                   >
-                    <div className="info-icon">
+                    <div className={`info-icon ${colorClass}`}>
                       <TypeIcon size={24} />
                     </div>
                     <div className="info-content">
                       <div className="info-header">
-                        {info.isNew && <span className="new-badge">Nouveau</span>}
-                        <span className="info-type">{info.type}</span>
+                        {info.isNew && (
+                          <span className="new-badge">Nouveau</span>
+                        )}
+                        {info.isKey && (
+                          <span className="key-badge">Important</span>
+                        )}
+                        <span className={`type-badge ${colorClass}`}>{info.type}</span>
                       </div>
                       <h3>{info.title}</h3>
                       <p>{info.description}</p>
@@ -319,6 +662,9 @@ function InformationCenter() {
                           })}
                         </span>
                         <span className="info-category">{info.category}</span>
+                        {info.subcategory && (
+                          <span className="info-subcategory">{info.subcategory}</span>
+                        )}
                       </div>
                     </div>
                     <div className="info-actions">
@@ -326,7 +672,10 @@ function InformationCenter() {
                         className={`bookmark-btn ${isBookmarked ? "active" : ""}`}
                         onClick={() => toggleBookmark(info.id)}
                       >
-                        <Bookmark size={20} fill={isBookmarked ? "currentColor" : "none"} />
+                        <Bookmark
+                          size={20}
+                          fill={isBookmarked ? "currentColor" : "none"}
+                        />
                       </button>
                       <a href={info.link} className="download-btn">
                         <Download size={20} />

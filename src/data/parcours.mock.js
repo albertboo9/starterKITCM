@@ -131,11 +131,13 @@ export const mockParcours = [
         title: "Elaborer un business plan",
         duration: "6h",
         completed: false,
-        accessLevel: "libre", // Accès libre
+        accessLevel: "libre",
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=274",
-        description:
-          "Guide complet pour rédiger un business plan professionnel.",
+        description: "Guide complet pour rédiger un business plan professionnel.",
         previewImage: "/training7.jpg",
+        category: "Stratégie",
+        level: "Débutant",
+        modules: 8,
       },
       {
         id: "f1",
@@ -144,40 +146,45 @@ export const mockParcours = [
         completed: false,
         accessLevel: "libre",
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1344",
-        description:
-          "Apprenez les bases de la création d'entreprise au Cameroun, de l'idée à l'immatriculation.",
+        description: "Apprenez les bases de la création d'entreprise au Cameroun, de l'idée à l'immatriculation.",
         previewImage: "/training.jpg",
+        category: "Juridique",
+        level: "Débutant",
+        modules: 6,
       },
       {
         id: "f2",
         title: "Business Model Canvas",
         duration: "3h",
         completed: false,
-        accessLevel: "libre", // Accès libre
+        accessLevel: "libre",
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1346",
-        description:
-          "Maîtrisez l'outil Canvas pour structurer et valider votre modèle économique.",
+        description: "Maîtrisez l'outil Canvas pour structurer et valider votre modèle économique.",
         previewImage: "/training2.jpg",
+        category: "Stratégie",
+        level: "Intermédiaire",
+        modules: 5,
       },
       {
         id: "f3",
         title: "Réussir le lancement de votre entreprise",
         duration: "2h",
         completed: false,
-        accessLevel: "conditionnel", // Requiert financement MINPMEESA
-        financingInfo:
-          "Formation financée par le MINPMEESA - Soumettez une demande de financement",
+        accessLevel: "conditionnel",
+        financingInfo: "Formation financée par le MINPMEESA - Soumettez une demande de financement",
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1345",
-        description:
-          "Découvrez les 5 erreurs à éviter lors du lancement de votre entreprise.",
+        description: "Découvrez les 5 erreurs à éviter lors du lancement de votre entreprise.",
         previewImage: "/training3.jpg",
+        category: "Management",
+        level: "Débutant",
+        modules: 4,
       },
       {
         id: "f4",
         title: "Etude de faisabilité commerciale",
         duration: "4h",
         completed: false,
-        accessLevel: "conditionnel", // Requiert financement MINPMEESA
+        accessLevel: "conditionnel",
         financingInfo:
           "Formation financée par le MINPMEESA - Soumettez une demande de financement",
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1347",
@@ -360,7 +367,7 @@ export const mockParcours = [
         {
           id: 1,
           author: "Marie K.",
-          avatar: "https://i.pravatar.cc/150?u=marie",
+          avatar: "/employees-explaining-business.jpg",
           content:
             "Bonjour à tous! Je cherche un expert-comptable pour ma SARL à Douala. Quelqu'un a des recommandations?",
           channel: "Aide",
@@ -370,7 +377,7 @@ export const mockParcours = [
         {
           id: 2,
           author: "Paul T.",
-          avatar: "https://i.pravatar.cc/150?u=paul",
+          avatar: "/employees-explaining-business2.jpg",
           content:
             "Super événement ce matin! Le représentant du MINPMEESA a présenté les nouvelles mesures fiscales.",
           channel: "Événements",
@@ -380,7 +387,8 @@ export const mockParcours = [
         {
           id: 3,
           author: "Sophie M.",
-          avatar: "https://i.pravatar.cc/150?u=sophie",
+          avatar:
+            "/african-woman-manager-looking-camera-smiling-holding-clipboard-while-diverse-coworkers-talking-background.jpg",
           content:
             "Je propose des services de consulting en marketing digital pour les PME camerounaises. N'hésitez pas à me contacter!",
           channel: "Offres",
@@ -390,7 +398,8 @@ export const mockParcours = [
         {
           id: 4,
           author: "Jean-Pierre N.",
-          avatar: "https://i.pravatar.cc/150?u=jeanpierre",
+          avatar:
+            "/university-students-learning-accounting-principles-financial-analysis.jpg",
           content:
             "Quelqu'un a déjà fait une demande de financement au FEIP? Je voudrais partager mon expérience.",
           channel: "Aide",
@@ -399,19 +408,32 @@ export const mockParcours = [
         },
       ],
       onlineMembers: [
-        { name: "Marie K.", avatar: "https://i.pravatar.cc/150?u=marie" },
-        { name: "Paul T.", avatar: "https://i.pravatar.cc/150?u=paul" },
-        { name: "Sophie M.", avatar: "https://i.pravatar.cc/150?u=sophie" },
+        { name: "Marie K.", avatar: "/employees-explaining-business.jpg" },
+        { name: "Paul T.", avatar: "/employees-explaining-business2.jpg" },
+        {
+          name: "Sophie M.",
+          avatar:
+            "/african-woman-manager-looking-camera-smiling-holding-clipboard-while-diverse-coworkers-talking-background.jpg",
+        },
         {
           name: "Jean-Pierre N.",
-          avatar: "https://i.pravatar.cc/150?u=jeanpierre",
+          avatar:
+            "/university-students-learning-accounting-principles-financial-analysis.jpg",
         },
-        { name: "Fatou B.", avatar: "https://i.pravatar.cc/150?u=fatou" },
-        { name: "Michel D.", avatar: "https://i.pravatar.cc/150?u=michel" },
-        { name: "Claire L.", avatar: "https://i.pravatar.cc/150?u=claire" },
-        { name: "Samuel A.", avatar: "https://i.pravatar.cc/150?u=samuel" },
-        { name: "Odette R.", avatar: "https://i.pravatar.cc/150?u=odette" },
-        { name: "Thomas K.", avatar: "https://i.pravatar.cc/150?u=thomas" },
+        { name: "Fatou B.", avatar: "/employees-explaining-business.jpg" },
+        { name: "Michel D.", avatar: "/employees-explaining-business2.jpg" },
+        {
+          name: "Claire L.",
+          avatar:
+            "/african-woman-manager-looking-camera-smiling-holding-clipboard-while-diverse-coworkers-talking-background.jpg",
+        },
+        {
+          name: "Samuel A.",
+          avatar:
+            "/university-students-learning-accounting-principles-financial-analysis.jpg",
+        },
+        { name: "Odette R.", avatar: "/employees-explaining-business.jpg" },
+        { name: "Thomas K.", avatar: "/employees-explaining-business2.jpg" },
       ],
       stats: {
         members: 1247,
