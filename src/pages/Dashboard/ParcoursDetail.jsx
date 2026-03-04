@@ -21,8 +21,10 @@ import {
   Target,
   MessageCircle,
   Award,
+  Building2,
 } from "lucide-react";
 import { mockParcours } from "../../data/parcours.mock";
+import { useParcours } from "../../context/ParcoursContext";
 import {
   ResourceCard,
   FormationsCard,
@@ -35,13 +37,36 @@ import {
   GlassContainer,
 } from "../../components/parcours/ParcoursSections";
 import ResourceViewerModal from "../../components/ui/ResourceViewerModal";
+import CompanyCompletionModal from "../../components/ui/CompanyCompletionModal";
 
 function ParcoursDetail() {
   const { id } = useParams();
   const [activeStep, setActiveStep] = useState(0);
   const [viewingResource, setViewingResource] = useState(null);
+  const [showCompanyModal, setShowCompanyModal] = useState(false);
+  const [accessDenied, setAccessDenied] = useState(false);
+  const [selectedFinancingFormation, setSelectedFinancingFormation] =
+    useState(null);
+  const [hasBusinessAnswer, setHasBusinessAnswer] = useState(null);
+
+  const {
+    canAccessParcours,
+    completeParcours,
+    saveCompanyInfo,
+    isParcoursCompleted,
+    companyInfo,
+  } = useParcours();
 
   const parcours = mockParcours.find((p) => p.id === id);
+
+  // Vérifier l'accès au parcours
+  useEffect(() => {
+    if (parcours && parcours.accessLevel === "conditionnel") {
+      if (!canAccessParcours(parcours.id, parcours.accessLevel)) {
+        setAccessDenied(true);
+      }
+    }
+  }, [parcours]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -138,6 +163,9 @@ function ParcoursDetail() {
                 if (formation.lmsUrl) {
                   window.open(formation.lmsUrl, "_blank");
                 }
+              }}
+              onFinancingClick={(formation) => {
+                setSelectedFinancingFormation(formation);
               }}
             />
             <motion.div
@@ -281,15 +309,36 @@ function ParcoursDetail() {
             <ArrowLeft size={16} />
             <span>Retour</span>
           </Link>
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-500">{parcours.progress}%</span>
-            <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${parcours.progress}%` }}
-                className="h-full bg-primaryBlue"
-              />
+          <div className="flex items-center gap-4">
+            {/* Progress bar */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-500">{parcours.progress}%</span>
+              <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${parcours.progress}%` }}
+                  className="h-full bg-primaryBlue"
+                />
+              </div>
             </div>
+            
+            {/* Finish parcours button - only for creation parcours */}
+            {id === "creation" && (
+              <button
+                onClick={() => setShowCompanyModal(true)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                  isParcoursCompleted("creation")
+                    ? "bg-green-100 text-green-700 border border-green-200"
+                    : "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md hover:from-indigo-700 hover:to-purple-700"
+                }`}
+              >
+                {isParcoursCompleted("creation") ? (
+                  <><CheckCircle size={14} /> Terminé</>
+                ) : (
+                  <><Building2 size={14} /> Finaliser</>
+                )}
+              </button>
+            )}
           </div>
         </div>
       </nav>
@@ -332,6 +381,19 @@ function ParcoursDetail() {
                 >
                   Suivant →
                 </button>
+              ) : id === "creation" ? (
+                <button
+                  onClick={() => setShowCompanyModal(true)}
+                  className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-colors flex items-center gap-2"
+                >
+                  {isParcoursCompleted("creation") ? (
+                    <>
+                      <CheckCircle size={16} /> Parcours terminé
+                    </>
+                  ) : (
+                    "Terminer le parcours"
+                  )}
+                </button>
               ) : (
                 <Link
                   to="/dashboard/parcours"
@@ -352,6 +414,180 @@ function ParcoursDetail() {
         resource={viewingResource}
         size="xl"
       />
+
+      {/* Company Completion Modal - Pour le parcours Création */}
+      <CompanyCompletionModal
+        isOpen={showCompanyModal}
+        onClose={() => setShowCompanyModal(false)}
+        onSubmit={(companyData) => {
+          saveCompanyInfo(companyData);
+          completeParcours("creation");
+          setShowCompanyModal(false);
+        }}
+      />
+
+      {/* Access Denied Modal - First ask if user has business */}
+      {accessDenied && hasBusinessAnswer === null && (
+        <>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]" />
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center pointer-events-auto">
+              <div className="w-20 h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Building2 className="w-10 h-10 text-amber-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                🚧 Accès restreint
+              </h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Pour accéder au parcours <strong className="text-indigo-600">{parcours?.title}</strong>, 
+                vous devez d'abord valider votre entreprise.
+              </p>
+              
+              <div className="bg-indigo-50 rounded-xl p-4 mb-6">
+                <p className="text-sm text-indigo-800 font-medium">
+                  Avez-vous déjà une entreprise créée et immatriculée au Cameroun ?
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => setHasBusinessAnswer(true)}
+                  className="w-full px-6 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all font-semibold flex items-center justify-center gap-2"
+                >
+                  <CheckCircle size={20} />
+                  Oui, j'ai une entreprise
+                </button>
+                <button
+                  onClick={() => setHasBusinessAnswer(false)}
+                  className="w-full px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all font-semibold flex items-center justify-center gap-2"
+                >
+                  <Building2 size={20} />
+                  Non, je veux la créer
+                </button>
+                <Link
+                  to="/dashboard/parcours"
+                  className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
+                >
+                  ← Retour aux parcours
+                </Link>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* If no business - redirect to creation parcours */}
+      {accessDenied && hasBusinessAnswer === false && (
+        <>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]" />
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center pointer-events-auto">
+              <div className="w-20 h-20 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Building2 className="w-10 h-10 text-indigo-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                📚 Créez votre entreprise
+              </h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Pour accéder au parcours <strong className="text-indigo-600">{parcours?.title}</strong>, 
+                vous devez d'abord suivre le parcours <strong>Création d'Entreprise</strong>.
+              </p>
+              
+              <div className="bg-indigo-50 rounded-xl p-4 mb-6">
+                <p className="text-sm text-indigo-800 font-medium">
+                  💡 Ce parcours vous guidera pour formaliser votre entreprise au Cameroun.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => {
+                    setAccessDenied(false);
+                    window.location.href = '/dashboard/parcours/creation';
+                  }}
+                  className="w-full px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all font-semibold flex items-center justify-center gap-2"
+                >
+                  <Building2 size={20} />
+                  Commencer le parcours Création
+                </button>
+                <button
+                  onClick={() => setHasBusinessAnswer(null)}
+                  className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
+                >
+                  ← Retour
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* If has business - show company form */}
+      {accessDenied && hasBusinessAnswer === true && (
+        <>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]" />
+          <CompanyCompletionModal
+            isOpen={true}
+            onClose={() => {
+              setAccessDenied(false);
+              setHasBusinessAnswer(null);
+            }}
+            onSubmit={(companyData) => {
+              saveCompanyInfo(companyData);
+              completeParcours("creation");
+              setAccessDenied(false);
+              setHasBusinessAnswer(null);
+            }}
+          />
+        </>
+      )}
+
+      {/* Financing Request Modal for conditionnel formations */}
+      {selectedFinancingFormation && (
+        <>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]" />
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center pointer-events-auto">
+              <div className="w-20 h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Lock className="w-10 h-10 text-amber-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                🔒 Financement requis
+              </h3>
+              <p className="text-gray-600 mb-4 leading-relaxed">
+                La formation <strong className="text-indigo-600">{selectedFinancingFormation.title}</strong> 
+                est financée par le MINPMEESA.
+              </p>
+              
+              <div className="bg-amber-50 rounded-xl p-4 mb-6">
+                <p className="text-sm text-amber-800 font-medium">
+                  💡 Pour accéder à cette formation, vous devez soumettre une demande de financement 
+                  auprès du MINPMEESA.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => {
+                    // Could navigate to financing request page
+                    window.location.href = '/dashboard/parcours/financement';
+                  }}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all font-semibold flex items-center justify-center gap-2"
+                >
+                  <Building2 size={18} />
+                  Soumettre une demande
+                </button>
+                <button
+                  onClick={() => setSelectedFinancingFormation(null)}
+                  className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
+                >
+                  ← Retour
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

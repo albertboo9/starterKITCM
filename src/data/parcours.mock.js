@@ -12,6 +12,7 @@ export const mockParcours = [
       "La création d'entreprise au Cameroun est simplifiée. Ce parcours vous guide à travers le choix juridique, la rédaction des statuts, et l'enregistrement administratif au CFCE.",
     progress: 65,
     status: "en_cours",
+    accessLevel: "libre", // libre = accès sans condition, conditionnel = nécessite info entreprise
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     icon: "Target",
     steps: [
@@ -54,6 +55,16 @@ export const mockParcours = [
     // Toolbox - Documents et vidéos réels
     toolbox: [
       {
+        id: "v1",
+        title: "Mon entreprise en 72H",
+        type: "video",
+        url: "/docs/creation/mon-entreprise-72h.mp4",
+        previewUrl: "/docs/creation/preview_vidéo.png",
+        duration: "05:12",
+        description:
+          "Vidéo explicative complète du processus de création en 72 heures.",
+      },
+      {
         id: "t1",
         title: "Statuts Type SARL",
         type: "pdf",
@@ -91,16 +102,6 @@ export const mockParcours = [
         preview_text: "Guide sur les procédures de notification judiciaire.",
         size: "59 Ko",
       },
-      {
-        id: "v1",
-        title: "Mon entreprise en 72H",
-        type: "video",
-        url: "/docs/creation/mon-entreprise-72h.mp4",
-        previewUrl: "/docs/creation/preview_vidéo.png",
-        duration: "05:12",
-        description:
-          "Vidéo explicative complète du processus de création en 72 heures.",
-      },
     ],
     infoPoint: [
       {
@@ -130,6 +131,7 @@ export const mockParcours = [
         title: "Création d'entreprise",
         duration: "4h",
         completed: false,
+        accessLevel: "libre", // Accès libre
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1344",
         description:
           "Apprenez les bases de la création d'entreprise au Cameroun, de l'idée à l'immatriculation.",
@@ -140,6 +142,7 @@ export const mockParcours = [
         title: "Business Model Canvas",
         duration: "3h",
         completed: false,
+        accessLevel: "libre", // Accès libre
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1346",
         description:
           "Maîtrisez l'outil Canvas pour structurer et valider votre modèle économique.",
@@ -150,6 +153,9 @@ export const mockParcours = [
         title: "Réussir le lancement de votre entreprise",
         duration: "2h",
         completed: false,
+        accessLevel: "conditionnel", // Requiert financement MINPMEESA
+        financingInfo:
+          "Formation financée par le MINPMEESA - Soumettez une demande de financement",
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1345",
         description:
           "Découvrez les 5 erreurs à éviter lors du lancement de votre entreprise.",
@@ -160,6 +166,9 @@ export const mockParcours = [
         title: "Etude de faisabilité commerciale",
         duration: "4h",
         completed: false,
+        accessLevel: "conditionnel", // Requiert financement MINPMEESA
+        financingInfo:
+          "Formation financée par le MINPMEESA - Soumettez une demande de financement",
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1347",
         description:
           "Étapes à suivre et outils pour réaliser une étude de faisabilité commerciale.",
@@ -170,6 +179,7 @@ export const mockParcours = [
         title: "Etude financière",
         duration: "5h",
         completed: false,
+        accessLevel: "libre", // Accès libre
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1351",
         description:
           "Apprenez à monter un budget prévisionnel et un plan financier rigoureux.",
@@ -180,6 +190,9 @@ export const mockParcours = [
         title: "Etude faisabilité technique et institutionnelle",
         duration: "3h",
         completed: false,
+        accessLevel: "conditionnel", // Requiert financement MINPMEESA
+        financingInfo:
+          "Formation financée par le MINPMEESA - Soumettez une demande de financement",
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1348",
         description:
           "Évaluez la faisabilité technique et institutionnelle de votre projet.",
@@ -190,6 +203,7 @@ export const mockParcours = [
         title: "Elaborer un business plan",
         duration: "6h",
         completed: false,
+        accessLevel: "libre", // Accès libre
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=274",
         description:
           "Guide complet pour rédiger un business plan professionnel.",
@@ -200,6 +214,7 @@ export const mockParcours = [
         title: "Réussir l'analyse SWOT",
         duration: "2h",
         completed: false,
+        accessLevel: "libre", // Accès libre
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1241",
         description: "Maîtrisez l'analyse SWOT pour évaluer votre projet.",
         previewImage: "/employees-explaining-business.jpg",
@@ -209,6 +224,9 @@ export const mockParcours = [
         title: "Gérer son temps en tant qu'entrepreneur",
         duration: "2h",
         completed: false,
+        accessLevel: "conditionnel", // Requiert financement MINPMEESA
+        financingInfo:
+          "Formation financée par le MINPMEESA - Soumettez une demande de financement",
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1354",
         description:
           "Conseils et techniques pour optimiser votre productivité.",
@@ -219,6 +237,9 @@ export const mockParcours = [
         title: "Open innovation de A à Z",
         duration: "3h",
         completed: false,
+        accessLevel: "conditionnel", // Requiert financement MINPMEESA
+        financingInfo:
+          "Formation financée par le MINPMEESA - Soumettez une demande de financement",
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1539",
         description:
           "Comprenez et appliquez l'innovation ouverte dans votre stratégie.",
@@ -238,6 +259,7 @@ export const mockParcours = [
       "Le financement est le moteur de la croissance. Ce parcours vous aide à préparer votre business plan et à solliciter les fonds de garantie.",
     progress: 30,
     status: "en_cours",
+    accessLevel: "conditionnel", // Nécessite completion du parcours Création
     gradient: "linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%)",
     icon: "TrendingUp",
     steps: [
@@ -415,6 +437,7 @@ export const mockParcours = [
       "La certification assure la qualité et la sécurité. Ce parcours vous guide dans le processus de marquage NC et de certification ISO.",
     progress: 0,
     status: "locked",
+    accessLevel: "conditionnel", // Nécessite completion du parcours Création
     gradient: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
     icon: "ShieldCheck",
     steps: [
@@ -463,7 +486,7 @@ export const mockParcours = [
         url: "/docs/normalisation/demande-certification.docx",
         previewUrl: "/meta.png",
         preview_text: "Formulaire officiel de demande de certification ANOR.",
-        size: "739 Ko"
+        size: "739 Ko",
       },
       {
         id: "t2",
@@ -472,7 +495,7 @@ export const mockParcours = [
         url: "/docs/normalisation/questionnaire-enquete.pdf",
         previewUrl: "/bubble.jpg",
         preview_text: "Questionnaire pour l'évaluation de conformité.",
-        size: "101 Ko"
+        size: "101 Ko",
       },
       {
         id: "t3",
@@ -481,7 +504,7 @@ export const mockParcours = [
         url: "/docs/normalisation/tarifaire.pdf",
         previewUrl: "/design.png",
         preview_text: "Tarifs des services de normalisation ANOR.",
-        size: "67 Ko"
+        size: "67 Ko",
       },
       {
         id: "v1",

@@ -17,6 +17,8 @@ import {
   Eye,
   Maximize2,
   File,
+  Lock,
+  RefreshCw,
 } from "lucide-react";
 import { partnersData } from "../../data/partners.data";
 import ResourceViewerModal from "../ui/ResourceViewerModal";
@@ -166,6 +168,7 @@ export const FormationsCard = ({
   formations = [],
   span = "w-full",
   onFormationClick,
+  onFinancingClick, // New prop for financing info
 }) => (
   <div className={`space-y-4 ${span}`}>
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -175,8 +178,17 @@ export const FormationsCard = ({
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: i * 0.05 }}
-          onClick={() => onFormationClick && onFormationClick(f)}
-          className={`p-0 rounded-[32px] border group transition-all duration-300 flex flex-col justify-between h-full overflow-hidden cursor-pointer ${f.completed ? "bg-green-50/20 border-green-100" : "bg-white border-gray-100 shadow-sm hover:shadow-xl hover:shadow-primaryBlue/5"}`}
+          onClick={() => {
+            if (f.accessLevel === "conditionnel") {
+              // Show financing info modal or trigger callback
+              if (onFinancingClick) {
+                onFinancingClick(f);
+              }
+            } else if (onFormationClick) {
+              onFormationClick(f);
+            }
+          }}
+          className={`p-0 rounded-[32px] border group transition-all duration-300 flex flex-col justify-between h-full overflow-hidden cursor-pointer ${f.completed ? "bg-green-50/20 border-green-100" : f.accessLevel === "conditionnel" ? "bg-amber-50/20 border-amber-200" : "bg-white border-gray-100 shadow-sm hover:shadow-xl hover:shadow-primaryBlue/5"}`}
         >
           {/* Preview Image */}
           {f.previewImage && (
@@ -187,8 +199,20 @@ export const FormationsCard = ({
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              {/* Access Level Badge */}
+              <div className="absolute top-3 right-3">
+                {f.accessLevel === "conditionnel" ? (
+                  <div className="px-2 py-1 bg-amber-500 text-white text-[10px] font-bold rounded-lg flex items-center gap-1">
+                    <Lock size={10} /> Financé MINPMEESA
+                  </div>
+                ) : (
+                  <div className="px-2 py-1 bg-green-500 text-white text-[10px] font-bold rounded-lg flex items-center gap-1">
+                    <PlayCircle size={10} /> Gratuit
+                  </div>
+                )}
+              </div>
               <div className="absolute bottom-3 left-3 px-2 py-1 bg-primaryBlue text-white text-[10px] font-bold rounded-lg flex items-center gap-1">
-                <PlayCircle size={12} /> {f.duration}
+                <Clock size={10} /> {f.duration}
               </div>
             </div>
           )}
@@ -197,18 +221,22 @@ export const FormationsCard = ({
             <div className="flex items-start gap-4 mb-4">
               {!f.previewImage && (
                 <div
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${f.completed ? "bg-green-100 text-green-600" : "bg-primaryBlue/5 text-primaryBlue"}`}
+                  className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${f.completed ? "bg-green-100 text-green-600" : f.accessLevel === "conditionnel" ? "bg-amber-100 text-amber-600" : "bg-primaryBlue/5 text-primaryBlue"}`}
                 >
                   {f.completed ? (
                     <CheckCircle size={24} />
+                  ) : f.accessLevel === "conditionnel" ? (
+                    <Lock size={24} />
                   ) : (
                     <PlayCircle size={24} />
                   )}
                 </div>
               )}
               <div className="flex flex-col flex-1">
-                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">
-                  {f.completed ? "Maîtrisé" : "En cours"}
+                <span className={`text-[10px] font-black uppercase tracking-widest ${
+                  f.accessLevel === "conditionnel" ? "text-amber-500" : "text-gray-400"
+                }`}>
+                  {f.completed ? "Maîtrisé" : f.accessLevel === "conditionnel" ? "Financement requis" : "Disponible"}
                 </span>
                 <h5 className="font-bold text-gray-900 text-lg group-hover:text-primaryBlue transition-colors leading-tight">
                   {f.title}
@@ -221,6 +249,15 @@ export const FormationsCard = ({
               <p className="text-sm text-gray-500 font-medium leading-relaxed mb-4 line-clamp-2">
                 {f.description}
               </p>
+            )}
+
+            {/* Financing Info for conditionnel formations */}
+            {f.accessLevel === "conditionnel" && f.financingInfo && (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4">
+                <p className="text-xs text-amber-800 font-medium">
+                  💡 {f.financingInfo}
+                </p>
+              </div>
             )}
 
             {!f.previewImage && (
@@ -243,16 +280,28 @@ export const FormationsCard = ({
 
             <div className="mt-auto">
               <button
-                className={`w-full py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${f.completed ? "border-2 border-green-100 text-green-600 hover:bg-green-600 hover:text-white" : "bg-gray-900 text-white hover:bg-primaryBlue shadow-lg shadow-gray-200"}`}
+                className={`w-full py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${f.completed ? "border-2 border-green-100 text-green-600 hover:bg-green-600 hover:text-white" : f.accessLevel === "conditionnel" ? "bg-amber-500 text-white hover:bg-amber-600 shadow-lg shadow-amber-200" : "bg-gray-900 text-white hover:bg-primaryBlue shadow-lg shadow-gray-200"}`}
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (f.lmsUrl) {
+                  if (f.accessLevel === "conditionnel") {
+                    // Show financing info
+                    if (onFinancingClick) {
+                      onFinancingClick(f);
+                    } else {
+                      alert(f.financingInfo || "Cette formation nécessite un financement du MINPMEESA. Veuillez soumettre une demande de financement.");
+                    }
+                  } else if (f.lmsUrl) {
                     window.open(f.lmsUrl, "_blank");
                   }
                 }}
               >
-                <ExternalLink size={16} />
-                {f.completed ? "Revoir le module" : "Commencer la formation"}
+                {f.completed ? (
+                  <><RefreshCw size={16} /> Revoir le module</>
+                ) : f.accessLevel === "conditionnel" ? (
+                  <><FileText size={16} /> Demander le financement</>
+                ) : (
+                  <><ExternalLink size={16} /> Commencer la formation</>
+                )}
               </button>
             </div>
           </div>
