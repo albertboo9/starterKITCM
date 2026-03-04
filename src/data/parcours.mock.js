@@ -22,14 +22,7 @@ export const mockParcours = [
         label: "Boîte à Outils",
         sub: "Ressources",
         icon: "FileText",
-      },
-      {
-        id: "info",
-        title: "Point d'Information",
-        label: "Point d'Information",
-        sub: "Législation",
-        icon: "Info",
-        externalUrl: "/ressources/information",
+        externalUrl: "/ressources/outils-bons-plans",
       },
       {
         id: "formations",
@@ -45,6 +38,14 @@ export const mockParcours = [
         sub: "Accompagnement",
         icon: "Users",
         externalUrl: "/ressources/annuaire",
+      },
+            {
+        id: "info",
+        title: "Point d'Information",
+        label: "Point d'Information",
+        sub: "Législation",
+        icon: "Info",
+        externalUrl: "/ressources/informations",
       },
       {
         id: "social",
@@ -470,14 +471,7 @@ export const mockParcours = [
         label: "Boîte à Outils",
         sub: "Conseils",
         icon: "FileText",
-      },
-      {
-        id: "info",
-        title: "Points d'Information",
-        label: "Information",
-        sub: "Ressources",
-        icon: "Info",
-        externalUrl: "/ressources/information",
+        externalUrl: "/ressources/outils-bons-plans",
       },
       {
         id: "formations",
@@ -509,6 +503,14 @@ export const mockParcours = [
         sub: "Concours",
         icon: "TrendingUp",
         externalUrl: "/ressources/innovation",
+      },      
+      {
+        id: "info",
+        title: "Points d'Information",
+        label: "Information",
+        sub: "Ressources",
+        icon: "Info",
+        externalUrl: "/ressources/informations",
       },
       {
         id: "social",
@@ -901,14 +903,7 @@ export const mockParcours = [
         label: "Boîte à Outils",
         sub: "Certification",
         icon: "FileText",
-      },
-      {
-        id: "info",
-        title: "Point d'Information",
-        label: "Information",
-        sub: "Standards",
-        icon: "Info",
-        externalUrl: "/ressources/information",
+        externalUrl: "/ressources/outils-bons-plans",
       },
       {
         id: "formations",
@@ -924,6 +919,14 @@ export const mockParcours = [
         sub: "ANOR",
         icon: "Users",
         externalUrl: "/ressources/annuaire",
+      },
+            {
+        id: "info",
+        title: "Point d'Information",
+        label: "Information",
+        sub: "Standards",
+        icon: "Info",
+        externalUrl: "/ressources/informations",
       },
       {
         id: "social",

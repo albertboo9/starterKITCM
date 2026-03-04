@@ -90,11 +90,15 @@ export const PremiumTabs = ({ steps, activeStep, onStepClick }) => (
           {hasExternalUrl && (
             <Link
               to={step.externalUrl}
-              onClick={(e) => e.stopPropagation()}
-              className={`ml-1 p-1 rounded-full ${isActive ? "bg-primaryBlue/20 text-primaryBlue" : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}
-              title="Voir sur le site public"
+              onClick={(e) => {
+                e.stopPropagation();
+                // Navigate to external URL
+              }}
+              className={`ml-1 px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1 ${isActive ? "bg-primaryBlue text-white" : "bg-indigo-100 text-indigo-600 hover:bg-indigo-200"}`}
+              title={`Voir ${step.label} sur le site public`}
             >
               <ExternalLink size={12} />
+              <span className="hidden sm:inline">Voir</span>
             </Link>
           )}
           {isActive && (
