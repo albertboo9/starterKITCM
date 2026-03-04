@@ -34,6 +34,7 @@ import {
   BentoGrid,
   GlassContainer,
 } from "../../components/parcours/ParcoursSections";
+import ResourceViewerModal from "../../components/ui/ResourceViewerModal";
 
 function ParcoursDetail() {
   const { id } = useParams();
@@ -337,114 +338,13 @@ function ParcoursDetail() {
         </AnimatePresence>
       </main>
 
-      {/* Resource Viewer Modal */}
-      <AnimatePresence>
-        {viewingResource && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-6 md:p-12"
-          >
-            <motion.div
-              initial={{ scale: 0.95, y: 30 }}
-              animate={{ scale: 1, y: 0 }}
-              className="bg-white w-full max-w-5xl rounded-[40px] overflow-hidden flex flex-col md:flex-row h-full md:max-h-[80vh] shadow-2xl"
-            >
-              <div className="flex-1 bg-gray-100 flex items-center justify-center relative min-h-[300px] md:min-h-0">
-                {viewingResource.type === "video" ? (
-                  <div className="w-full h-full bg-black flex items-center justify-center">
-                    <VideoPlayer url={viewingResource.url} />
-                  </div>
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center p-12 text-center bg-gray-50">
-                    <div className="w-24 h-24 bg-white rounded-3xl shadow-xl flex items-center justify-center mb-8">
-                      <FileText
-                        size={40}
-                        className="text-primaryBlue opacity-40"
-                      />
-                    </div>
-                    <h4 className="text-xl font-bold text-gray-900 mb-6">
-                      {viewingResource.title}
-                    </h4>
-                    <div className="flex flex-wrap justify-center gap-4">
-                      <a
-                        href={viewingResource.url}
-                        download
-                        className="px-8 py-4 bg-primaryBlue text-white rounded-2xl font-bold flex items-center gap-2 hover:bg-primaryBlueDark"
-                      >
-                        <Download size={18} /> Télécharger document
-                      </a>
-                      <button
-                        onClick={() => setViewingResource(null)}
-                        className="px-8 py-4 bg-white border border-gray-200 text-gray-700 rounded-2xl font-bold"
-                      >
-                        Quitter l'aperçu
-                      </button>
-                    </div>
-                  </div>
-                )}
-                <button
-                  onClick={() => setViewingResource(null)}
-                  className="absolute top-6 left-6 w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center border border-white/20 hover:bg-white/40 transition-all"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              <div className="w-full md:w-80 bg-white p-10 flex flex-col shrink-0 border-l border-gray-100">
-                <div className="mb-10">
-                  <span className="text-[10px] font-black uppercase text-primaryBlue tracking-[0.2em] mb-4 block">
-                    Information
-                  </span>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    {viewingResource.title}
-                  </h3>
-                  <p className="text-xs text-gray-500 leading-relaxed font-medium">
-                    Contenu certifié par l'expertise gouvernementale pour
-                    sécuriser votre démarche entrepreneuriale.
-                  </p>
-                </div>
-                <div className="flex-1 bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                  <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest block mb-4">
-                    Notes personnelles
-                  </span>
-                  <textarea
-                    placeholder="Point clés à retenir..."
-                    className="w-full h-full bg-transparent border-none text-xs font-medium focus:ring-0 resize-none"
-                  ></textarea>
-                </div>
-                <button
-                  onClick={() => setViewingResource(null)}
-                  className="mt-8 w-full py-4 bg-gray-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-black transition-all"
-                >
-                  Consulter terminé
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-function VideoPlayer({ url }) {
-  return (
-    <div className="w-full h-full relative group">
-      <div className="absolute inset-0 flex items-center justify-center">
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          className="w-20 h-20 rounded-full bg-primaryBlue text-white flex items-center justify-center shadow-2xl cursor-pointer"
-        >
-          <PlayCircle size={40} />
-        </motion.div>
-      </div>
-      <div className="absolute bottom-10 left-10 p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 text-white">
-        <p className="text-xs font-bold uppercase tracking-widest opacity-60 mb-1">
-          Source Officielle
-        </p>
-        <p className="font-bold">Module Vidéo HD</p>
-      </div>
+      {/* Resource Viewer Modal - Nouveau composant intégré */}
+      <ResourceViewerModal
+        isOpen={!!viewingResource}
+        onClose={() => setViewingResource(null)}
+        resource={viewingResource}
+        size="xl"
+      />
     </div>
   );
 }

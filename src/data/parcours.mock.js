@@ -1,3 +1,6 @@
+// Données des parcours MINPMEESA avec fichiers réels
+// Les chemins pointent vers DOSSIER_MINPMEESA
+
 export const mockParcours = [
   {
     id: "creation",
@@ -16,34 +19,74 @@ export const mockParcours = [
       { id: "partners", title: "Annuaire des Parties Prenantes", label: "Annuaire", sub: "Accompagnement", icon: "Users" },
       { id: "social", title: "Social Networking", label: "Communauté", sub: "Réseau", icon: "MessageCircle" }
     ],
+    // Toolbox - Documents et vidéos réels
     toolbox: [
       {
         id: "t1",
         title: "Statuts Type SARL",
         type: "pdf",
-        url: "/DOSSIER MINPMEESA/PARCOURS CREATION D_ENTREPRISE/Boite à outils création d_entreprise /Documents téléchargeables /STATUTS SARL.pdf",
-        preview_text: "Modèle standard pour la création d'une SARL."
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20CREATION%20D_ENTREPRISE/Boite%20%C3%A0%20outils%20cr%C3%A9ation%20d_entreprise%20/Documents%20t%C3%A9l%C3%A9chargeables/STATUTS%20SARL.pdf",
+        previewUrl: "/DOSSIER_MINPMEESA/PARCOURS CREATION D_ENTREPRISE/Boite à outils création d_entreprise /Documents téléchargeables /preview_SRL.png",
+        preview_text: "Modèle standard pour la création d'une SARL au Cameroun.",
+        size: "156 Ko"
       },
       {
         id: "t2",
+        title: "Modèle Statuts SNC",
+        type: "pdf",
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20CREATION%20D_ENTREPRISE/Boite%20%C3%A0%20outils%20cr%C3%A9ation%20d_entreprise%20/Documents%20t%C3%A9l%C3%A9chargeables/mod%C3%A8le%20statut%20SNC.pdf",
+        previewUrl: "/DOSSIER_MINPMEESA/PARCOURS CREATION D_ENTREPRISE/Boite à outils création d_entreprise /Documents téléchargeables /preview_SNC.png",
+        preview_text: "Modèle de statuts pour Société en Nom Collectif.",
+        size: "216 Ko"
+      },
+      {
+        id: "t3",
         title: "Modèle OHADA SAS",
         type: "pdf",
-        url: "/DOSSIER MINPMEESA/PARCOURS CREATION D_ENTREPRISE/Boite à outils création d_entreprise /Documents téléchargeables /modele-statuts-ohada-sas.pdf",
-        preview_text: "Structure pour les projets à fort potentiel."
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20CREATION%20D_ENTREPRISE/Boite%20%C3%A0%20outils%20cr%C3%A9ation%20d_entreprise%20/Documents%20t%C3%A9l%C3%A9chargeables/modele-statuts-ohada-sas.pdf",
+        previewUrl: "/DOSSIER_MINPMEESA/PARCOURS CREATION D_ENTREPRISE/Boite à outils création d_entreprise /Documents téléchargeables /preview_ohd.png",
+        preview_text: "Structure juridique OHADA pour les projets à fort potentiel.",
+        size: "202 Ko"
+      },
+      {
+        id: "t4",
+        title: "Notifications d'une Citation",
+        type: "pdf",
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20CREATION%20D_ENTREPRISE/Boite%20%C3%A0%20outils%20cr%C3%A9ation%20d_entreprise%20/Documents%20t%C3%A9l%C3%A9chargeables/notifications-d_une-citation.pdf",
+        previewUrl: "/DOSSIER_MINPMEESA/PARCOURS CREATION D_ENTREPRISE/Boite à outils création d_entreprise /Documents téléchargeables /preview_notifs.png",
+        preview_text: "Guide sur les procédures de notification judiciaire.",
+        size: "59 Ko"
       },
       {
         id: "v1",
         title: "Mon entreprise en 72H",
         type: "video",
-        url: "/DOSSIER MINPMEESA/PARCOURS CREATION D_ENTREPRISE/Boite à outils création d_entreprise /Vidéos explicatives/Mon entreprise en 72H.mp4",
-        preview: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=400",
-        duration: "05:12"
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20CREATION%20D_ENTREPRISE/Boite%20%C3%A0%20outils%20cr%C3%A9ation%20d_entreprise%20/Vid%C3%A9os%20explicatives/Mon%20entreprise%20en%2072H.mp4",
+        previewUrl: "/DOSSIER_MINPMEESA/PARCOURS CREATION D_ENTREPRISE/Boite à outils création d_entreprise /Vidéos explicatives/preview.png",
+        duration: "05:12",
+        description: "Vidéo explicative complète du processus de création en 72 heures."
       }
     ],
     infoPoint: [
-      { id: "i1", title: "Articles sur la création", description: "Comprendre les bases de l'écosystème." },
-      { id: "i2", title: "Guide de l'entrepreneur", description: "Les étapes clés du succès au Cameroun." },
-      { id: "i3", title: "Loi PME 2015", description: "Le cadre légal de promotion des PME." }
+      { 
+        id: "i1", 
+        title: "Articles sur la création", 
+        description: "Comprendre les bases de l'écosystème entrepreneurial camerounais.",
+        type: "article"
+      },
+      { 
+        id: "i2", 
+        title: "Guide de l'entrepreneur", 
+        description: "Les étapes clés du succès au Cameroun.",
+        type: "article"
+      },
+      { 
+        id: "i3", 
+        title: "Loi PME 2015", 
+        description: "Le cadre légal de promotion des PME au Cameroun.",
+        url: "/DOSSIER_MINPMEESA/PARCOURS CREATION D_ENTREPRISE/Points  d_interrogation création d_entreprise /loipme2015.pdf",
+        type: "pdf"
+      }
     ],
     formations: [
       { id: "f1", title: "Élaborer et pitcher un Business plan", duration: "4h", completed: true },
@@ -77,14 +120,57 @@ export const mockParcours = [
       { id: "opportunities", title: "Opportunités", label: "Opportunités", sub: "Concours", icon: "TrendingUp" },
       { id: "social", title: "Social Networking", label: "Communauté", sub: "Réseau", icon: "MessageCircle" }
     ],
+    // Toolbox - Documents réels
     toolbox: [
-      { id: "t1", title: "Modèle de demande de financement", type: "pdf", url: "#", preview_text: "Formulaire type pour solliciter un prêt." },
-      { id: "t2", title: "Articles & Conseils experts", type: "pdf", url: "#", preview_text: "Comment maximiser ses chances de financement." }
+      {
+        id: "t1",
+        title: "Guide d'Accompagnement des PME",
+        type: "pdf",
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20FINANCEMENT/Boite%20%C3%A0%20outils%20financement/documents/Guide-daccompagnement-des-PME....pdf",
+        previewUrl: "/DOSSIER_MINPMEESA/PARCOURS FINANCEMENT/Boite à outils financement/documents/preview_guide_pme.png",
+        preview_text: "Guide complet pour l'accompagnement des PME camerounaises.",
+        size: "3.9 Mo"
+      },
+      {
+        id: "t2",
+        title: "Les Banques PME",
+        type: "docx",
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20FINANCEMENT/Boite%20%C3%A0%20outils%20financement/articles%20/les%20banques%20PME.docx",
+        preview_text: "Liste et coordonnées des banques partenaires des PME.",
+        size: "39 Ko"
+      },
+      {
+        id: "t3",
+        title: "PACDPME - Plan d'Action",
+        type: "pdf",
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20FINANCEMENT/Points%20d_information%20financement%20/Documents/pacdpme.pdf",
+        previewUrl: "/DOSSIER_MINPMEESA/PARCOURS FINANCEMENT/Points d_information financement /Documents/preview_pcdpme.png",
+        preview_text: "Programme d'Appui aux Centres de Développement des PME.",
+        size: "905 Ko"
+      },
+      {
+        id: "t4",
+        title: "PMEESA 3 - Stratégie Nationale",
+        type: "pdf",
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20FINANCEMENT/Points%20d_information%20financement%20/Documents/pmeesa3.pdf",
+        previewUrl: "/DOSSIER_MINPMEESA/PARCOURS FINANCEMENT/Points d_information financement /Documents/preview_pmees3.png",
+        preview_text: "Troisième phase de la stratégie nationale pour les PME.",
+        size: "13.4 Mo"
+      }
     ],
     infoPoint: [
-      { id: "i1", title: "PACDPME : Programme d'Appui", description: "Mécanismes de financement public." },
-      { id: "i2", title: "Loi de Finances PME", description: "Dispositions fiscales avantageuses." },
-      { id: "v1", title: "Vidéos: Réussir sa levée", type: "video", url: "#", duration: "10:00" }
+      { 
+        id: "i1", 
+        title: "PACDPME : Programme d'Appui", 
+        description: "Mécanismes de financement public pour les PME.",
+        type: "article"
+      },
+      { 
+        id: "i2", 
+        title: "Loi de Finances PME", 
+        description: "Dispositions fiscales avantageuses pour les petites entreprises.",
+        type: "article"
+      }
     ],
     formations: [
       { id: "f1", title: "Introduction au financement d'entreprise", duration: "3h", completed: true },
@@ -123,13 +209,69 @@ export const mockParcours = [
       { id: "partners", title: "Annuaire des Parties Prenantes", label: "Annuaire", sub: "ANOR", icon: "Users" },
       { id: "social", title: "Social Networking", label: "Communauté", sub: "Réseau", icon: "MessageCircle" }
     ],
+    // Toolbox - Documents et vidéos réels
     toolbox: [
-      { id: "t1", title: "Demande de Certification", type: "pdf", url: "#", preview_text: "Formulaire officiel ANOR." },
-      { id: "v1", title: "Procédure de Certification", type: "video", url: "/DOSSIER MINPMEESA/PARCOURS NORMALISATION /Boite à outils normalisation/Vidéos explicatives/Procedure de certification.mp4", duration: "08:45" }
+      {
+        id: "t1",
+        title: "Demande de Certification",
+        type: "docx",
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20NORMALISATION%20/Boite%20%C3%A0%20outils%20normalisation/Documents%20t%C3%A9l%C3%A9chargeables/demande-de-certification.docx",
+        preview_text: "Formulaire officiel de demande de certification ANOR.",
+        size: "739 Ko"
+      },
+      {
+        id: "t2",
+        title: "Questionnaire d'Enquête",
+        type: "pdf",
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20NORMALISATION%20/Boite%20%C3%A0%20outils%20normalisation/Documents%20t%C3%A9l%C3%A9chargeables/questionnaire-enquete.pdf",
+        preview_text: "Questionnaire pour l'évaluation de conformité.",
+        size: "101 Ko"
+      },
+      {
+        id: "t3",
+        title: "Grille Tarifaire",
+        type: "pdf",
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20NORMALISATION%20/Boite%20%C3%A0%20outils%20normalisation/Documents%20t%C3%A9l%C3%A9chargeables/tarifaire.pdf",
+        preview_text: "Tarifs des services de normalisation ANOR.",
+        size: "67 Ko"
+      },
+      {
+        id: "v1",
+        title: "Procédure de Certification",
+        type: "video",
+        url: "/DOSSIER_MINPMEESA/PARCOURS%20NORMALISATION%20/Boite%20%C3%A0%20outils%20normalisation/Vid%C3%A9os%20explicatives/Procedure%20de%20certification.mp4",
+        duration: "08:45",
+        description: "Vidéo explicative complète du processus de certification."
+      }
     ],
     infoPoint: [
-      { id: "i1", title: "Loi 1996 sur la normalisation", description: "Le socle de la qualité au Cameroun." },
-      { id: "i2", title: "Guide de marquage NC", description: "Comment obtenir le label national." }
+      { 
+        id: "i1", 
+        title: "Loi 1996 sur la normalisation", 
+        description: "Le socle de la qualité au Cameroun.",
+        url: "/DOSSIER_MINPMEESA/PARCOURS NORMALISATION /Points d_informations normalisation /Documents téléchargeables/Loi_1996_sur_la_normalisation.pdf",
+        type: "pdf"
+      },
+      { 
+        id: "i2", 
+        title: "Décret ANOR", 
+        description: "Création et fonctionnement de l'ANOR.",
+        url: "/DOSSIER_MINPMEESA/PARCOURS NORMALISATION /Points d_informations normalisation /Documents téléchargeables/Decret de creation et fonctionnement ANOR.pdf",
+        type: "pdf"
+      },
+      { 
+        id: "i3", 
+        title: "Guide de marquage NC", 
+        description: "Comment obtenir le label national conformité.",
+        type: "article"
+      },
+      { 
+        id: "i4", 
+        title: "Grille Tarifaire des Normes", 
+        description: "Tarifs homologués des normes publiées.",
+        url: "/DOSSIER_MINPMEESA/PARCOURS NORMALISATION /Points d_informations normalisation /articles/Grille tarifaire des normes.pdf",
+        type: "pdf"
+      }
     ],
     formations: [
       { id: "f1", title: "Comprendre les normes produits", duration: "2h", completed: false },
@@ -138,6 +280,7 @@ export const mockParcours = [
       { id: "f4", title: "Étiquetage et réglementation produits", duration: "4h", completed: false },
       { id: "f5", title: "Sécurité produit et obligations légales", duration: "3h", completed: false }
     ],
+    partners: ["minpmeesa", "anor"]
   }
 ];
 
