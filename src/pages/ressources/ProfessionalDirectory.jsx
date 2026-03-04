@@ -762,7 +762,7 @@ function ProfessionalCard({ pro, featured, index }) {
               </span>
             )}
           </div>
-          <a href={`/ressources/annuaire/${pro.id}`} className="search-btn">
+          <a href="/signup?redirect=/ressources/annuaire" className="search-btn">
             Voir le profil
             <ChevronRight size={18} />
           </a>

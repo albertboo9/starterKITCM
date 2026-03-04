@@ -318,7 +318,7 @@ function InnovationCompetitivite() {
                       En savoir plus
                       <ChevronRight size={18} />
                     </button>
-                    <button className="apply-btn">Postuler</button>
+                    <button className="apply-btn" onClick={() => window.location.href = "/signup?redirect=/ressources/innovation"}>Postuler</button>
                   </div>
                 </motion.div>
               ))}

@@ -169,7 +169,7 @@ function StarterCommunity() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <button className="join-btn">
+            <button className="join-btn" onClick={() => window.location.href = "/signup?redirect=/ressources/communaute"}>
               <UserPlus size={18} />
               Rejoindre la communauté
             </button>
@@ -295,7 +295,7 @@ function StarterCommunity() {
                       value={newPost}
                       onChange={(e) => setNewPost(e.target.value)}
                     />
-                    <button className="post-btn" disabled={!newPost.trim()}>
+                    <button className="post-btn" onClick={() => window.location.href = "/signup?redirect=/ressources/communaute"} disabled={!newPost.trim()}>
                       <Send size={18} />
                       Publier
                     </button>
@@ -360,7 +360,7 @@ function StarterCommunity() {
                     <Calendar size={28} />
                     Prochains événements
                   </h2>
-                  <button className="create-event-btn">
+                  <button className="create-event-btn" onClick={() => window.location.href = "/signup?redirect=/ressources/communaute"}>
                     <Plus size={18} />
                     Créer un événement
                   </button>
@@ -437,7 +437,7 @@ function StarterCommunity() {
                       </div>
                       <h3>{member.name}</h3>
                       <span className="member-role">{member.role}</span>
-                      <button className="connect-btn">
+                      <button className="connect-btn" onClick={() => window.location.href = "/signup?redirect=/ressources/communaute"}>
                         <UserPlus size={16} />
                         Se connecter
                       </button>
