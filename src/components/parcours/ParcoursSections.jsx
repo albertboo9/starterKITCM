@@ -19,6 +19,7 @@ import {
   File,
   Lock,
   RefreshCw,
+  Lightbulb,
 } from "lucide-react";
 import { partnersData } from "../../data/partners.data";
 import ResourceViewerModal from "../ui/ResourceViewerModal";
@@ -233,10 +234,18 @@ export const FormationsCard = ({
                 </div>
               )}
               <div className="flex flex-col flex-1">
-                <span className={`text-[10px] font-black uppercase tracking-widest ${
-                  f.accessLevel === "conditionnel" ? "text-amber-500" : "text-gray-400"
-                }`}>
-                  {f.completed ? "Maîtrisé" : f.accessLevel === "conditionnel" ? "Financement requis" : "Disponible"}
+                <span
+                  className={`text-[10px] font-black uppercase tracking-widest ${
+                    f.accessLevel === "conditionnel"
+                      ? "text-amber-500"
+                      : "text-gray-400"
+                  }`}
+                >
+                  {f.completed
+                    ? "Maîtrisé"
+                    : f.accessLevel === "conditionnel"
+                      ? "Financement requis"
+                      : "Disponible"}
                 </span>
                 <h5 className="font-bold text-gray-900 text-lg group-hover:text-primaryBlue transition-colors leading-tight">
                   {f.title}
@@ -254,8 +263,12 @@ export const FormationsCard = ({
             {/* Financing Info for conditionnel formations */}
             {f.accessLevel === "conditionnel" && f.financingInfo && (
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4">
-                <p className="text-xs text-amber-800 font-medium">
-                  💡 {f.financingInfo}
+                <p className="text-xs text-amber-800 font-medium flex items-center gap-2">
+                  <Lightbulb
+                    size={14}
+                    className="text-amber-500 flex-shrink-0"
+                  />
+                  {f.financingInfo}
                 </p>
               </div>
             )}
@@ -288,7 +301,10 @@ export const FormationsCard = ({
                     if (onFinancingClick) {
                       onFinancingClick(f);
                     } else {
-                      alert(f.financingInfo || "Cette formation nécessite un financement du MINPMEESA. Veuillez soumettre une demande de financement.");
+                      alert(
+                        f.financingInfo ||
+                          "Cette formation nécessite un financement du MINPMEESA. Veuillez soumettre une demande de financement.",
+                      );
                     }
                   } else if (f.lmsUrl) {
                     window.open(f.lmsUrl, "_blank");
@@ -296,11 +312,17 @@ export const FormationsCard = ({
                 }}
               >
                 {f.completed ? (
-                  <><RefreshCw size={16} /> Revoir le module</>
+                  <>
+                    <RefreshCw size={16} /> Revoir le module
+                  </>
                 ) : f.accessLevel === "conditionnel" ? (
-                  <><FileText size={16} /> Demander le financement</>
+                  <>
+                    <FileText size={16} /> Demander le financement
+                  </>
                 ) : (
-                  <><ExternalLink size={16} /> Commencer la formation</>
+                  <>
+                    <ExternalLink size={16} /> Commencer la formation
+                  </>
                 )}
               </button>
             </div>

@@ -22,6 +22,9 @@ import {
   MessageCircle,
   Award,
   Building2,
+  AlertTriangle,
+  Lightbulb,
+  Shield,
 } from "lucide-react";
 import { mockParcours } from "../../data/parcours.mock";
 import { useParcours } from "../../context/ParcoursContext";
@@ -312,7 +315,9 @@ function ParcoursDetail() {
           <div className="flex items-center gap-4">
             {/* Progress bar */}
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500">{parcours.progress}%</span>
+              <span className="text-xs text-gray-500">
+                {parcours.progress}%
+              </span>
               <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
@@ -321,7 +326,7 @@ function ParcoursDetail() {
                 />
               </div>
             </div>
-            
+
             {/* Finish parcours button - only for creation parcours */}
             {id === "creation" && (
               <button
@@ -333,9 +338,13 @@ function ParcoursDetail() {
                 }`}
               >
                 {isParcoursCompleted("creation") ? (
-                  <><CheckCircle size={14} /> Terminé</>
+                  <>
+                    <CheckCircle size={14} /> Terminé
+                  </>
                 ) : (
-                  <><Building2 size={14} /> Finaliser</>
+                  <>
+                    <Building2 size={14} /> Finaliser
+                  </>
                 )}
               </button>
             )}
@@ -435,17 +444,20 @@ function ParcoursDetail() {
               <div className="w-20 h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Building2 className="w-10 h-10 text-amber-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                🚧 Accès restreint
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
+                <AlertTriangle className="w-8 h-8 text-amber-500" />
+                Accès restreint
               </h3>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Pour accéder au parcours <strong className="text-indigo-600">{parcours?.title}</strong>, 
+                Pour accéder au parcours{" "}
+                <strong className="text-indigo-600">{parcours?.title}</strong>,
                 vous devez d'abord valider votre entreprise.
               </p>
-              
+
               <div className="bg-indigo-50 rounded-xl p-4 mb-6">
                 <p className="text-sm text-indigo-800 font-medium">
-                  Avez-vous déjà une entreprise créée et immatriculée au Cameroun ?
+                  Avez-vous déjà une entreprise créée et immatriculée au
+                  Cameroun ?
                 </p>
               </div>
 
@@ -485,17 +497,22 @@ function ParcoursDetail() {
               <div className="w-20 h-20 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Building2 className="w-10 h-10 text-indigo-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                📚 Créez votre entreprise
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
+                <BookOpen className="w-8 h-8 text-indigo-500" />
+                Créez votre entreprise
               </h3>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Pour accéder au parcours <strong className="text-indigo-600">{parcours?.title}</strong>, 
-                vous devez d'abord suivre le parcours <strong>Création d'Entreprise</strong>.
+                Pour accéder au parcours{" "}
+                <strong className="text-indigo-600">{parcours?.title}</strong>,
+                vous devez d'abord suivre le parcours{" "}
+                <strong>Création d'Entreprise</strong>.
               </p>
-              
+
               <div className="bg-indigo-50 rounded-xl p-4 mb-6">
-                <p className="text-sm text-indigo-800 font-medium">
-                  💡 Ce parcours vous guidera pour formaliser votre entreprise au Cameroun.
+                <p className="text-sm text-indigo-800 font-medium flex items-center gap-2">
+                  <Lightbulb size={16} className="text-amber-500" />
+                  Ce parcours vous guidera pour formaliser votre entreprise au
+                  Cameroun.
                 </p>
               </div>
 
@@ -503,7 +520,7 @@ function ParcoursDetail() {
                 <button
                   onClick={() => {
                     setAccessDenied(false);
-                    window.location.href = '/dashboard/parcours/creation';
+                    window.location.href = "/dashboard/parcours/creation";
                   }}
                   className="w-full px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all font-semibold flex items-center justify-center gap-2"
                 >
@@ -551,18 +568,23 @@ function ParcoursDetail() {
               <div className="w-20 h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Lock className="w-10 h-10 text-amber-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                🔒 Financement requis
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
+                <Shield className="w-8 h-8 text-amber-500" />
+                Financement requis
               </h3>
               <p className="text-gray-600 mb-4 leading-relaxed">
-                La formation <strong className="text-indigo-600">{selectedFinancingFormation.title}</strong> 
+                La formation{" "}
+                <strong className="text-indigo-600">
+                  {selectedFinancingFormation.title}
+                </strong>
                 est financée par le MINPMEESA.
               </p>
-              
+
               <div className="bg-amber-50 rounded-xl p-4 mb-6">
-                <p className="text-sm text-amber-800 font-medium">
-                  💡 Pour accéder à cette formation, vous devez soumettre une demande de financement 
-                  auprès du MINPMEESA.
+                <p className="text-sm text-amber-800 font-medium flex items-center gap-2">
+                  <Lightbulb size={16} className="text-amber-500" />
+                  Pour accéder à cette formation, vous devez soumettre une
+                  demande de financement auprès du MINPMEESA.
                 </p>
               </div>
 
@@ -570,7 +592,7 @@ function ParcoursDetail() {
                 <button
                   onClick={() => {
                     // Could navigate to financing request page
-                    window.location.href = '/dashboard/parcours/financement';
+                    window.location.href = "/dashboard/parcours/financement";
                   }}
                   className="w-full px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all font-semibold flex items-center justify-center gap-2"
                 >
