@@ -279,7 +279,13 @@ function EntrepreneurProjects() {
             transition={{ delay: 0.4, duration: 0.6 }}
           >
             <p>Vous avez un projet ?</p>
-            <button className="register-btn">
+            <button
+              className="register-btn"
+              onClick={() =>
+                (window.location.href =
+                  "/signup?type=entrepreneur&redirect=/ressources/projets")
+              }
+            >
               <Plus size={18} />
               Soumettre mon projet
             </button>
@@ -981,7 +987,15 @@ function ProjectCard({ project, featured, index }) {
             Voir les détails
             <ChevronRight size={16} />
           </button>
-          <button className="invest-btn">Investir</button>
+          <button
+            className="invest-btn"
+            onClick={() =>
+              (window.location.href =
+                "/signup?type=investor&redirect=/ressources/projets")
+            }
+          >
+            Investir
+          </button>
         </div>
       </div>
     </motion.div>
