@@ -21,8 +21,13 @@ import {
   Target,
   MessageCircle,
   Award,
+  Building2,
+  AlertTriangle,
+  Lightbulb,
+  Shield,
 } from "lucide-react";
 import { mockParcours } from "../../data/parcours.mock";
+import { useParcours } from "../../context/ParcoursContext";
 import {
   ResourceCard,
   FormationsCard,
@@ -33,14 +38,55 @@ import {
   PremiumTabs,
   BentoGrid,
   GlassContainer,
+  DirectoryCard,
+  CommunityCard,
 } from "../../components/parcours/ParcoursSections";
+import ResourceViewerModal from "../../components/ui/ResourceViewerModal";
+import CompanyCompletionModal from "../../components/ui/CompanyCompletionModal";
 
 function ParcoursDetail() {
   const { id } = useParams();
   const [activeStep, setActiveStep] = useState(0);
   const [viewingResource, setViewingResource] = useState(null);
+  const [showCompanyModal, setShowCompanyModal] = useState(false);
+  const [accessDenied, setAccessDenied] = useState(false);
+  const [selectedFinancingFormation, setSelectedFinancingFormation] =
+    useState(null);
+  const [hasBusinessAnswer, setHasBusinessAnswer] = useState(null);
+
+  const {
+    canAccessParcours,
+    completeParcours,
+    saveCompanyInfo,
+    isParcoursCompleted,
+    companyInfo,
+  } = useParcours();
 
   const parcours = mockParcours.find((p) => p.id === id);
+
+  // Vérifier l'accès au parcours
+  useEffect(() => {
+    if (parcours && parcours.accessLevel === "conditionnel") {
+      if (!canAccessParcours(parcours.id, parcours.accessLevel)) {
+        setAccessDenied(true);
+      }
+    }
+  }, [parcours]);
+
+  // Gérer la fermeture du modal - rediriger vers la liste des parcours
+  const handleCloseAccessDenied = () => {
+    window.location.href = '/dashboard/parcours';
+  };
+
+  // Gérer le clic sur le bouton entreprise existante
+  const handleHasBusiness = () => {
+    setHasBusinessAnswer(true);
+  };
+
+  // Gérer le clic sur le bouton création d'entreprise  
+  const handleNoBusiness = () => {
+    window.location.href = '/dashboard/parcours/creation';
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -131,7 +177,17 @@ function ParcoursDetail() {
       case "formations":
         return (
           <div className="space-y-8">
-            <FormationsCard formations={parcours.formations || []} />
+            <FormationsCard
+              formations={parcours.formations || []}
+              onFormationClick={(formation) => {
+                if (formation.lmsUrl) {
+                  window.open(formation.lmsUrl, "_blank");
+                }
+              }}
+              onFinancingClick={(formation) => {
+                setSelectedFinancingFormation(formation);
+              }}
+            />
             <motion.div
               whileHover={{ y: -5 }}
               className="bg-gray-900 p-12 rounded-[48px] flex flex-col md:flex-row items-center gap-12 relative overflow-hidden group shadow-2xl"
@@ -158,21 +214,12 @@ function ParcoursDetail() {
       case "partners":
         return (
           <BentoGrid>
-            <div className="md:col-span-12 lg:col-span-8">
-              <PartnersCard partnerIds={parcours.partners || []} />
-            </div>
-            <div className="md:col-span-12 lg:col-span-4">
-              <GlassContainer className="bg-primaryBlue/5 border-primaryBlue/10 h-full flex flex-col justify-center text-center p-12">
-                <div className="w-20 h-20 rounded-3xl bg-white shadow-xl flex items-center justify-center mx-auto mb-8 text-primaryBlue">
-                  <PlayCircle size={40} />
-                </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">
-                  Guichet Unique
-                </h4>
-                <p className="text-sm text-gray-500 font-medium leading-relaxed">
-                  Accédez à tous les services gouvernementaux en un seul point.
-                </p>
-              </GlassContainer>
+            <div className="md:col-span-12">
+              <DirectoryCard 
+                items={parcours.directory || []} 
+                title="Annuaire des Partenaires"
+                subtitle="Centres de Formalités & Organisations"
+              />
             </div>
           </BentoGrid>
         );
@@ -228,27 +275,13 @@ function ParcoursDetail() {
       case "social":
         return (
           <BentoGrid>
-            <div className="md:col-span-12 lg:col-span-7">
-              <SocialCard />
-            </div>
-            <div className="md:col-span-12 lg:col-span-5">
-              <GlassContainer className="bg-primaryDark text-white h-full p-12 flex flex-col justify-between">
-                <div>
-                  <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mb-10 border border-white/20">
-                    <Award size={32} />
-                  </div>
-                  <h4 className="text-3xl font-black mb-6 tracking-tight leading-tight">
-                    Accompagnement VIP
-                  </h4>
-                  <p className="text-gray-400 font-medium leading-relaxed mb-12">
-                    Bénéficiez d'un suivi personnalisé par un mentor spécialisé
-                    du MINPMEESA pour valider votre dossier.
-                  </p>
-                </div>
-                <button className="w-full py-5 bg-white text-gray-900 rounded-[24px] font-black uppercase tracking-widest text-xs hover:bg-primaryBlue hover:text-white transition-all">
-                  Consulter un mentor
-                </button>
-              </GlassContainer>
+            <div className="md:col-span-12">
+              <CommunityCard 
+                channels={parcours.community?.channels || []}
+                recentMessages={parcours.community?.recentMessages || []}
+                onlineMembers={parcours.community?.onlineMembers || []}
+                stats={parcours.community?.stats || { members: 0, messages: 0, connections: 0 }}
+              />
             </div>
           </BentoGrid>
         );
@@ -273,15 +306,42 @@ function ParcoursDetail() {
             <ArrowLeft size={16} />
             <span>Retour</span>
           </Link>
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-500">{parcours.progress}%</span>
-            <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${parcours.progress}%` }}
-                className="h-full bg-primaryBlue"
-              />
+          <div className="flex items-center gap-4">
+            {/* Progress bar */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-500">
+                {parcours.progress}%
+              </span>
+              <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${parcours.progress}%` }}
+                  className="h-full bg-primaryBlue"
+                />
+              </div>
             </div>
+
+            {/* Finish parcours button - only for creation parcours */}
+            {id === "creation" && (
+              <button
+                onClick={() => setShowCompanyModal(true)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                  isParcoursCompleted("creation")
+                    ? "bg-green-100 text-green-700 border border-green-200"
+                    : "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md hover:from-indigo-700 hover:to-purple-700"
+                }`}
+              >
+                {isParcoursCompleted("creation") ? (
+                  <>
+                    <CheckCircle size={14} /> Terminé
+                  </>
+                ) : (
+                  <>
+                    <Building2 size={14} /> Finaliser
+                  </>
+                )}
+              </button>
+            )}
           </div>
         </div>
       </nav>
@@ -324,6 +384,19 @@ function ParcoursDetail() {
                 >
                   Suivant →
                 </button>
+              ) : id === "creation" ? (
+                <button
+                  onClick={() => setShowCompanyModal(true)}
+                  className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-colors flex items-center gap-2"
+                >
+                  {isParcoursCompleted("creation") ? (
+                    <>
+                      <CheckCircle size={16} /> Parcours terminé
+                    </>
+                  ) : (
+                    "Terminer le parcours"
+                  )}
+                </button>
               ) : (
                 <Link
                   to="/dashboard/parcours"
@@ -337,114 +410,194 @@ function ParcoursDetail() {
         </AnimatePresence>
       </main>
 
-      {/* Resource Viewer Modal */}
-      <AnimatePresence>
-        {viewingResource && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-6 md:p-12"
-          >
-            <motion.div
-              initial={{ scale: 0.95, y: 30 }}
-              animate={{ scale: 1, y: 0 }}
-              className="bg-white w-full max-w-5xl rounded-[40px] overflow-hidden flex flex-col md:flex-row h-full md:max-h-[80vh] shadow-2xl"
-            >
-              <div className="flex-1 bg-gray-100 flex items-center justify-center relative min-h-[300px] md:min-h-0">
-                {viewingResource.type === "video" ? (
-                  <div className="w-full h-full bg-black flex items-center justify-center">
-                    <VideoPlayer url={viewingResource.url} />
-                  </div>
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center p-12 text-center bg-gray-50">
-                    <div className="w-24 h-24 bg-white rounded-3xl shadow-xl flex items-center justify-center mb-8">
-                      <FileText
-                        size={40}
-                        className="text-primaryBlue opacity-40"
-                      />
-                    </div>
-                    <h4 className="text-xl font-bold text-gray-900 mb-6">
-                      {viewingResource.title}
-                    </h4>
-                    <div className="flex flex-wrap justify-center gap-4">
-                      <a
-                        href={viewingResource.url}
-                        download
-                        className="px-8 py-4 bg-primaryBlue text-white rounded-2xl font-bold flex items-center gap-2 hover:bg-primaryBlueDark"
-                      >
-                        <Download size={18} /> Télécharger document
-                      </a>
-                      <button
-                        onClick={() => setViewingResource(null)}
-                        className="px-8 py-4 bg-white border border-gray-200 text-gray-700 rounded-2xl font-bold"
-                      >
-                        Quitter l'aperçu
-                      </button>
-                    </div>
-                  </div>
-                )}
-                <button
-                  onClick={() => setViewingResource(null)}
-                  className="absolute top-6 left-6 w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center border border-white/20 hover:bg-white/40 transition-all"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              <div className="w-full md:w-80 bg-white p-10 flex flex-col shrink-0 border-l border-gray-100">
-                <div className="mb-10">
-                  <span className="text-[10px] font-black uppercase text-primaryBlue tracking-[0.2em] mb-4 block">
-                    Information
-                  </span>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    {viewingResource.title}
-                  </h3>
-                  <p className="text-xs text-gray-500 leading-relaxed font-medium">
-                    Contenu certifié par l'expertise gouvernementale pour
-                    sécuriser votre démarche entrepreneuriale.
-                  </p>
-                </div>
-                <div className="flex-1 bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                  <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest block mb-4">
-                    Notes personnelles
-                  </span>
-                  <textarea
-                    placeholder="Point clés à retenir..."
-                    className="w-full h-full bg-transparent border-none text-xs font-medium focus:ring-0 resize-none"
-                  ></textarea>
-                </div>
-                <button
-                  onClick={() => setViewingResource(null)}
-                  className="mt-8 w-full py-4 bg-gray-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-black transition-all"
-                >
-                  Consulter terminé
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
+      {/* Resource Viewer Modal - Nouveau composant intégré */}
+      <ResourceViewerModal
+        isOpen={!!viewingResource}
+        onClose={() => setViewingResource(null)}
+        resource={viewingResource}
+        size="xl"
+      />
 
-function VideoPlayer({ url }) {
-  return (
-    <div className="w-full h-full relative group">
-      <div className="absolute inset-0 flex items-center justify-center">
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          className="w-20 h-20 rounded-full bg-primaryBlue text-white flex items-center justify-center shadow-2xl cursor-pointer"
-        >
-          <PlayCircle size={40} />
-        </motion.div>
-      </div>
-      <div className="absolute bottom-10 left-10 p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 text-white">
-        <p className="text-xs font-bold uppercase tracking-widest opacity-60 mb-1">
-          Source Officielle
-        </p>
-        <p className="font-bold">Module Vidéo HD</p>
-      </div>
+      {/* Company Completion Modal - Pour le parcours Création */}
+      <CompanyCompletionModal
+        isOpen={showCompanyModal}
+        onClose={() => setShowCompanyModal(false)}
+        onSubmit={(companyData) => {
+          saveCompanyInfo(companyData);
+          completeParcours("creation");
+          setShowCompanyModal(false);
+        }}
+      />
+
+      {/* Access Denied Modal - First ask if user has business */}
+      {accessDenied && hasBusinessAnswer === null && (
+        <>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]" />
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center pointer-events-auto">
+              <div className="w-20 h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Building2 className="w-10 h-10 text-amber-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
+                <AlertTriangle className="w-8 h-8 text-amber-500" />
+                Accès restreint
+              </h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Pour accéder au parcours{" "}
+                <strong className="text-indigo-600">{parcours?.title}</strong>,
+                vous devez d'abord valider votre entreprise.
+              </p>
+
+              <div className="bg-indigo-50 rounded-xl p-4 mb-6">
+                <p className="text-sm text-indigo-800 font-medium">
+                  Avez-vous déjà une entreprise créée et immatriculée au
+                  Cameroun ?
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={handleHasBusiness}
+                  className="w-full px-6 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all font-semibold flex items-center justify-center gap-2"
+                >
+                  <CheckCircle size={20} />
+                  Oui, j'ai une entreprise
+                </button>
+                <button
+                  onClick={handleNoBusiness}
+                  className="w-full px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all font-semibold flex items-center justify-center gap-2"
+                >
+                  <Building2 size={20} />
+                  Non, je veux la créer
+                </button>
+                <button
+                  onClick={handleCloseAccessDenied}
+                  className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
+                >
+                  ← Retour aux parcours
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* If no business - redirect to creation parcours */}
+      {accessDenied && hasBusinessAnswer === false && (
+        <>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]" />
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center pointer-events-auto">
+              <div className="w-20 h-20 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Building2 className="w-10 h-10 text-indigo-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
+                <BookOpen className="w-8 h-8 text-indigo-500" />
+                Créez votre entreprise
+              </h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Pour accéder au parcours{" "}
+                <strong className="text-indigo-600">{parcours?.title}</strong>,
+                vous devez d'abord suivre le parcours{" "}
+                <strong>Création d'Entreprise</strong>.
+              </p>
+
+              <div className="bg-indigo-50 rounded-xl p-4 mb-6">
+                <p className="text-sm text-indigo-800 font-medium flex items-center gap-2">
+                  <Lightbulb size={16} className="text-amber-500" />
+                  Ce parcours vous guidera pour formaliser votre entreprise au
+                  Cameroun.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={handleNoBusiness}
+                  className="w-full px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all font-semibold flex items-center justify-center gap-2"
+                >
+                  <Building2 size={20} />
+                  Commencer le parcours Création
+                </button>
+                <button
+                  onClick={handleCloseAccessDenied}
+                  className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
+                >
+                  ← Retour aux parcours
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* If has business - show company form */}
+      {accessDenied && hasBusinessAnswer === true && (
+        <>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]" />
+          <CompanyCompletionModal
+            isOpen={true}
+            onClose={handleCloseAccessDenied}
+            onSubmit={(companyData) => {
+              saveCompanyInfo(companyData);
+              completeParcours("creation");
+              setAccessDenied(false);
+              setHasBusinessAnswer(null);
+            }}
+          />
+        </>
+      )}
+
+      {/* Financing Request Modal for conditionnel formations */}
+      {selectedFinancingFormation && (
+        <>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]" />
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center pointer-events-auto">
+              <div className="w-20 h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Lock className="w-10 h-10 text-amber-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
+                <Shield className="w-8 h-8 text-amber-500" />
+                Financement requis
+              </h3>
+              <p className="text-gray-600 mb-4 leading-relaxed">
+                La formation{" "}
+                <strong className="text-indigo-600">
+                  {selectedFinancingFormation.title}
+                </strong>
+                est financée par le MINPMEESA.
+              </p>
+
+              <div className="bg-amber-50 rounded-xl p-4 mb-6">
+                <p className="text-sm text-amber-800 font-medium flex items-center gap-2">
+                  <Lightbulb size={16} className="text-amber-500" />
+                  Pour accéder à cette formation, vous devez soumettre une
+                  demande de financement auprès du MINPMEESA.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => {
+                    // Could navigate to financing request page
+                    window.location.href = "/dashboard/parcours/financement";
+                  }}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all font-semibold flex items-center justify-center gap-2"
+                >
+                  <Building2 size={18} />
+                  Soumettre une demande
+                </button>
+                <button
+                  onClick={() => setSelectedFinancingFormation(null)}
+                  className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
+                >
+                  ← Retour
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { useAuth } from "./context/AuthContext";
+import { ParcoursProvider } from "./context/ParcoursContext";
 
 // Layouts
 import PublicLayout from "./components/layout/PublicLayout";
@@ -126,7 +127,8 @@ function App() {
       <ScrollToTop />
 
       <Suspense fallback={<LoadingSpinner />}>
-        <Routes>
+        <ParcoursProvider>
+          <Routes>
           <Route element={<AuthLayout />}>
             {/* Auth Routes - Nouveau Design */}
             <Route path="/login" element={<TestLogin />} />
@@ -210,6 +212,7 @@ function App() {
           {/* Catch all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </ParcoursProvider>
       </Suspense>
     </>
   );

@@ -1,8 +1,10 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { resolve } from "path";
 
 export default defineConfig({
   plugins: [react()],
+  publicDir: "public",
   build: {
     rollupOptions: {
       output: {
@@ -12,13 +14,18 @@ export default defineConfig({
         },
       },
     },
-    chunkSizeWarningLimit: 500,
+    chunkSizeWarningLimit: 2000,
   },
   optimizeDeps: {
     include: ["framer-motion", "react-router-dom"],
+    exclude: ["hls.js"],
   },
   server: {
     port: 3000,
-    open: true,
+  },
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "src"),
+    },
   },
 });
