@@ -910,7 +910,7 @@ export const mockParcours = [
         title: "Formations",
         label: "Formations",
         sub: "Qualité",
-        icon: "PlayCircle",,
+        icon: "PlayCircle",
       },
       {
         id: "partners",
