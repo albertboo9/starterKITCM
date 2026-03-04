@@ -25,6 +25,8 @@ import {
   AlertTriangle,
   Lightbulb,
   Shield,
+  GraduationCap,
+  Loader2,
 } from "lucide-react";
 import { mockParcours } from "../../data/parcours.mock";
 import { useParcours } from "../../context/ParcoursContext";
@@ -52,6 +54,10 @@ function ParcoursDetail() {
   const [accessDenied, setAccessDenied] = useState(false);
   const [selectedFinancingFormation, setSelectedFinancingFormation] =
     useState(null);
+  const [financingRequestStep, setFinancingRequestStep] = useState(1);
+  const [financingReason, setFinancingReason] = useState("");
+  const [financingUsage, setFinancingUsage] = useState("");
+  const [financingGoals, setFinancingGoals] = useState("");
   const [hasBusinessAnswer, setHasBusinessAnswer] = useState(null);
 
   const {
@@ -547,53 +553,195 @@ function ParcoursDetail() {
         </>
       )}
 
-      {/* Financing Request Modal for conditionnel formations */}
+      {/* Formation Financing Request Modal */}
       {selectedFinancingFormation && (
         <>
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]" />
           <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center pointer-events-auto">
-              <div className="w-20 h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Lock className="w-10 h-10 text-amber-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
-                <Shield className="w-8 h-8 text-amber-500" />
-                Financement requis
-              </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
-                La formation{" "}
-                <strong className="text-indigo-600">
-                  {selectedFinancingFormation.title}
-                </strong>
-                est financée par le MINPMEESA.
-              </p>
+            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center pointer-events-auto max-h-[90vh] overflow-y-auto">
+              {/* Step 1: Initial Info */}
+              {financingRequestStep === 1 && (
+                <>
+                  <div className="w-20 h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <GraduationCap className="w-10 h-10 text-amber-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
+                    <Shield className="w-8 h-8 text-amber-500" />
+                    Formation financée par le MINPMEESA
+                  </h3>
+                  <p className="text-gray-600 mb-4 leading-relaxed">
+                    La formation <strong className="text-indigo-600">{selectedFinancingFormation.title}</strong> est financée par le MINPMEESA.
+                  </p>
+                  <div className="bg-amber-50 rounded-xl p-4 mb-6">
+                    <p className="text-sm text-amber-800 font-medium flex items-start gap-2">
+                      <Lightbulb size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                      Pour accéder à cette formation, veuillez nous décrire pourquoi vous avez besoin de cette formation et comment vous comptez l'utiliser.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setFinancingRequestStep(2)}
+                    className="w-full px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all font-semibold flex items-center justify-center gap-2"
+                  >
+                    <FileText size={18} />
+                    Soumettre une demande
+                  </button>
+                </>
+              )}
 
-              <div className="bg-amber-50 rounded-xl p-4 mb-6">
-                <p className="text-sm text-amber-800 font-medium flex items-center gap-2">
-                  <Lightbulb size={16} className="text-amber-500" />
-                  Pour accéder à cette formation, vous devez soumettre une
-                  demande de financement auprès du MINPMEESA.
-                </p>
-              </div>
+              {/* Step 2: Request Form */}
+              {financingRequestStep === 2 && (
+                <>
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <FileText className="w-10 h-10 text-blue-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    Votre demande de financement
+                  </h3>
+                  <p className="text-gray-600 mb-6 text-sm">
+                    Formation: <strong className="text-indigo-600">{selectedFinancingFormation.title}</strong>
+                  </p>
 
-              <div className="flex flex-col gap-3">
-                <button
-                  onClick={() => {
-                    // Could navigate to financing request page
-                    window.location.href = "/dashboard/parcours/financement";
-                  }}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all font-semibold flex items-center justify-center gap-2"
-                >
-                  <Building2 size={18} />
-                  Soumettre une demande
-                </button>
-                <button
-                  onClick={() => setSelectedFinancingFormation(null)}
-                  className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
-                >
-                  ← Retour
-                </button>
-              </div>
+                  <div className="space-y-4 text-left">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Pourquoi avez-vous besoin de cette formation ?
+                      </label>
+                      <textarea
+                        value={financingReason}
+                        onChange={(e) => setFinancingReason(e.target.value)}
+                        placeholder="Décrivez votre motivation..."
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                        rows={3}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Comment allez-vous utiliser cette formation ?
+                      </label>
+                      <textarea
+                        value={financingUsage}
+                        onChange={(e) => setFinancingUsage(e.target.value)}
+                        placeholder="Expliquez comment vous appliquerez ces connaissances..."
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                        rows={3}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Quels objectifs professionnels visez-vous ?
+                      </label>
+                      <textarea
+                        value={financingGoals}
+                        onChange={(e) => setFinancingGoals(e.target.value)}
+                        placeholder="Définissez vos objectifs..."
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                        rows={3}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 mt-6">
+                    <button
+                      onClick={() => setFinancingRequestStep(1)}
+                      className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
+                    >
+                      ← Retour
+                    </button>
+                    <button
+                      onClick={() => {
+                        setFinancingRequestStep(3);
+                        // Simulate agent review
+                        setTimeout(() => {
+                          setFinancingRequestStep(4);
+                        }, 3000);
+                      }}
+                      className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl hover:from-blue-600 hover:to-indigo-600 transition-all font-semibold"
+                    >
+                      Envoyer ma demande
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {/* Step 3: Agent Review Simulation */}
+              {financingRequestStep === 3 && (
+                <>
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Loader2 className="w-10 h-10 text-purple-600 animate-spin" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    Traitement en cours
+                  </h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    Un agent du MINPMEESA examine votre demande...
+                  </p>
+                  <div className="bg-gray-50 rounded-xl p-4 mb-6">
+                    <div className="flex items-center gap-3 text-sm text-gray-600">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                      Analyse de votre profil...
+                    </div>
+                    <div className="flex items-center gap-3 text-sm text-gray-600 mt-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                      Vérification des informations...
+                    </div>
+                    <div className="flex items-center gap-3 text-sm text-gray-600 mt-2">
+                      <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
+                      Finalisation de l'approbation...
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* Step 4: Approval Result */}
+              {financingRequestStep === 4 && (
+                <>
+                  <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle className="w-10 h-10 text-green-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    Demande approuvée !
+                  </h3>
+                  <p className="text-gray-600 mb-4 leading-relaxed">
+                    Félicitations ! Votre demande de financement pour la formation <strong className="text-indigo-600">{selectedFinancingFormation.title}</strong> a été approuvée par un agent du MINPMEESA.
+                  </p>
+                  <div className="bg-green-50 rounded-xl p-4 mb-6">
+                    <p className="text-sm text-green-800 font-medium flex items-start gap-2">
+                      <CheckCircle size={16} className="text-green-500 mt-0.5 flex-shrink-0" />
+                      Vous pouvez maintenant accéder à cette formation gratuitement.
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <button
+                      onClick={() => {
+                        setSelectedFinancingFormation(null);
+                        setFinancingRequestStep(1);
+                        setFinancingReason("");
+                        setFinancingUsage("");
+                        setFinancingGoals("");
+                        if (selectedFinancingFormation?.lmsUrl) {
+                          window.open(selectedFinancingFormation.lmsUrl, "_blank");
+                        }
+                      }}
+                      className="w-full px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all font-semibold flex items-center justify-center gap-2"
+                    >
+                      <PlayCircle size={18} />
+                      Commencer la formation
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedFinancingFormation(null);
+                        setFinancingRequestStep(1);
+                        setFinancingReason("");
+                        setFinancingUsage("");
+                        setFinancingGoals("");
+                      }}
+                      className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
+                    >
+                      Fermer
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </>

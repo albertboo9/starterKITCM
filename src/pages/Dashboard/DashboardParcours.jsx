@@ -181,13 +181,13 @@ function DashboardParcours() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       <Helmet>
-        <title>Mon Académie - Campus PME</title>
+        <title>Mes parcours - Campus PME</title>
       </Helmet>
 
       {/* Hero Segment */}
       <div className="mb-16">
         <h1 className="text-3xl font-bold text-gray-900 mb-3 tracking-tight">
-          Mon Académie
+          Mes parcours
         </h1>
         <p className="text-gray-500 max-w-2xl leading-relaxed">
           Suivez vos parcours structurés et accédez aux ressources exclusives du
