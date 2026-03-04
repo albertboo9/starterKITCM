@@ -50,6 +50,9 @@ const DashboardDocuments = lazy(
 const DashboardMessages = lazy(
   () => import("./pages/Dashboard/DashboardMessages"),
 );
+const DashboardProjects = lazy(
+  () => import("./pages/Dashboard/DashboardProjects"),
+);
 const Parcours = lazy(() => import("./pages/Parcours/Parcours"));
 const Formations = lazy(() => import("./pages/Formations/Formations"));
 const Certification = lazy(() => import("./pages/Certification/Certification"));
@@ -201,6 +204,10 @@ function App() {
               element={<DashboardDocuments />}
             />
             <Route path="/dashboard/messages" element={<DashboardMessages />} />
+            <Route
+              path="/dashboard/projects"
+              element={<DashboardProjects />}
+            />
             <Route
               path="/dashboard/certification"
               element={<Certification />}
