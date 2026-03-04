@@ -170,8 +170,22 @@ export const ResourceCard = ({ item, onClick, className = "" }) => {
           <div className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
             <Clock size={12} /> {item.duration || item.size || "Lecture 5min"}
           </div>
-          <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center text-white scale-0 group-hover:scale-100 transition-transform duration-300">
-            <Maximize2 size={14} />
+          <div className="flex items-center gap-2">
+            {item.url && (
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 flex items-center justify-center text-white transition-colors"
+                title="Télécharger"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Download size={14} />
+              </a>
+            )}
+            <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center text-white scale-0 group-hover:scale-100 transition-transform duration-300">
+              <Maximize2 size={14} />
+            </div>
           </div>
         </div>
       </div>
@@ -426,9 +440,20 @@ export const InfoPointCard = ({ items = [] }) => (
           <h6 className="text-[15px] font-bold text-gray-900 mb-1 leading-tight group-hover/item:text-amber-600 transition-colors uppercase tracking-tight">
             {item.title}
           </h6>
-          <p className="text-xs text-gray-500 font-medium leading-normal">
+          <p className="text-xs text-gray-500 font-medium leading-normal mb-2">
             {item.description}
           </p>
+          {item.url && (
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
+            >
+              <Download size={12} />
+              Télécharger
+            </a>
+          )}
         </div>
       ))}
     </div>
