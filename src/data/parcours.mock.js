@@ -127,11 +127,22 @@ export const mockParcours = [
     ],
     formations: [
       {
+        id: "f7",
+        title: "Elaborer un business plan",
+        duration: "6h",
+        completed: false,
+        accessLevel: "libre", // Accès libre
+        lmsUrl: "https://campus.studieslearning.com/course/view.php?id=274",
+        description:
+          "Guide complet pour rédiger un business plan professionnel.",
+        previewImage: "/training7.jpg",
+      },
+      {
         id: "f1",
         title: "Création d'entreprise",
         duration: "4h",
         completed: false,
-        accessLevel: "libre", // Accès libre
+        accessLevel: "libre",
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1344",
         description:
           "Apprenez les bases de la création d'entreprise au Cameroun, de l'idée à l'immatriculation.",
@@ -179,7 +190,7 @@ export const mockParcours = [
         title: "Etude financière",
         duration: "5h",
         completed: false,
-        accessLevel: "libre", // Accès libre
+        accessLevel: "conditionnel", // Accès libre
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1351",
         description:
           "Apprenez à monter un budget prévisionnel et un plan financier rigoureux.",
@@ -199,22 +210,11 @@ export const mockParcours = [
         previewImage: "/training6.jpg",
       },
       {
-        id: "f7",
-        title: "Elaborer un business plan",
-        duration: "6h",
-        completed: false,
-        accessLevel: "libre", // Accès libre
-        lmsUrl: "https://campus.studieslearning.com/course/view.php?id=274",
-        description:
-          "Guide complet pour rédiger un business plan professionnel.",
-        previewImage: "/training7.jpg",
-      },
-      {
         id: "f8",
         title: "Réussir l'analyse SWOT",
         duration: "2h",
         completed: false,
-        accessLevel: "libre", // Accès libre
+        accessLevel: "conditionnel", // Accès libre
         lmsUrl: "https://campus.studieslearning.com/course/view.php?id=1241",
         description: "Maîtrisez l'analyse SWOT pour évaluer votre projet.",
         previewImage: "/employees-explaining-business.jpg",
@@ -349,6 +349,76 @@ export const mockParcours = [
         website: null,
       },
     ],
+    community: {
+      channels: [
+        { id: "help", name: "Aide & Conseils", messages: 156, unread: 3 },
+        { id: "partnership", name: "Partenariats", messages: 89, unread: 1 },
+        { id: "events", name: "Événements", messages: 234, unread: 0 },
+        { id: "offers", name: "Offres & Missions", messages: 67, unread: 5 },
+      ],
+      recentMessages: [
+        {
+          id: 1,
+          author: "Marie K.",
+          avatar: "https://i.pravatar.cc/150?u=marie",
+          content:
+            "Bonjour à tous! Je cherche un expert-comptable pour ma SARL à Douala. Quelqu'un a des recommandations?",
+          channel: "Aide",
+          time: "Il y a 5 min",
+          likes: 12,
+        },
+        {
+          id: 2,
+          author: "Paul T.",
+          avatar: "https://i.pravatar.cc/150?u=paul",
+          content:
+            "Super événement ce matin! Le représentant du MINPMEESA a présenté les nouvelles mesures fiscales.",
+          channel: "Événements",
+          time: "Il y a 23 min",
+          likes: 28,
+        },
+        {
+          id: 3,
+          author: "Sophie M.",
+          avatar: "https://i.pravatar.cc/150?u=sophie",
+          content:
+            "Je propose des services de consulting en marketing digital pour les PME camerounaises. N'hésitez pas à me contacter!",
+          channel: "Offres",
+          time: "Il y a 1h",
+          likes: 8,
+        },
+        {
+          id: 4,
+          author: "Jean-Pierre N.",
+          avatar: "https://i.pravatar.cc/150?u=jeanpierre",
+          content:
+            "Quelqu'un a déjà fait une demande de financement au FEIP? Je voudrais partager mon expérience.",
+          channel: "Aide",
+          time: "Il y a 2h",
+          likes: 15,
+        },
+      ],
+      onlineMembers: [
+        { name: "Marie K.", avatar: "https://i.pravatar.cc/150?u=marie" },
+        { name: "Paul T.", avatar: "https://i.pravatar.cc/150?u=paul" },
+        { name: "Sophie M.", avatar: "https://i.pravatar.cc/150?u=sophie" },
+        {
+          name: "Jean-Pierre N.",
+          avatar: "https://i.pravatar.cc/150?u=jeanpierre",
+        },
+        { name: "Fatou B.", avatar: "https://i.pravatar.cc/150?u=fatou" },
+        { name: "Michel D.", avatar: "https://i.pravatar.cc/150?u=michel" },
+        { name: "Claire L.", avatar: "https://i.pravatar.cc/150?u=claire" },
+        { name: "Samuel A.", avatar: "https://i.pravatar.cc/150?u=samuel" },
+        { name: "Odette R.", avatar: "https://i.pravatar.cc/150?u=odette" },
+        { name: "Thomas K.", avatar: "https://i.pravatar.cc/150?u=thomas" },
+      ],
+      stats: {
+        members: 1247,
+        messages: 456,
+        connections: 89,
+      },
+    },
   },
   {
     id: "financement",
@@ -358,8 +428,8 @@ export const mockParcours = [
       "Préparez votre dossier financier et accédez aux mécanismes de soutien bancaires.",
     concept:
       "Le financement est le moteur de la croissance. Ce parcours vous aide à préparer votre business plan et à solliciter les fonds de garantie.",
-    progress: 30,
-    status: "en_cours",
+    progress: 0,
+    status: "locked",
     accessLevel: "conditionnel", // Nécessite completion du parcours Création
     gradient: "linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%)",
     icon: "TrendingUp",

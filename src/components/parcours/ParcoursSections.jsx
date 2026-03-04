@@ -27,6 +27,14 @@ import {
   Search,
   Building2,
   Filter,
+  Send,
+  Heart,
+  MessageSquare,
+  Calendar,
+  Briefcase,
+  UserPlus,
+  Zap,
+  Hash,
 } from "lucide-react";
 import { partnersData } from "../../data/partners.data";
 import ResourceViewerModal from "../ui/ResourceViewerModal";
@@ -665,6 +673,199 @@ export const DirectoryCard = ({ items = [], title = "Annuaire", subtitle = "Cent
           </p>
         </div>
       )}
+    </GlassContainer>
+  );
+};
+
+// --- Community Card (Social Network Style) ---
+export const CommunityCard = ({ 
+  channels = [], 
+  recentMessages = [], 
+  onlineMembers = [],
+  stats = { members: 0, messages: 0, connections: 0 }
+}) => {
+  const [activeChannel, setActiveChannel] = React.useState(null);
+
+  const channelIcons = {
+    help: MessageSquare,
+    partnership: UserPlus,
+    events: Calendar,
+    offers: Briefcase,
+  };
+
+  const channelColors = {
+    help: "bg-blue-100 text-blue-600",
+    partnership: "bg-purple-100 text-purple-600",
+    events: "bg-green-100 text-green-600",
+    offers: "bg-amber-100 text-amber-600",
+  };
+
+  return (
+    <GlassContainer className="h-full border-pink-100 bg-pink-50/10">
+      {/* Header with Stats */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500 to-purple-500 text-white flex items-center justify-center">
+            <Users size={24} />
+          </div>
+          <div>
+            <h4 className="text-xl font-bold text-gray-900 tracking-tight">
+              Communauté MINPMEESA
+            </h4>
+            <span className="text-[10px] font-black uppercase tracking-widest text-pink-500">
+              Réseau d'Entrepreneurs
+            </span>
+          </div>
+        </div>
+        {/* Stats badges */}
+        <div className="flex gap-2">
+          <div className="px-3 py-1.5 bg-green-100 rounded-full flex items-center gap-1.5">
+            <Zap size={12} className="text-green-600" />
+            <span className="text-xs font-bold text-green-700">{stats.members}+ en ligne</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column - Channels */}
+        <div className="lg:col-span-1 space-y-4">
+          <h5 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+            <Hash size={16} className="text-pink-500" />
+            Canaux
+          </h5>
+          <div className="space-y-2">
+            {channels.map((channel) => {
+              const Icon = channelIcons[channel.id] || MessageSquare;
+              const colorClass = channelColors[channel.id] || "bg-gray-100 text-gray-600";
+              const isActive = activeChannel === channel.id;
+              return (
+                <motion.button
+                  key={channel.id}
+                  whileHover={{ x: 4 }}
+                  onClick={() => setActiveChannel(channel.id)}
+                  className={`w-full p-3 rounded-xl flex items-center gap-3 transition-all ${isActive ? 'bg-white shadow-md border-2 border-pink-200' : 'bg-white/50 hover:bg-white border-2 border-transparent'}`}
+                >
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${colorClass}`}>
+                    <Icon size={18} />
+                  </div>
+                  <div className="flex-1 text-left">
+                    <p className="text-sm font-bold text-gray-900">{channel.name}</p>
+                    <p className="text-xs text-gray-500">{channel.messages} messages</p>
+                  </div>
+                  {channel.unread > 0 && (
+                    <span className="bg-pink-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                      {channel.unread}
+                    </span>
+                  )}
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* Quick Actions */}
+          <div className="pt-4 border-t border-pink-100">
+            <button className="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:shadow-lg transition-all">
+              <MessageSquare size={16} />
+              Nouvelle discussion
+            </button>
+          </div>
+        </div>
+
+        {/* Middle Column - Feed */}
+        <div className="lg:col-span-2 space-y-4">
+          <h5 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+            <MessageCircle size={16} className="text-pink-500" />
+            Discussions récentes
+          </h5>
+          
+          <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
+            {recentMessages.length > 0 ? (
+              recentMessages.map((msg, idx) => (
+                <motion.div
+                  key={msg.id || idx}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.05 }}
+                  className="p-4 bg-white rounded-2xl border border-pink-100 hover:shadow-md transition-all"
+                >
+                  <div className="flex items-start gap-3">
+                    <img 
+                      src={msg.avatar || `https://i.pravatar.cc/150?u=${msg.author}`} 
+                      alt={msg.author}
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-sm font-bold text-gray-900">{msg.author}</span>
+                        {msg.channel && (
+                          <span className="text-[10px] px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">
+                            {msg.channel}
+                          </span>
+                        )}
+                        <span className="text-[10px] text-gray-400">{msg.time}</span>
+                      </div>
+                      <p className="text-sm text-gray-600 line-clamp-2">{msg.content}</p>
+                      <div className="flex items-center gap-4 mt-2">
+                        <button className="flex items-center gap-1 text-xs text-gray-400 hover:text-pink-500 transition-colors">
+                          <Heart size={14} />
+                          {msg.likes || 0}
+                        </button>
+                        <button className="flex items-center gap-1 text-xs text-gray-400 hover:text-pink-500 transition-colors">
+                          <MessageSquare size={14} />
+                          Répondre
+                        </button>
+                        <button className="flex items-center gap-1 text-xs text-gray-400 hover:text-pink-500 transition-colors">
+                          <Share2 size={14} />
+                          Partager
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))
+            ) : (
+              <div className="text-center py-8 bg-white rounded-2xl border border-pink-100">
+                <MessageCircle size={40} className="mx-auto text-pink-300 mb-3" />
+                <p className="text-sm text-gray-500">
+                  Aucune discussion récente
+                </p>
+                <p className="text-xs text-gray-400 mt-1">
+                  Soyez le premier à poster!
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Online Members */}
+          <div className="pt-4 border-t border-pink-100">
+            <h5 className="text-sm font-bold text-gray-900 flex items-center gap-2 mb-3">
+              <Users size={16} className="text-green-500" />
+              Membres en ligne ({onlineMembers.length})
+            </h5>
+            <div className="flex -space-x-2">
+              {onlineMembers.slice(0, 8).map((member, idx) => (
+                <div key={idx} className="relative group">
+                  <img 
+                    src={member.avatar || `https://i.pravatar.cc/150?u=${member.name}`} 
+                    alt={member.name}
+                    className="w-10 h-10 rounded-full border-2 border-white object-cover"
+                  />
+                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
+                  {/* Tooltip */}
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                    {member.name}
+                  </div>
+                </div>
+              ))}
+              {onlineMembers.length > 8 && (
+                <div className="w-10 h-10 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-500">
+                  +{onlineMembers.length - 8}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </GlassContainer>
   );
 };

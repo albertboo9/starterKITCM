@@ -39,6 +39,7 @@ import {
   BentoGrid,
   GlassContainer,
   DirectoryCard,
+  CommunityCard,
 } from "../../components/parcours/ParcoursSections";
 import ResourceViewerModal from "../../components/ui/ResourceViewerModal";
 import CompanyCompletionModal from "../../components/ui/CompanyCompletionModal";
@@ -274,27 +275,13 @@ function ParcoursDetail() {
       case "social":
         return (
           <BentoGrid>
-            <div className="md:col-span-12 lg:col-span-7">
-              <SocialCard />
-            </div>
-            <div className="md:col-span-12 lg:col-span-5">
-              <GlassContainer className="bg-primaryDark text-white h-full p-12 flex flex-col justify-between">
-                <div>
-                  <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mb-10 border border-white/20">
-                    <Award size={32} />
-                  </div>
-                  <h4 className="text-3xl font-black mb-6 tracking-tight leading-tight">
-                    Accompagnement VIP
-                  </h4>
-                  <p className="text-gray-400 font-medium leading-relaxed mb-12">
-                    Bénéficiez d'un suivi personnalisé par un mentor spécialisé
-                    du MINPMEESA pour valider votre dossier.
-                  </p>
-                </div>
-                <button className="w-full py-5 bg-white text-gray-900 rounded-[24px] font-black uppercase tracking-widest text-xs hover:bg-primaryBlue hover:text-white transition-all">
-                  Consulter un mentor
-                </button>
-              </GlassContainer>
+            <div className="md:col-span-12">
+              <CommunityCard 
+                channels={parcours.community?.channels || []}
+                recentMessages={parcours.community?.recentMessages || []}
+                onlineMembers={parcours.community?.onlineMembers || []}
+                stats={parcours.community?.stats || { members: 0, messages: 0, connections: 0 }}
+              />
             </div>
           </BentoGrid>
         );
