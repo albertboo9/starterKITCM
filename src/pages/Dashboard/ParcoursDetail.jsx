@@ -38,6 +38,7 @@ import {
   PremiumTabs,
   BentoGrid,
   GlassContainer,
+  DirectoryCard,
 } from "../../components/parcours/ParcoursSections";
 import ResourceViewerModal from "../../components/ui/ResourceViewerModal";
 import CompanyCompletionModal from "../../components/ui/CompanyCompletionModal";
@@ -70,6 +71,21 @@ function ParcoursDetail() {
       }
     }
   }, [parcours]);
+
+  // Gérer la fermeture du modal - rediriger vers la liste des parcours
+  const handleCloseAccessDenied = () => {
+    window.location.href = '/dashboard/parcours';
+  };
+
+  // Gérer le clic sur le bouton entreprise existante
+  const handleHasBusiness = () => {
+    setHasBusinessAnswer(true);
+  };
+
+  // Gérer le clic sur le bouton création d'entreprise  
+  const handleNoBusiness = () => {
+    window.location.href = '/dashboard/parcours/creation';
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -197,21 +213,12 @@ function ParcoursDetail() {
       case "partners":
         return (
           <BentoGrid>
-            <div className="md:col-span-12 lg:col-span-8">
-              <PartnersCard partnerIds={parcours.partners || []} />
-            </div>
-            <div className="md:col-span-12 lg:col-span-4">
-              <GlassContainer className="bg-primaryBlue/5 border-primaryBlue/10 h-full flex flex-col justify-center text-center p-12">
-                <div className="w-20 h-20 rounded-3xl bg-white shadow-xl flex items-center justify-center mx-auto mb-8 text-primaryBlue">
-                  <PlayCircle size={40} />
-                </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">
-                  Guichet Unique
-                </h4>
-                <p className="text-sm text-gray-500 font-medium leading-relaxed">
-                  Accédez à tous les services gouvernementaux en un seul point.
-                </p>
-              </GlassContainer>
+            <div className="md:col-span-12">
+              <DirectoryCard 
+                items={parcours.directory || []} 
+                title="Annuaire des Partenaires"
+                subtitle="Centres de Formalités & Organisations"
+              />
             </div>
           </BentoGrid>
         );
@@ -463,25 +470,25 @@ function ParcoursDetail() {
 
               <div className="flex flex-col gap-3">
                 <button
-                  onClick={() => setHasBusinessAnswer(true)}
+                  onClick={handleHasBusiness}
                   className="w-full px-6 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all font-semibold flex items-center justify-center gap-2"
                 >
                   <CheckCircle size={20} />
                   Oui, j'ai une entreprise
                 </button>
                 <button
-                  onClick={() => setHasBusinessAnswer(false)}
+                  onClick={handleNoBusiness}
                   className="w-full px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all font-semibold flex items-center justify-center gap-2"
                 >
                   <Building2 size={20} />
                   Non, je veux la créer
                 </button>
-                <Link
-                  to="/dashboard/parcours"
+                <button
+                  onClick={handleCloseAccessDenied}
                   className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
                 >
                   ← Retour aux parcours
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -518,20 +525,17 @@ function ParcoursDetail() {
 
               <div className="flex flex-col gap-3">
                 <button
-                  onClick={() => {
-                    setAccessDenied(false);
-                    window.location.href = "/dashboard/parcours/creation";
-                  }}
+                  onClick={handleNoBusiness}
                   className="w-full px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all font-semibold flex items-center justify-center gap-2"
                 >
                   <Building2 size={20} />
                   Commencer le parcours Création
                 </button>
                 <button
-                  onClick={() => setHasBusinessAnswer(null)}
+                  onClick={handleCloseAccessDenied}
                   className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
                 >
-                  ← Retour
+                  ← Retour aux parcours
                 </button>
               </div>
             </div>
@@ -545,10 +549,7 @@ function ParcoursDetail() {
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]" />
           <CompanyCompletionModal
             isOpen={true}
-            onClose={() => {
-              setAccessDenied(false);
-              setHasBusinessAnswer(null);
-            }}
+            onClose={handleCloseAccessDenied}
             onSubmit={(companyData) => {
               saveCompanyInfo(companyData);
               completeParcours("creation");

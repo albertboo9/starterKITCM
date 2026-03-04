@@ -20,6 +20,13 @@ import {
   Lock,
   RefreshCw,
   Lightbulb,
+  MapPin,
+  Phone,
+  Mail,
+  Globe,
+  Search,
+  Building2,
+  Filter,
 } from "lucide-react";
 import { partnersData } from "../../data/partners.data";
 import ResourceViewerModal from "../ui/ResourceViewerModal";
@@ -505,3 +512,159 @@ export const OpportunitiesCard = ({ items = [] }) => (
     </div>
   </GlassContainer>
 );
+
+// --- Directory Card (CFCE & APME) ---
+export const DirectoryCard = ({ items = [], title = "Annuaire", subtitle = "Centres de Formalités" }) => {
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [selectedRegion, setSelectedRegion] = React.useState("all");
+
+  // Get unique regions from items
+  const regions = [...new Set(items.map(item => item.region).filter(Boolean))];
+
+  // Filter items
+  const filteredItems = items.filter(item => {
+    const matchesSearch = item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         item.city?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         item.email?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesRegion = selectedRegion === "all" || item.region === selectedRegion;
+    return matchesSearch && matchesRegion;
+  });
+
+  return (
+    <GlassContainer className="h-full border-blue-100 bg-blue-50/10">
+      {/* Header */}
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center">
+          <Building2 size={24} />
+        </div>
+        <div>
+          <h4 className="text-xl font-bold text-gray-900 tracking-tight">
+            {title}
+          </h4>
+          <span className="text-[10px] font-black uppercase tracking-widest text-blue-500">
+            {subtitle}
+          </span>
+        </div>
+      </div>
+
+      {/* Search & Filter */}
+      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+        <div className="relative flex-1">
+          <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Rechercher par nom, ville ou email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        <div className="relative">
+          <Filter size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <select
+            value={selectedRegion}
+            onChange={(e) => setSelectedRegion(e.target.value)}
+            className="pl-10 pr-8 py-3 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+          >
+            <option value="all">Toutes les régions</option>
+            {regions.map(region => (
+              <option key={region} value={region}>{region}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Results count */}
+      <p className="text-xs text-gray-500 mb-4">
+        {filteredItems.length} résultat{filteredItems.length !== 1 ? 's' : ''} trouvé{filteredItems.length !== 1 ? 's' : ''}
+      </p>
+
+      {/* Directory Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[500px] overflow-y-auto pr-2">
+        {filteredItems.map((item, idx) => (
+          <motion.div
+            key={item.id || idx}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: idx * 0.05 }}
+            className="p-4 rounded-2xl bg-white border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all group"
+          >
+            {/* Header with icon */}
+            <div className="flex items-start gap-3 mb-3">
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${item.type === 'apme' ? 'bg-purple-100 text-purple-600' : 'bg-blue-100 text-blue-600'}`}>
+                <Building2 size={20} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h5 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-blue-600 transition-colors">
+                  {item.name}
+                </h5>
+                {item.type && (
+                  <span className="text-[10px] font-medium text-gray-400 uppercase">
+                    {item.type}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Location */}
+            <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
+              <MapPin size={14} className="text-gray-400 flex-shrink-0" />
+              <span className="truncate">{item.city}{item.region ? `, ${item.region}` : ''}</span>
+            </div>
+
+            {/* Address */}
+            {item.address && (
+              <div className="flex items-start gap-2 text-xs text-gray-500 mb-2 pl-0.5">
+                <span className="text-gray-400 flex-shrink-0 mt-0.5">•</span>
+                <span className="truncate">{item.address}</span>
+              </div>
+            )}
+
+            {/* Contact Buttons */}
+            <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-gray-100">
+              {item.phone && (
+                <a
+                  href={`tel:${item.phone}`}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 bg-green-50 text-green-700 rounded-lg text-xs font-medium hover:bg-green-100 transition-colors"
+                >
+                  <Phone size={12} />
+                  <span className="hidden sm:inline">{item.phone}</span>
+                </a>
+              )}
+              {item.email && (
+                <a
+                  href={`mailto:${item.email}`}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors"
+                >
+                  <Mail size={12} />
+                  <span className="hidden sm:inline truncate max-w-[100px]">{item.email}</span>
+                </a>
+              )}
+              {item.website && (
+                <a
+                  href={item.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 bg-purple-50 text-purple-700 rounded-lg text-xs font-medium hover:bg-purple-100 transition-colors"
+                >
+                  <Globe size={12} />
+                  <span className="hidden sm:inline">Site</span>
+                </a>
+              )}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Empty state */}
+      {filteredItems.length === 0 && (
+        <div className="text-center py-8">
+          <Search size={40} className="mx-auto text-gray-300 mb-3" />
+          <p className="text-sm text-gray-500">
+            Aucun résultat pour cette recherche
+          </p>
+        </div>
+      )}
+    </GlassContainer>
+  );
+};
