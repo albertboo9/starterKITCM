@@ -132,7 +132,14 @@ function ParcoursDetail() {
       case "formations":
         return (
           <div className="space-y-8">
-            <FormationsCard formations={parcours.formations || []} />
+            <FormationsCard
+              formations={parcours.formations || []}
+              onFormationClick={(formation) => {
+                if (formation.lmsUrl) {
+                  window.open(formation.lmsUrl, "_blank");
+                }
+              }}
+            />
             <motion.div
               whileHover={{ y: -5 }}
               className="bg-gray-900 p-12 rounded-[48px] flex flex-col md:flex-row items-center gap-12 relative overflow-hidden group shadow-2xl"

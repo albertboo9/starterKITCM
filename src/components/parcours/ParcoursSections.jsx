@@ -162,7 +162,11 @@ export const ResourceCard = ({ item, onClick, className = "" }) => {
 };
 
 // --- Formation Card (Advanced Bento) ---
-export const FormationsCard = ({ formations = [], span = "w-full" }) => (
+export const FormationsCard = ({
+  formations = [],
+  span = "w-full",
+  onFormationClick,
+}) => (
   <div className={`space-y-4 ${span}`}>
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {formations.map((f, i) => (
@@ -171,20 +175,38 @@ export const FormationsCard = ({ formations = [], span = "w-full" }) => (
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: i * 0.05 }}
-          className={`p-8 rounded-[32px] border group transition-all duration-300 flex flex-col justify-between h-full ${f.completed ? "bg-green-50/20 border-green-100" : "bg-white border-gray-100 shadow-sm hover:shadow-xl hover:shadow-primaryBlue/5"}`}
+          onClick={() => onFormationClick && onFormationClick(f)}
+          className={`p-0 rounded-[32px] border group transition-all duration-300 flex flex-col justify-between h-full overflow-hidden cursor-pointer ${f.completed ? "bg-green-50/20 border-green-100" : "bg-white border-gray-100 shadow-sm hover:shadow-xl hover:shadow-primaryBlue/5"}`}
         >
-          <div>
-            <div className="flex items-center gap-4 mb-6">
-              <div
-                className={`w-12 h-12 rounded-2xl flex items-center justify-center ${f.completed ? "bg-green-100 text-green-600" : "bg-primaryBlue/5 text-primaryBlue"}`}
-              >
-                {f.completed ? (
-                  <CheckCircle size={24} />
-                ) : (
-                  <PlayCircle size={24} />
-                )}
+          {/* Preview Image */}
+          {f.previewImage && (
+            <div className="relative h-40 w-full overflow-hidden">
+              <img
+                src={f.previewImage}
+                alt={f.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-3 left-3 px-2 py-1 bg-primaryBlue text-white text-[10px] font-bold rounded-lg flex items-center gap-1">
+                <PlayCircle size={12} /> {f.duration}
               </div>
-              <div className="flex flex-col">
+            </div>
+          )}
+
+          <div className="p-6 flex-1 flex flex-col">
+            <div className="flex items-start gap-4 mb-4">
+              {!f.previewImage && (
+                <div
+                  className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${f.completed ? "bg-green-100 text-green-600" : "bg-primaryBlue/5 text-primaryBlue"}`}
+                >
+                  {f.completed ? (
+                    <CheckCircle size={24} />
+                  ) : (
+                    <PlayCircle size={24} />
+                  )}
+                </div>
+              )}
+              <div className="flex flex-col flex-1">
                 <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">
                   {f.completed ? "Maîtrisé" : "En cours"}
                 </span>
@@ -193,27 +215,47 @@ export const FormationsCard = ({ formations = [], span = "w-full" }) => (
                 </h5>
               </div>
             </div>
-            <div className="flex items-center gap-6 mb-8">
-              <div className="flex items-center gap-2">
-                <Clock size={14} className="text-gray-400" />
-                <span className="text-xs font-bold text-gray-500 tracking-tight">
-                  {f.duration}
-                </span>
+
+            {/* Description */}
+            {f.description && (
+              <p className="text-sm text-gray-500 font-medium leading-relaxed mb-4 line-clamp-2">
+                {f.description}
+              </p>
+            )}
+
+            {!f.previewImage && (
+              <div className="flex items-center gap-6 mb-4">
+                <div className="flex items-center gap-2">
+                  <Clock size={14} className="text-gray-400" />
+                  <span className="text-xs font-bold text-gray-500 tracking-tight">
+                    {f.duration}
+                  </span>
+                </div>
+                <div className="h-1 w-1 rounded-full bg-gray-200" />
+                <div className="flex items-center gap-2">
+                  <Award size={14} className="text-amber-500" />
+                  <span className="text-xs font-bold text-gray-500 tracking-tight">
+                    Accrédité
+                  </span>
+                </div>
               </div>
-              <div className="h-1 w-1 rounded-full bg-gray-200" />
-              <div className="flex items-center gap-2">
-                <Award size={14} className="text-amber-500" />
-                <span className="text-xs font-bold text-gray-500 tracking-tight">
-                  Accrédité
-                </span>
-              </div>
+            )}
+
+            <div className="mt-auto">
+              <button
+                className={`w-full py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${f.completed ? "border-2 border-green-100 text-green-600 hover:bg-green-600 hover:text-white" : "bg-gray-900 text-white hover:bg-primaryBlue shadow-lg shadow-gray-200"}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (f.lmsUrl) {
+                    window.open(f.lmsUrl, "_blank");
+                  }
+                }}
+              >
+                <ExternalLink size={16} />
+                {f.completed ? "Revoir le module" : "Commencer la formation"}
+              </button>
             </div>
           </div>
-          <button
-            className={`w-full py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all ${f.completed ? "border-2 border-green-100 text-green-600 hover:bg-green-600 hover:text-white" : "bg-gray-900 text-white hover:bg-primaryBlue shadow-lg shadow-gray-200"}`}
-          >
-            {f.completed ? "Revoir le module" : "Reprendre la session"}
-          </button>
         </motion.div>
       ))}
     </div>
