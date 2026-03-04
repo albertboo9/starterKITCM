@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FileIcon,
@@ -13,6 +13,17 @@ import ReactPlayer from "react-player";
 import mammoth from "mammoth";
 import { clsx } from "clsx";
 
+// Get file type from URL - defined outside component to avoid hoisting issues
+const getFileType = (url) => {
+  if (!url) return "unknown";
+  const ext = url.split(".").pop().toLowerCase();
+  if (["pdf"].includes(ext)) return "pdf";
+  if (["mp4", "webm", "mov"].includes(ext)) return "video";
+  if (["docx", "doc"].includes(ext)) return "docx";
+  if (["jpg", "jpeg", "png", "gif", "webp"].includes(ext)) return "image";
+  return "unknown";
+};
+
 /**
  * ResourceViewerModal - Modal component for viewing documents, videos, and images
  * Uses simple approaches to avoid complex dependencies:
@@ -25,17 +36,6 @@ function ResourceViewerModal({ isOpen, onClose, resource, size = "xl" }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [docxContent, setDocxContent] = useState(null);
-
-  // Get file type from URL
-  const getFileType = (url) => {
-    if (!url) return "unknown";
-    const ext = url.split(".").pop().toLowerCase();
-    if (["pdf"].includes(ext)) return "pdf";
-    if (["mp4", "webm", "mov"].includes(ext)) return "video";
-    if (["docx", "doc"].includes(ext)) return "docx";
-    if (["jpg", "jpeg", "png", "gif", "webp"].includes(ext)) return "image";
-    return "unknown";
-  };
 
   // Reset state when resource changes
   useEffect(() => {
@@ -273,11 +273,11 @@ function ResourceViewerModal({ isOpen, onClose, resource, size = "xl" }) {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  {resource.downloadUrl && (
+                  {resource.url && (
                     <a
-                      href={resource.downloadUrl || resource.url}
+                      href={resource.url}
                       download
-                      className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                      className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
                     >
                       <Download className="w-4 h-4" />
                       Télécharger

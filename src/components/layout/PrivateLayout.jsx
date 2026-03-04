@@ -13,6 +13,7 @@ import {
   Bell,
   LogOut,
   ChevronRight,
+  Briefcase,
 } from "lucide-react";
 
 function PrivateLayout() {
@@ -58,6 +59,11 @@ function PrivateLayout() {
       path: "/dashboard/messages",
       label: "Messages",
       icon: Bell,
+    },
+    {
+      path: "/dashboard/projects",
+      label: "Projets",
+      icon: Briefcase,
     },
   ];
 

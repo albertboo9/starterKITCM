@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   FileText,
   Video,
@@ -66,6 +67,7 @@ export const PremiumTabs = ({ steps, activeStep, onStepClick }) => (
     {steps.map((step, index) => {
       const Icon = step.icon;
       const isActive = activeStep === index;
+      const hasExternalUrl = !!step.externalUrl;
       return (
         <button
           key={step.id}
@@ -85,6 +87,16 @@ export const PremiumTabs = ({ steps, activeStep, onStepClick }) => (
               {step.label}
             </span>
           </div>
+          {hasExternalUrl && (
+            <Link
+              to={step.externalUrl}
+              onClick={(e) => e.stopPropagation()}
+              className={`ml-1 p-1 rounded-full ${isActive ? "bg-primaryBlue/20 text-primaryBlue" : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}
+              title="Voir sur le site public"
+            >
+              <ExternalLink size={12} />
+            </Link>
+          )}
           {isActive && (
             <motion.div
               layoutId="activeTab"
@@ -547,19 +559,27 @@ export const OpportunitiesCard = ({ items = [] }) => (
 );
 
 // --- Directory Card (CFCE & APME) ---
-export const DirectoryCard = ({ items = [], title = "Annuaire", subtitle = "Centres de Formalités" }) => {
+export const DirectoryCard = ({
+  items = [],
+  title = "Annuaire",
+  subtitle = "Centres de Formalités",
+}) => {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedRegion, setSelectedRegion] = React.useState("all");
 
   // Get unique regions from items
-  const regions = [...new Set(items.map(item => item.region).filter(Boolean))];
+  const regions = [
+    ...new Set(items.map((item) => item.region).filter(Boolean)),
+  ];
 
   // Filter items
-  const filteredItems = items.filter(item => {
-    const matchesSearch = item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         item.city?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         item.email?.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRegion = selectedRegion === "all" || item.region === selectedRegion;
+  const filteredItems = items.filter((item) => {
+    const matchesSearch =
+      item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.city?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.email?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesRegion =
+      selectedRegion === "all" || item.region === selectedRegion;
     return matchesSearch && matchesRegion;
   });
 
@@ -583,7 +603,10 @@ export const DirectoryCard = ({ items = [], title = "Annuaire", subtitle = "Cent
       {/* Search & Filter */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="relative flex-1">
-          <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search
+            size={18}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+          />
           <input
             type="text"
             placeholder="Rechercher par nom, ville ou email..."
@@ -593,15 +616,20 @@ export const DirectoryCard = ({ items = [], title = "Annuaire", subtitle = "Cent
           />
         </div>
         <div className="relative">
-          <Filter size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Filter
+            size={18}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+          />
           <select
             value={selectedRegion}
             onChange={(e) => setSelectedRegion(e.target.value)}
             className="pl-10 pr-8 py-3 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
           >
             <option value="all">Toutes les régions</option>
-            {regions.map(region => (
-              <option key={region} value={region}>{region}</option>
+            {regions.map((region) => (
+              <option key={region} value={region}>
+                {region}
+              </option>
             ))}
           </select>
         </div>
@@ -609,7 +637,8 @@ export const DirectoryCard = ({ items = [], title = "Annuaire", subtitle = "Cent
 
       {/* Results count */}
       <p className="text-xs text-gray-500 mb-4">
-        {filteredItems.length} résultat{filteredItems.length !== 1 ? 's' : ''} trouvé{filteredItems.length !== 1 ? 's' : ''}
+        {filteredItems.length} résultat{filteredItems.length !== 1 ? "s" : ""}{" "}
+        trouvé{filteredItems.length !== 1 ? "s" : ""}
       </p>
 
       {/* Directory Grid */}
@@ -624,7 +653,9 @@ export const DirectoryCard = ({ items = [], title = "Annuaire", subtitle = "Cent
           >
             {/* Header with icon */}
             <div className="flex items-start gap-3 mb-3">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${item.type === 'apme' ? 'bg-purple-100 text-purple-600' : 'bg-blue-100 text-blue-600'}`}>
+              <div
+                className={`w-10 h-10 rounded-xl flex items-center justify-center ${item.type === "apme" ? "bg-purple-100 text-purple-600" : "bg-blue-100 text-blue-600"}`}
+              >
                 <Building2 size={20} />
               </div>
               <div className="flex-1 min-w-0">
@@ -642,7 +673,10 @@ export const DirectoryCard = ({ items = [], title = "Annuaire", subtitle = "Cent
             {/* Location */}
             <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
               <MapPin size={14} className="text-gray-400 flex-shrink-0" />
-              <span className="truncate">{item.city}{item.region ? `, ${item.region}` : ''}</span>
+              <span className="truncate">
+                {item.city}
+                {item.region ? `, ${item.region}` : ""}
+              </span>
             </div>
 
             {/* Address */}
@@ -670,7 +704,9 @@ export const DirectoryCard = ({ items = [], title = "Annuaire", subtitle = "Cent
                   className="flex items-center gap-1.5 px-2.5 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors"
                 >
                   <Mail size={12} />
-                  <span className="hidden sm:inline truncate max-w-[100px]">{item.email}</span>
+                  <span className="hidden sm:inline truncate max-w-[100px]">
+                    {item.email}
+                  </span>
                 </a>
               )}
               {item.website && (
@@ -703,11 +739,11 @@ export const DirectoryCard = ({ items = [], title = "Annuaire", subtitle = "Cent
 };
 
 // --- Community Card (Social Network Style) ---
-export const CommunityCard = ({ 
-  channels = [], 
-  recentMessages = [], 
+export const CommunityCard = ({
+  channels = [],
+  recentMessages = [],
   onlineMembers = [],
-  stats = { members: 0, messages: 0, connections: 0 }
+  stats = { members: 0, messages: 0, connections: 0 },
 }) => {
   const [activeChannel, setActiveChannel] = React.useState(null);
 
@@ -746,7 +782,9 @@ export const CommunityCard = ({
         <div className="flex gap-2">
           <div className="px-3 py-1.5 bg-green-100 rounded-full flex items-center gap-1.5">
             <Zap size={12} className="text-green-600" />
-            <span className="text-xs font-bold text-green-700">{stats.members}+ en ligne</span>
+            <span className="text-xs font-bold text-green-700">
+              {stats.members}+ en ligne
+            </span>
           </div>
         </div>
       </div>
@@ -761,21 +799,28 @@ export const CommunityCard = ({
           <div className="space-y-2">
             {channels.map((channel) => {
               const Icon = channelIcons[channel.id] || MessageSquare;
-              const colorClass = channelColors[channel.id] || "bg-gray-100 text-gray-600";
+              const colorClass =
+                channelColors[channel.id] || "bg-gray-100 text-gray-600";
               const isActive = activeChannel === channel.id;
               return (
                 <motion.button
                   key={channel.id}
                   whileHover={{ x: 4 }}
                   onClick={() => setActiveChannel(channel.id)}
-                  className={`w-full p-3 rounded-xl flex items-center gap-3 transition-all ${isActive ? 'bg-white shadow-md border-2 border-pink-200' : 'bg-white/50 hover:bg-white border-2 border-transparent'}`}
+                  className={`w-full p-3 rounded-xl flex items-center gap-3 transition-all ${isActive ? "bg-white shadow-md border-2 border-pink-200" : "bg-white/50 hover:bg-white border-2 border-transparent"}`}
                 >
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${colorClass}`}>
+                  <div
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center ${colorClass}`}
+                  >
                     <Icon size={18} />
                   </div>
                   <div className="flex-1 text-left">
-                    <p className="text-sm font-bold text-gray-900">{channel.name}</p>
-                    <p className="text-xs text-gray-500">{channel.messages} messages</p>
+                    <p className="text-sm font-bold text-gray-900">
+                      {channel.name}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {channel.messages} messages
+                    </p>
                   </div>
                   {channel.unread > 0 && (
                     <span className="bg-pink-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
@@ -802,7 +847,7 @@ export const CommunityCard = ({
             <MessageCircle size={16} className="text-pink-500" />
             Discussions récentes
           </h5>
-          
+
           <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
             {recentMessages.length > 0 ? (
               recentMessages.map((msg, idx) => (
@@ -814,22 +859,31 @@ export const CommunityCard = ({
                   className="p-4 bg-white rounded-2xl border border-pink-100 hover:shadow-md transition-all"
                 >
                   <div className="flex items-start gap-3">
-                    <img 
-                      src={msg.avatar || `https://i.pravatar.cc/150?u=${msg.author}`} 
+                    <img
+                      src={
+                        msg.avatar ||
+                        `https://i.pravatar.cc/150?u=${msg.author}`
+                      }
                       alt={msg.author}
                       className="w-10 h-10 rounded-full object-cover"
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-bold text-gray-900">{msg.author}</span>
+                        <span className="text-sm font-bold text-gray-900">
+                          {msg.author}
+                        </span>
                         {msg.channel && (
                           <span className="text-[10px] px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">
                             {msg.channel}
                           </span>
                         )}
-                        <span className="text-[10px] text-gray-400">{msg.time}</span>
+                        <span className="text-[10px] text-gray-400">
+                          {msg.time}
+                        </span>
                       </div>
-                      <p className="text-sm text-gray-600 line-clamp-2">{msg.content}</p>
+                      <p className="text-sm text-gray-600 line-clamp-2">
+                        {msg.content}
+                      </p>
                       <div className="flex items-center gap-4 mt-2">
                         <button className="flex items-center gap-1 text-xs text-gray-400 hover:text-pink-500 transition-colors">
                           <Heart size={14} />
@@ -850,7 +904,10 @@ export const CommunityCard = ({
               ))
             ) : (
               <div className="text-center py-8 bg-white rounded-2xl border border-pink-100">
-                <MessageCircle size={40} className="mx-auto text-pink-300 mb-3" />
+                <MessageCircle
+                  size={40}
+                  className="mx-auto text-pink-300 mb-3"
+                />
                 <p className="text-sm text-gray-500">
                   Aucune discussion récente
                 </p>
@@ -870,8 +927,11 @@ export const CommunityCard = ({
             <div className="flex -space-x-2">
               {onlineMembers.slice(0, 8).map((member, idx) => (
                 <div key={idx} className="relative group">
-                  <img 
-                    src={member.avatar || `https://i.pravatar.cc/150?u=${member.name}`} 
+                  <img
+                    src={
+                      member.avatar ||
+                      `https://i.pravatar.cc/150?u=${member.name}`
+                    }
                     alt={member.name}
                     className="w-10 h-10 rounded-full border-2 border-white object-cover"
                   />
